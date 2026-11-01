@@ -3,11 +3,10 @@
 This folder holds:
 - `Gym/`: the STANCE environment (`stance_env/`) and the MuJoCo leg model (`model/leg.xml`) from our previous submission
 - `Network_Agent/networkA_mlp/`, `Network_Agent/networkB_lstm/`: the two network definitions
-- `Network_Agent/agent/`: the learning agent: `train.py` (training and evaluation), `config.py` (settings), `curve.py` (learning curve), `actions.py` (residual action), `reward.py` (optional reweighted impact penalty, off by default)
+- `Network_Agent/agent/`: `train.py` (training and evaluation), `config.py` (settings), `actions.py` (residual action)
 - `Network_Agent/common/`: environment setup, policy adapters and the shared evaluation protocol
 - `Network_Agent/trained_networks/`: our trained networks (weights, normalisation statistics, config and learning curve)
-- `Network_Agent/demo.py`: the network demo; `Network_Agent/demo_agent.py`: the agent demo
-- `Network_Agent/reward_tradeoff.py` and `Network_Agent/figures/`: the reward trade-off figure
+- `Network_Agent/demo.py`: `Network_Agent/demo_agent.py`
 - `environment.yml`
 
 ## Setup
