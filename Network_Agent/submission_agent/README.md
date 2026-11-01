@@ -19,28 +19,24 @@ cd Network_Agent
 
 ## Agent demo
 ```bash
-cd Network_Agent
+cd Network_Agent # If you haven't already
 
 # If you want to run a pretrained model:
 python demo_agent.py --model trained_networks/networkB_lstm/final_s0 --episodes 200 # The chosen network after testing
 #or
-python demo_agent.py --model trained_networks/networkAmlp/final_s0 --episodes 200 # If you want to try it
+python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200 # If you want to try it
 
 # If you want to train your own model:                              
-python demo_agent.py --train 
-
-# If you want to understand about our report section on Reward Weights:
-python reward_tradeoff.py --quick                                                 
+python demo_agent.py --train                                                
 ```
 
 ## If you want to train a fresh network:
 ```bash
-cd Network_Agent
+cd Network_Agent # If you haven't already
 conda env create -f environment.yml # If you havent already
 conda activate stance
-python -m agent.train --network mlp --smoke   # pipeline check
-python -m agent.train --network mlp
 python -m agent.train --network lstm
+python -m agent.train --network mlp # If you want to try it
 ```
 
 ## Notes:
