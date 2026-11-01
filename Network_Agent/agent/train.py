@@ -12,7 +12,8 @@ What this file does, in order
     2. `merged_config` combines agent/config.py with the network's CONFIG, applies
        --smoke, then your --set overrides.
     3. `make_wrappers` builds the wrapper list: the network's input selection, then the
-       optional residual action. The same list is used for training and evaluation.
+       optional residual action, then the optional reweighted impact penalty (agent/reward.py,
+       only when w_impact and lambda_bw are set). The same list is used for training and evaluation.
     4. `make_venv` builds parallel environments with observation/reward normalisation.
     5. `build_model` creates the PPO model around the network.
     6. `main` trains with a learning-curve logger, saves, then evaluates with the shared
@@ -50,6 +51,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNorm
 from agent.actions import ResidualAction
 from agent.config import AGENT_CONFIG, SMOKE
 from agent.curve import CurveCallback
+from agent.reward import ReweightedImpact
 from common.env_setup import make_env
 from common.evaluate import evaluate_and_record
 
@@ -96,10 +98,12 @@ def merged_config(net, smoke=False, overrides=()):
 
 
 def make_wrappers(cfg, net):
-    """The wrapper list used everywhere: the network's input selection, then the residual action."""
+    """The wrapper list used everywhere: input selection, residual action, reweighted impact."""
     wrappers = list(net.wrappers(cfg))
     if cfg["residual"]:
         wrappers.append(lambda e: ResidualAction(e, tuple(cfg["anchor"]), tuple(cfg["scale"])))
+    if cfg.get("w_impact") is not None and cfg.get("lambda_bw") is not None:
+        wrappers.append(lambda e: ReweightedImpact(e, cfg["w_impact"], cfg["lambda_bw"]))
     return wrappers
 
 
