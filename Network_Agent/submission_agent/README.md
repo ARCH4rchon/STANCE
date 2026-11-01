@@ -10,15 +10,12 @@ This folder holds:
 - `Network_Agent/reward_tradeoff.py` and `Network_Agent/figures/`: the reward trade-off figure
 - `environment.yml`
 
-## Setup and running
+## Setup
 
 ```bash
 conda env create -f environment.yml
 conda activate stance
 cd Network_Agent
-python demo.py
-#or 
-python3 demo.py
 ```
 
 ## Agent demo
@@ -46,19 +43,6 @@ python -m agent.train --network mlp --smoke   # pipeline check
 python -m agent.train --network mlp
 python -m agent.train --network lstm
 ```
-
-## What the demo shows:
-
-- Inputs and preprocessing: observation shape, frames, sensors and normalisation statistics
-- Data flow: the layers and the parameter count of each part
-- Outputs: what the three action values mean and their physical ranges
-- One real observation: one forward pass with the action and value estimate
-- Weights: shape and statistics per layer, with histograms saved to `demo_output/`
-- Learning curve: survival and toe peak against training steps, saved to `demo_output/`
-- Evaluation: the network next to the best fixed action on the same seeds
-- Forward and backward pass: a short rollout, the PPO loss, its gradients, and 10 Adam steps on a copy
-
-It ends with a side-by-side table of both networks and the fixed action.
 
 ## Notes:
 
