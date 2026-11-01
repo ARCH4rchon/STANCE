@@ -1,8 +1,5 @@
 # STANCE Agent Submission (Group 42)
 
-These are the two networks we trained with PPO to control a powered prosthetic ankle during weight acceptance on randomized compliant ground.
-Network A is an MLP that reads the last 10 sensor frames, and Network B is an LSTM that builds its own memory of the stance.
-
 This folder holds:
 - `Gym/`: the STANCE environment (`stance_env/`) and the MuJoCo leg model (`model/leg.xml`) from our previous submission
 - `Network_Agent/networkA_mlp/`, `Network_Agent/networkB_lstm/`: the two network definitions
@@ -27,10 +24,17 @@ python3 demo.py
 ## Agent demo
 ```bash
 cd Network_Agent
-python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200   # evaluate a trained run
-python demo_agent.py --train --smoke --episodes 3                                  # quick training check (about 30 s)
-python demo_agent.py --train                                                       # train the MLP from scratch, then evaluate
-python reward_tradeoff.py --quick                                                  # reward trade-off figure (--quick: 20 episodes per action)
+
+# If you want to run a pretrained model:
+python demo_agent.py --model trained_networks/networkB_lstm/final_s0 --episodes 200 # The chosen network after testing
+#or
+python demo_agent.py --model trained_networks/networkAmlp/final_s0 --episodes 200 # If you want to try it
+
+# If you want to train your own model:                              
+python demo_agent.py --train 
+
+# If you want to understand about our report section on Reward Weights:
+python reward_tradeoff.py --quick                                                 
 ```
 
 ## If you want to train a fresh network:

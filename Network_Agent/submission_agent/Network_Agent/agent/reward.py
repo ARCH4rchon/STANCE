@@ -1,25 +1,8 @@
-"""The reweighted impact penalty. OWNER: P3.
-
-The frozen environment charges, every step,
-
-    impact = -W_IMPACT * max(0, toe_force_bw - LAMBDA_BW) ** 2
-
-with W_IMPACT 2.94 and LAMBDA_BW 1.58 (Gym/stance_env/ankle_gym_env.py, AnkleEnv._reward),
-where toe_force_bw is the step's peak toe force in body weights (info["toe_force_bw"]).
-`ReweightedImpact` swaps that term for one with new weights and leaves the rest of the
-reward (alive bonus, smoothness, fall penalty) untouched:
-
-    reward_new = reward_env + (impact_original - impact_new)
-
-where both impact terms are the positive penalties W * max(0, toe_force_bw - L) ** 2.
-The environment's own reward is kept in info["reward_original"]. With w_impact and
-lambda_bw set in config.py, train.py appends this wrapper last, so training and
-evaluation both score with the new weights.
-
-Uses: gymnasium.Wrapper and the W_IMPACT / LAMBDA_BW constants of the environment module.
+"""
+This module contains the ReweightedImpact wrapper, which replaces the impact term of the reward with a reweighted version. 
+NOT used in the agent submission! ONLY used in the reward_tradeoff.py script to explore the tradeoff between impact and return.
 """
 import sys
-
 import gymnasium as gym
 
 
