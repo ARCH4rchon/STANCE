@@ -21,25 +21,24 @@ cd Network_Agent
 ```bash
 cd Network_Agent # If you haven't already
 
-# If you want to run a pretrained model:
 python demo_agent.py --model trained_networks/networkB_lstm/final_s0 --episodes 200 --show 5 # The chosen network after testing
 #or
-python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200 --show 5 # If you want to try it
-
-# If you want to train your own model:                              
-python demo_agent.py --train --show 5
+python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200 --show 5 # If you want to try our old MLP setup
+                            
+python demo_agent.py --train --show 5 # If you want to train your own model
 ```
-
+- `--model /path/to/model/folder`: allows you to run the demo with the pre-trained network's weights
+- `--train`: allows you to train your own model and run it against out demo. (Can take around 17 minutes) 
 - `--show N`: after the table, replay the first N test episodes (0-10, default 5) live in the MuJoCo viewer.
 - `--slow X`: viewer slow-motion factor (default 10; 1 = real time).
-- On macOS, run the demo with `mjpython` instead of `python` (the MuJoCo viewer needs it).
-- If there is no display (SSH, CI), use `--show 0`.
 
-## If you want to train a fresh network:
+## If you JUST want to train a fresh network:
 ```bash
 cd Network_Agent # If you haven't already
+
 conda env create -f environment.yml # If you havent already
 conda activate stance
+
 python -m agent.train --network lstm
 python -m agent.train --network mlp # If you want to try it
 ```
