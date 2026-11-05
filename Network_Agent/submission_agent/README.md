@@ -22,13 +22,18 @@ cd Network_Agent
 cd Network_Agent # If you haven't already
 
 # If you want to run a pretrained model:
-python demo_agent.py --model trained_networks/networkB_lstm/final_s0 --episodes 200 # The chosen network after testing
+python demo_agent.py --model trained_networks/networkB_lstm/final_s0 --episodes 200 --show 5 # The chosen network after testing
 #or
-python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200 # If you want to try it
+python demo_agent.py --model trained_networks/networkA_mlp/final_s0 --episodes 200 --show 5 # If you want to try it
 
 # If you want to train your own model:                              
-python demo_agent.py --train                                                
+python demo_agent.py --train --show 5
 ```
+
+- `--show N`: after the table, replay the first N test episodes (0-10, default 5) live in the MuJoCo viewer.
+- `--slow X`: viewer slow-motion factor (default 10; 1 = real time).
+- On macOS, run the demo with `mjpython` instead of `python` (the MuJoCo viewer needs it).
+- If there is no display (SSH, CI), use `--show 0`.
 
 ## If you want to train a fresh network:
 ```bash
