@@ -3,12 +3,16 @@ Demo of the learning agent: load or train a network, then compare it with the be
 
 Uses: agent.train (TRAIN, NETWORKS, make_wrappers, make_venv), common.env_setup,
 common.evaluate and common.policies.
+After the table, the first --show episodes are replayed in the MuJoCo viewer, the same way
+as Gym/demo.py (on macOS run it with mjpython instead of python; --show 0 needs no display).
 """
 # Libraries
 import argparse
 import importlib
 import json
 import tempfile
+import threading
+import time
 from pathlib import Path
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
@@ -69,6 +73,69 @@ def train_run(network, steps=None, seed=0):
     return net, model, venv, wrappers
 
 
+def show_episodes(net, model, vn, wrappers, n, slow):
+    """
+    Replay the first n evaluation episodes (seeds 1000, 1001, ...) in the MuJoCo viewer, with the
+    same policy and wrappers as the evaluation, on the training ground. Built like Gym/demo.py.
+    """
+    import mujoco
+    import mujoco.viewer   # imported here so that --show 0 needs no display
+    from stance_env.ankle_gym_env import FRAME_SKIP
+
+    env = make_env("train", wrappers)
+    policy = net.POLICY(model, vn)
+    sim = env.unwrapped
+    step_dt = sim.model.opt.timestep * FRAME_SKIP   # 5 ms of simulated time per env step
+    seeds = EVAL_SEEDS[:n]
+    print(f"\nshowing {len(seeds)} episodes in the MuJoCo viewer ({slow:g}x slow motion)")
+
+    with mujoco.viewer.launch_passive(sim.model, sim.data) as viewer:
+        # Side view that follows the 70 kg body mass (as in Gym/demo.py).
+        viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING
+        viewer.cam.trackbodyid = sim.body_bid
+        viewer.cam.distance, viewer.cam.azimuth, viewer.cam.elevation = 2.0, 90.0, -8.0
+        for i, seed in enumerate(seeds, 1):
+            if not viewer.is_running():
+                break
+            obs, _ = env.reset(seed=int(seed))
+            policy.reset()
+            with viewer.lock():
+                sim.ground.update_visual(sim.model)   # flat ground again for the new episode
+            viewer.sync()
+            ret, toe, done, term = 0.0, 0.0, False, False
+            while not done and viewer.is_running():
+                obs, r, term, trunc, info = env.step(policy.act(obs))
+                ret += float(r)
+                toe = max(toe, float(info["toe_force_bw"]))
+                with viewer.lock():
+                    sim.ground.update_visual(sim.model)   # sink and dent the ground cells
+                viewer.sync()
+                time.sleep(step_dt * slow)
+                done = term or trunc
+            if not done:
+                break   # window closed mid-episode
+            print(f"episode {i}/{len(seeds)} (seed {seed}): {'fell' if term else 'survived'}, "
+                  f"return {ret:.2f}, toe peak {toe:.2f} BW")
+            # Keep the final pose on screen for about 1 s.
+            end = time.time() + 1.0
+            while time.time() < end and viewer.is_running():
+                time.sleep(0.05)
+    # Leaving the block only asks the viewer to close. Wait for its window thread to finish,
+    # otherwise Python's exit can shut GLFW down while that thread is still drawing (segfault).
+    for t in threading.enumerate():
+        if t.name.endswith("(_launch_internal)"):
+            t.join(timeout=5)
+    env.close()
+
+
+def show_count(text):
+    """--show: an integer from 0 to 10."""
+    n = int(text)
+    if not 0 <= n <= 10:
+        raise argparse.ArgumentTypeError("must be an integer from 0 to 10")
+    return n
+
+
 def main():
     """Parse the arguments, get a model, print its architecture, evaluate it and the reference."""
     p = argparse.ArgumentParser(description="Demo of the STANCE learning agent.")
@@ -77,6 +144,9 @@ def main():
     p.add_argument("--episodes", type=int, default=20, help="evaluation episodes (seeds 1000 and up)")
     p.add_argument("--train", action="store_true", help="train from scratch instead of loading a pre-trained model")
     p.add_argument("--steps", type=int, help="with --train: training steps")
+    p.add_argument("--show", type=show_count, default=5, metavar="N",
+                   help="episodes to replay in the MuJoCo viewer, 0-10 (0 = no viewer)")
+    p.add_argument("--slow", type=float, default=10.0, metavar="X", help="viewer slow-motion factor")
     a = p.parse_args()
 
     # Get a model: load a saved run, or train one.
@@ -107,6 +177,10 @@ def main():
     for key, label in ROWS:
         print(f"{label:20s} {agent[key]:14.2f} {reference[key]:14.2f}")
     print(f"(fixed action = {REFERENCE[0]:g} deg, K {REFERENCE[1]:g}, B {REFERENCE[2]:g})")
+
+    # Replay the first episodes live in the MuJoCo viewer.
+    if a.show > 0:
+        show_episodes(net, model, vn, wrappers, a.show, a.slow)
 
 
 if __name__ == "__main__":
