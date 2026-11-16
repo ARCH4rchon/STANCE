@@ -10,6 +10,7 @@ Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. F
 |---|---|---|---|---|---|---|
 | reference | - | 87.90 | 7.5 | 1.739 | 0 (reference) | 0 (reference) |
 | best_fixed | - | 88.16 | 7.0 | 1.835 | +0.26 [-0.38, +0.96] | -0.5 [-2.5, +1.0] |
+| best_fixed_tuned | - | 88.25 | 7.0 | 1.778 | +0.35 [-0.22, +0.97] | -0.5 [-2.5, +1.0] |
 | networkA_mlp | 0 | 88.83 | 8.5 | 1.751 | +0.93 [-0.93, +2.94] | +1.0 [-1.5, +4.0] |
 | networkA_mlp | 1 | 89.57 | 13.0 | 1.713 | +1.67 [-0.47, +4.04] | +5.5 [+2.0, +9.0] |
 | networkA_mlp | 2 | 88.62 | 13.5 | 1.695 | +0.72 [-1.45, +3.06] | +6.0 [+2.5, +9.5] |
@@ -25,6 +26,7 @@ Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. F
 |---|---|---|---|---|---|---|
 | reference | - | 78.57 | 49.5 | 0.704 | 0 (reference) | 0 (reference) |
 | best_fixed | - | 77.33 | 49.5 | 0.704 | -1.24 [-3.08, +0.32] | +0.0 [-3.0, +3.0] |
+| best_fixed_tuned | - | 77.81 | 50.5 | 0.704 | -0.76 [-1.89, +0.10] | +1.0 [-1.0, +3.0] |
 | networkA_mlp | 0 | 79.31 | 49.0 | 0.704 | +0.74 [-0.79, +2.59] | -0.5 [-4.0, +3.0] |
 | networkA_mlp | 1 | 78.37 | 52.0 | 0.704 | -0.20 [-1.81, +1.71] | +2.5 [-1.0, +6.0] |
 | networkA_mlp | 2 | 77.09 | 55.0 | 0.704 | -1.48 [-3.26, +0.52] | +5.5 [+1.5, +10.0] |
@@ -35,3 +37,4 @@ Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. F
 | networkB_lstm | mean ± sd (3) | 77.11 ± 1.81 | 55.7 ± 7.1 | 0.704 ± 0.000 | -1.46 [-2.82, +0.06] | +6.2 [+2.8, +9.5] |
 
 Note: on the test ground the yield force (400-590 N per contact point) is below 1.58 BW (about 1140 N), so the toe peak is capped by the ground giving way and the impact term is zero there; toe peaks on `test` are not comparable with `train`.
+best_fixed_tuned = (-20 deg, 500, 8): chosen by `comparison/tune.py` as the highest mean return among grid cells whose fall rate is not above the reference's, on tuning seeds 2000-2099 (training ground). The old best_fixed (-20, 500, 6) row is kept for comparison.

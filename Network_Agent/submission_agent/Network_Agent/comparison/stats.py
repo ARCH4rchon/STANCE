@@ -14,6 +14,7 @@ value, so its interval covers episode-to-episode variation only; the seed spread
     python -m comparison.stats [--in comparison/results/episodes.csv] [--out comparison/results]
 """
 import argparse
+import json
 from pathlib import Path
 
 import numpy as np
@@ -24,6 +25,7 @@ from comparison.harness import RESULTS
 N_BOOT = 10_000
 BOOT_SEED = 5418
 REF = "reference"
+ORDER = ["reference", "best_fixed", "best_fixed_tuned"]
 
 
 def boot_ci(d):
@@ -124,15 +126,32 @@ def to_markdown(s, n_eps):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    p.add_argument("--in", dest="inp", default=str(RESULTS / "episodes.csv"))
-    p.add_argument("--out", default=None, help="output folder (default: the input's folder)")
+    p.add_argument("--in", dest="inp", nargs="+", default=None,
+                   help="episode CSVs (default: results/episodes.csv, plus episodes_tuned.csv if present)")
+    p.add_argument("--out", default=None, help="output folder (default: the first input's folder)")
     a = p.parse_args()
-    out = Path(a.out or Path(a.inp).parent)
-    df = pd.read_csv(a.inp)
+    inp = [Path(x) for x in a.inp] if a.inp else [RESULTS / "episodes.csv"]
+    if a.inp is None and (RESULTS / "episodes_tuned.csv").exists():
+        inp.append(RESULTS / "episodes_tuned.csv")
+    out = Path(a.out or inp[0].parent)
+    df = pd.concat([pd.read_csv(f) for f in inp], ignore_index=True)
+    # Stable order: fixed actions first (old best_fixed next to best_fixed_tuned), then networks.
+    first = {c: i for i, c in enumerate(df.controller.drop_duplicates())}
+    key = df.controller.map(lambda c: (ORDER.index(c), 0) if c in ORDER else (len(ORDER), first[c]))
+    df = df.iloc[sorted(range(len(df)), key=lambda i: key.iat[i])].reset_index(drop=True)
     s = summarise(df)
     s.to_csv(out / "summary.csv", index=False, float_format="%.5g")
     n_eps = int(df.groupby(["ground", "controller", "model_seed"], dropna=False).size().min())
-    (out / "summary.md").write_text(to_markdown(s, n_eps))
+    md = to_markdown(s, n_eps)
+    tuned = out / "best_fixed_tuned.json"
+    if "best_fixed_tuned" in set(df.controller) and tuned.exists():
+        t = json.loads(tuned.read_text())
+        a0 = tuple(t["action"])
+        md += (f"best_fixed_tuned = ({a0[0]:g} deg, {a0[1]:g}, {a0[2]:g}): chosen by `comparison/tune.py` "
+               f"as the highest mean return among grid cells whose fall rate is not above the reference's, "
+               f"on tuning seeds {t['tuning_seeds'][0]}-{t['tuning_seeds'][1]} (training ground). "
+               "The old best_fixed (-20, 500, 6) row is kept for comparison.\n")
+    (out / "summary.md").write_text(md)
     print((out / "summary.md").read_text())
 
 

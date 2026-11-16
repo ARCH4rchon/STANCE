@@ -16,7 +16,7 @@ Drafted with Claude Code (Anthropic), for the AI declaration.
        3e5    beyond the test hard band (1.5x its maximum)
        6e5    far beyond (3x the test maximum)
 2. Sensor noise on the training ground: Gaussian noise on sensor channels 0-7 at
-   0, 0.05, 0.1, 0.2 x each sensor's std (harness.SensorNoise; std from the trained runs'
+   0, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0 x each sensor's std (checked by noise_check.py) (harness.SensorNoise; std from the trained runs'
    VecNormalize statistics, one vector shared by all networks). Only the networks read the
    sensors; the fixed actions are unaffected by construction, so they are not rerun.
 Both use 100 episodes per cell (seeds 1000-1099, or the first --episodes), deterministic.
@@ -39,7 +39,7 @@ from comparison.harness import (EP_COLUMNS, RESULTS, ctrl_label, default_workers
                                 sensor_std)
 
 K_LEVELS = [1e3, 3.2e3, 7e3, 2.2e4, 7e4, 1.4e5, 3e5, 6e5]
-NOISE_LEVELS = [0.0, 0.05, 0.1, 0.2]
+NOISE_LEVELS = [0.0, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0]   # 0.5-2.0 added in Task D
 TRAIN_K = (5e3, 1e5)
 TEST_K = [(2e3, 5e3), (1e5, 2e5)]
 COLUMNS = ["sweep", "level"] + EP_COLUMNS

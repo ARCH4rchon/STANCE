@@ -40,10 +40,20 @@ If ROS sets `PYTHONPATH`, prefix with `env -u PYTHONPATH` (`run_all.sh` already 
 | `run_all.sh` | full run, nice 10, logged |
 | `results/episodes.csv` | Task A, one row per episode (3,200 rows) |
 | `results/summary.csv`, `summary.md` | Task A tables |
-| `results/robustness_episodes.csv` | Task B, one row per episode (8,800 rows, about 1 MB) |
+| `results/robustness_episodes.csv` | Task B (and the Task D noise levels), one row per episode (10,600 rows, 1.3 MB) |
 | `results/robustness.csv` | Task B per cell plus mean ± sd over seeds |
 | `results/robustness.png`, `.pdf` | return vs ground stiffness |
 | `results/log.txt` | run log |
+| `tune.py` | Task C: fixed-action grid and best_fixed_tuned |
+| `results/grid.csv`, `grid_heatmap.png/.pdf` | Task C grid, 80 cells |
+| `results/best_fixed_tuned.json` | Task C: the chosen action and the rule used |
+| `results/episodes_tuned.csv` | Task C: best_fixed_tuned on seeds 1000-1199, both grounds |
+| `noise_check.py`, `results/noise_check.txt` | Task D: noise reaches the policy |
+| `actions.py` | Task E |
+| `results/actions.csv` | Task E, per step (119,036 rows, 5.5 MB) |
+| `results/actions_time.png/.pdf`, `actions_early.png/.pdf` | Task E figures |
+| `results/actions_slopes.csv` | Task E: per-seed trends against k0 |
+| `run_cde.sh` | Tasks C-E full run, nice 10, logged |
 
 For the AI declaration: every file in `comparison/` was drafted with Claude Code. The `.csv`, `.png`
 and `.pdf` files in `results/` are written by those scripts. They carry no header line because a header
@@ -120,7 +130,7 @@ combined stress, so it is not the same thing as the k0-only sweep.
 
 ## Skipped or flagged
 
-1. **`best_fixed` = (-20, 500, 6) is not confirmed.**
+1. **`best_fixed` = (-20, 500, 6) is not confirmed.** (Superseded by Task C. The row is kept, and the grid picks (-20, 500, 8).)
    - The grid-sweep output was never saved. `results/P3_findings.md` §1 reads "Output missing… no script remains". `reward_tradeoff.py` can rebuild the grid but only prints it, and I did not rerun it.
    - The action is kept as specified.
    - On these seeds it is **not** clearly better than the reference: +0.26 [−0.38, +0.96] on train and −1.24 [−3.08, +0.32] on test. P3_findings §6b also has it at −0.09 vs the reference.
@@ -147,4 +157,122 @@ combined stress, so it is not the same thing as the k0-only sweep.
   - Per seed: −3.4, +18.0 and −10.6 (mean 1.3 ± 14.9).
   - (-20, 500, 6) is best there at 19.5, probably because lower damping softens the impact.
   - Falls are not the cause, since every controller falls in ≤ 7% of episodes. Almost all of the loss is the impact term.
-- **Sensor noise up to 0.2 std has no measurable effect** on either network. Return and fall-rate changes are well inside the seed sd: MLP 89.29 → 89.12, LSTM 91.13 → 90.93. Together with the w6 "blind" finding in the redesign branch, this suggests the policies use only coarse features of the sensor history.
+- **Sensor noise up to 0.2 std has no measurable effect** on either network (see Task D for larger levels). Return and fall-rate changes are well inside the seed sd: MLP 89.29 → 89.12, LSTM 91.13 → 90.93. Together with the w6 "blind" finding in the redesign branch, this suggests the policies use only coarse features of the sensor history.
+
+---
+
+# Tasks C-E (second round, same branch)
+
+Nothing outside `comparison/` was edited, and nothing was trained. Earlier results were not overwritten:
+- `episodes.csv` is unchanged.
+- `best_fixed_tuned` episodes are written to `episodes_tuned.csv` instead.
+- `stats.py` now reads both files. A diff of `summary.md` and `summary.csv` before and after shows only the two added rows and one footnote, so every earlier number is byte-identical.
+- `robustness.csv` gains the new noise rows; its earlier rows are unchanged.
+
+## Reproduce
+
+```bash
+# smoke (20 episodes, results/smoke/)
+python -m comparison.tune --episodes 20 --eval-episodes 20 --out comparison/results/smoke
+python -m comparison.stats --in comparison/results/smoke/episodes.csv comparison/results/smoke/episodes_tuned.csv
+python -m comparison.robustness --episodes 20 --out comparison/results/smoke
+python -m comparison.actions --episodes 20 --out comparison/results/smoke
+
+# full (nice 10, appends to results/log.txt, resumable)
+bash comparison/run_cde.sh "$(conda run -n stance which python)"
+#   = tune (100 tuning eps/cell, 200 eval eps) -> stats -> noise_check -> robustness (100) -> actions (200)
+```
+
+## Run times (16 CPUs, 14 workers, nice 10)
+
+| step | content | wall time |
+|---|---|---|
+| Task C grid | 80 cells × 100 episodes | 77 s |
+| Task C evaluation | best_fixed_tuned, 2 × 200 episodes | 11 s |
+| Task D | noise check | 3 s |
+| Task D noise sweep | 18 new cells × 100 episodes | 34 s |
+| Task E | 6 runs × 200 episodes | 27 s |
+| `run_cde.sh` | total | 2 min 43 s |
+
+## Task C: best fixed action
+
+**Grid adjusted to the valid action range.**
+- The env limits are θ ∈ [-20, 20]°, K ∈ [5, 500] and B ∈ [0.5, 10].
+- The requested values -26°, K 625 and B 12 would be clipped onto an edge and duplicate other cells.
+- They were replaced by -17°, K 440 and B 2.
+- Grid: θ {-20, -17, -14, -8} × K {250, 375, 440, 500} × B {2, 4, 6, 8, 10} = 80 cells.
+- Tuning seeds 2000-2099 (training ground) do not overlap the evaluation seeds 1000-1199.
+
+**Selection rule:** highest mean return among cells whose fall rate is ≤ the reference's fall rate on the tuning seeds (6.0%). Twelve cells qualify.
+
+**Result: `best_fixed_tuned` = (-20°, 500, 8).**
+- Tuning return is 89.19 against the reference's 88.90. Fall rate is 6% for both.
+- It ranks 1st of all 80 cells even without the fall-rate filter.
+- The old (-20, 500, 6) ranks 5th on the tuning seeds (88.39).
+
+On the standard seeds, compared with the reference (summary.md):
+
+| ground | Δ return [95%] | Δ fall, pts [95%] | toe peak (BW) |
+|---|---|---|---|
+| train | +0.35 [−0.22, +0.97] | −0.5 [−2.5, +1.0] | 1.778 |
+| test | −0.76 [−1.89, +0.10] | +1.0 [−1.0, +3.0] | n/a |
+
+The toe peak on train is 1.778 BW, against 1.739 for the reference and 1.835 for (-20, 500, 6). Neither difference vs the reference is significant.
+
+Grid findings:
+- The return surface is flat near the top. The best three cells are within 0.3 return of each other, which is well inside the seed-to-seed noise.
+- 9 of the top 10 cells sit at θ = −20°, the plantarflexion limit of the action range. Most of the top cells also have K at or near the K limit of 500.
+- **The fixed-action optimum is pinned to the corner of the action space.** A better fixed action may exist outside it, but that cannot be tested without changing `ANKLE_RANGE`/`K_RANGE` in `Gym/`.
+- The reference (-20, 500, 10) is effectively the best fixed action. The networks' margins in Task A are therefore measured against a near-optimal fixed baseline.
+
+## Task D: noise sanity check
+
+`results/noise_check.txt` has the printout for MLP s0 and LSTM s0 on episode seed 1000. **The noise reaches the policy correctly, so no fix was needed.**
+- **Noise 0:** the policy's normalised input equals the clean normalised observation exactly (max difference 0).
+- **Noise 1.0:** at every step the input differs from the clean observation of the same state in channels 0-7.
+- **Frames reached:** the noise appears in all 10 stacked frames for the MLP and in the single frame for the LSTM.
+- **Size after normalisation:** the std of the difference matches the expected 1.0 × sensor std ÷ VecNormalize std, about 0.9-1.06 against an expected 0.95-1.09.
+- **The previous-action channels 8-10 get no noise.**
+- **Each reading keeps its noise as it moves back through the MLP stack** (mismatch 1e-4, which is float32 rounding).
+
+To print this, `harness.SensorNoise` now also stores the clean observation (`self.clean`). The noisy output is unchanged, and the earlier noise cells were not rerun.
+
+Extended sweep, training ground, 100 episodes per cell, mean ± sd over 3 seeds:
+
+| noise (× sensor std) | 0 | 0.2 | 0.5 | 1.0 | 2.0 |
+|---|---|---|---|---|---|
+| MLP return | 89.29 ± 0.75 | 89.12 ± 0.53 | 87.86 ± 0.67 | 84.84 ± 1.58 | 78.05 ± 0.36 |
+| MLP fall % | 10.7 | 10.7 | 11.7 | 12.7 | 17.3 |
+| LSTM return | 91.13 ± 1.17 | 90.93 ± 0.96 | 90.62 ± 0.63 | 89.51 ± 0.35 | 87.01 ± 0.24 |
+| LSTM fall % | 9.0 | 9.3 | 9.7 | 10.7 | 11.7 |
+
+Findings:
+- **Performance degrades from about 0.5 std.** The earlier "no effect" result held only because 0.2 std is small.
+- **The MLP is about 2.5-3× more sensitive than the LSTM.** At 2.0 std it loses 11.2 return against 4.1 for the LSTM, and its fall rate rises by 6.7 pts against 2.7.
+- A plausible reason is that the MLP sees 10 independently noisy frames, while the LSTM filters one frame at a time through its memory.
+- **At 2.0 std the MLP (78.0) falls well below the fixed reference, while the LSTM (87.0) matches it.** On the same seeds 1000-1099 the reference scores 87.06 return with an 8.0% fall rate. The fixed actions are unaffected by sensor noise.
+
+## Task E: what did the networks learn?
+
+Per-step applied actions (after the residual offset and clipping) for all 6 runs, seeds 1000-1199, training ground. The data and figures are:
+- `actions.csv`
+- `actions_time.png`: means over the episode in 4 log-k0 bins. The line is the mean over seeds and the band is the sd over seeds.
+- `actions_early.png`: the mean over steps 0-19 against k0.
+- `actions_slopes.csv`: per-seed least-squares slope against log10 k0.
+
+Late steps average only the episodes still running.
+
+**Summary (5 lines):**
+1. **K: yes, both networks lower K on harder ground, in all 6 seeds.** Over steps 0-19 the slope is −42 to −107 N·m/rad per decade of k0 (r = −0.27 to −0.58). The binned mean falls from about 410 to 320 (MLP) and from 450 to 385 (LSTM) between the softest and hardest training stiffness.
+2. **B: no, they do not raise B on hard ground.** Slopes have mixed signs (−1.8 to +1.1 per decade), and MLP s1 clearly lowers B. B mainly rises over the episode, from about 6 to 8-9, whatever the stiffness.
+3. **The adaptation is confined to weight acceptance.** The K dip on hard ground happens in steps 5-30 (25-150 ms). By step 40, every seed in every bin is back near K 500, and θ falls toward −20° by about step 60. Late stance therefore converges to the reference-like stiff corner.
+4. **θ shifts slightly toward less plantarflexion on hard ground** in 5 of 6 seeds (+0.7 to +3.6° per decade). MLP s2 goes the other way.
+5. **The direction of the K schedule is consistent across seeds, but its level is not.** LSTM s0 stays near (−19.7°, K ≈ 440-480), almost a fixed action, while the other seeds sit around −13.6° to −17° with early K 275-480 (bin means). So the seeds share a strategy (soften on hard ground, then stiffen) but have found different operating points.
+
+This matches Tasks A and B. The learned gain over fixed actions is a short, stiffness-dependent drop in K at impact. That pays off on hard ground through lower toe peaks, and costs falls on soft ground, where a lower K lets the leg fold.
+
+## Skipped / caveats (C-E)
+
+- **Grid values outside the action range were replaced** (see Task C). That is a documented substitution, not a skip.
+- **The fixed-action optimum lies on the θ/K limits.** Searching beyond them would need the action ranges in `Gym/stance_env/ankle_gym_env.py` to be widened. That was not done.
+- **`actions.csv` is 5.5 MB.** It was committed as requested. If the repo should stay small, it can be regenerated in about 30 s with `python -m comparison.actions` and added to `.gitignore`.

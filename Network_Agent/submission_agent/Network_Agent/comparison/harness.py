@@ -157,9 +157,11 @@ class SensorNoise(gym.ObservationWrapper):
         self.rng = np.random.default_rng([int(seed or 0), 424242])
         grid = np.asarray(obs, dtype=np.float64).reshape(self.frames, N_SENSORS)
         self.hist = collections.deque(list(grid[:-1]) + [self._noisy(grid[-1])], maxlen=self.frames)
+        self.clean = np.asarray(obs, dtype=np.float32)   # noise-free obs, for noise_check.py
         return np.concatenate(self.hist).astype(np.float32), info
 
     def observation(self, obs):
+        self.clean = np.asarray(obs, dtype=np.float32)
         newest = np.asarray(obs, dtype=np.float64).reshape(self.frames, N_SENSORS)[-1]
         self.hist.append(self._noisy(newest))
         return np.concatenate(self.hist).astype(np.float32)

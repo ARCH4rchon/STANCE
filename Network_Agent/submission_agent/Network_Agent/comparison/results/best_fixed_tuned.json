@@ -1,0 +1,16 @@
+{
+  "action": [
+    -20.0,
+    500.0,
+    8.0
+  ],
+  "tuning_seeds": [
+    2000,
+    2099
+  ],
+  "tuning_mean_return": 89.1937643,
+  "tuning_fall_rate": 0.06,
+  "reference_tuning_mean_return": 88.898953,
+  "reference_tuning_fall_rate": 0.06,
+  "rule": "max mean return among grid cells with fall rate <= reference fall rate"
+}
