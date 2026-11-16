@@ -25,8 +25,22 @@ from comparison.harness import RESULTS
 N_BOOT = 10_000
 BOOT_SEED = 5418
 REF = "reference"
-ORDER = ["reference", "best_fixed", "best_fixed_tuned", "R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip"]
-RULES = ["R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip"]
+ORDER = ["reference", "best_fixed", "best_fixed_tuned", "R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip",
+         "R4_dip_plus_schedule"]
+RULES = ["R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip", "R4_dip_plus_schedule"]
+
+
+def vs_r1(df):
+    """Paired differences of R2/R3/R4 vs R1 on the same episodes."""
+    rows = []
+    for ground, g in df.groupby("ground", sort=False):
+        if "R1_timed_dip" not in set(g.controller):
+            continue
+        r1 = g[g.controller == "R1_timed_dip"].set_index("episode_seed")[["return", "fell"]]
+        for rule in [r for r in RULES[1:] if r in set(g.controller)]:
+            rr = g[g.controller == rule].set_index("episode_seed")[["return", "fell"]]
+            rows.append({"ground": ground, "rule": rule, "vs": "R1_timed_dip", **paired(rr, r1)})
+    return pd.DataFrame(rows)
 
 
 def label(c):
@@ -149,7 +163,7 @@ def main():
     p.add_argument("--out", default=None, help="output folder (default: the first input's folder)")
     a = p.parse_args()
     inp = [Path(x) for x in a.inp] if a.inp else [RESULTS / "episodes.csv"]
-    for extra in ("episodes_tuned.csv", "episodes_rules.csv"):
+    for extra in ("episodes_tuned.csv", "episodes_rules.csv", "episodes_r4.csv"):
         if a.inp is None and (RESULTS / extra).exists():
             inp.append(RESULTS / extra)
     out = Path(a.out or inp[0].parent)
@@ -190,6 +204,23 @@ def main():
                "| ground | rule | network | Δ return [95%] | Δ fall rate, pts [95%] |\n|---|---|---|---|---|\n")
         for _, r in v.iterrows():
             md += (f"| {r.ground} | {label(r.rule)} | {r.network} | {_ci(r.d_return, r.d_return_lo, r.d_return_hi)} | "
+                   f"{_ci(r.d_fall_rate, r.d_fall_rate_lo, r.d_fall_rate_hi, 100, '{:+.1f}')} |\n")
+    r4_json = out / "r4_tuned.json"
+    if "R4_dip_plus_schedule" in set(df.controller) and r4_json.exists():
+        r4 = json.loads(r4_json.read_text())["rule"]
+        th = ("theta_d constant at -20 deg (tuned theta_start = -20, so no ramp)" if r4["theta_start"] == -20
+              else f"theta_d ramping from {r4['theta_start']:g} to -20 deg over {r4['T_theta']:g} steps")
+        bb = (f"B constant at {r4['B_start']:g} (tuned B_start = B_end, so no ramp)" if r4["B_start"] == r4["B_end"]
+              else f"B ramping from {r4['B_start']:g} to {r4['B_end']:g} over {r4['T_B']:g} steps")
+        md += ("\nR4_dip_plus_schedule (`comparison/rules.py --r4`, Task F): R1-style K dip "
+               f"(K_dip={r4['k_dip']:g}, {r4['start_ms']:g}-{r4['end_ms']:g} ms), {th}, {bb}; tuned on seeds "
+               "2000-2099 with the same fall-rate constraint.\n")
+        v1 = vs_r1(df)
+        v1.to_csv(out / "summary_rules_vs_r1.csv", index=False, float_format="%.5g")
+        md += ("\n## Hand rules vs R1\n\nΔ = rule − R1_timed_dip, same episode seeds, 95% bootstrap interval "
+               "over episodes.\n\n| ground | rule | Δ return [95%] | Δ fall rate, pts [95%] |\n|---|---|---|---|\n")
+        for _, r in v1.iterrows():
+            md += (f"| {r.ground} | {label(r.rule)} | {_ci(r.d_return, r.d_return_lo, r.d_return_hi)} | "
                    f"{_ci(r.d_fall_rate, r.d_fall_rate_lo, r.d_fall_rate_hi, 100, '{:+.1f}')} |\n")
     (out / "summary.md").write_text(md)
     print((out / "summary.md").read_text())

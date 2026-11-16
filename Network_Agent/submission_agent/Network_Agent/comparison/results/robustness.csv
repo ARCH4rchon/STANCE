@@ -23,6 +23,14 @@ stiffness,70000,R3_oracle_dip,rule,,,100,80.239,,0.05,,2.2015,,-17.894
 stiffness,1.4e+05,R3_oracle_dip,rule,,,100,67.488,,0.05,,2.3951,,-30.578
 stiffness,3e+05,R3_oracle_dip,rule,,,100,52.343,,0.05,,2.5025,,-45.263
 stiffness,6e+05,R3_oracle_dip,rule,,,100,18.015,,0.06,,2.5598,,-77.619
+stiffness,1000,R4_dip_plus_schedule,rule,,,100,83.659,,0.4,,1.3735,,0
+stiffness,3200,R4_dip_plus_schedule,rule,,,100,91.608,,0.23,,1.4101,,-0.0017355
+stiffness,7000,R4_dip_plus_schedule,rule,,,100,94.65,,0.15,,1.5066,,-0.12974
+stiffness,22000,R4_dip_plus_schedule,rule,,,100,93.345,,0.08,,1.7759,,-3.764
+stiffness,70000,R4_dip_plus_schedule,rule,,,100,78.959,,0.05,,2.2097,,-19.281
+stiffness,1.4e+05,R4_dip_plus_schedule,rule,,,100,68.122,,0.05,,2.4036,,-30.207
+stiffness,3e+05,R4_dip_plus_schedule,rule,,,100,53.509,,0.05,,2.5062,,-44.81
+stiffness,6e+05,R4_dip_plus_schedule,rule,,,100,23.071,,0.03,,2.5579,,-75.798
 stiffness,1000,best_fixed,fixed,,,100,86.53,,0.32,,1.3496,,0
 stiffness,3200,best_fixed,fixed,,,100,93.791,,0.18,,1.4142,,-0.01856
 stiffness,7000,best_fixed,fixed,,,100,96.029,,0.11,,1.5513,,-0.32129

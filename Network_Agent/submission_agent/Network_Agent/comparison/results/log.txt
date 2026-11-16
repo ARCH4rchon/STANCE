@@ -1136,3 +1136,598 @@ stiffness 600000.00     reference     2.639629             NaN   0.020000     2.
     noise      1.00 networkB_lstm    89.505733        0.349484   0.106667     1.736017
     noise      2.00 networkB_lstm    87.005519        0.241518   0.116667     1.757397
 === 2026-11-16 14:53:05 run_rules done
+=== 2026-11-16 15:12:33 run_fg start (16 cpus)
+=== 2026-11-16 15:12:33 Task F: tune and evaluate R4
+2026-11-16 15:12:34 324 cells, 0 already done, 324 to run on 14 workers
+2026-11-16 15:12:46   [1/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 10 s
+2026-11-16 15:12:47   [2/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 11 s
+2026-11-16 15:12:50   [3/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:12:50   [4/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:12:50   [5/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:12:51   [6/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:12:52   [7/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:12:52   [8/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:12:53   [9/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:12:53   [10/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:12:53   [11/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:12:53   [12/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:12:53   [13/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:12:53   [14/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:12:58   [15/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:12:59   [16/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 9 s
+2026-11-16 15:13:03   [17/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:03   [18/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:05   [19/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:13:06   [20/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:07   [21/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:13:07   [22/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:08   [23/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:09   [24/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:09   [25/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:09   [26/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:09   [27/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:10   [28/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:10   [29/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 16 s
+2026-11-16 15:13:13   [30/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:13:14   [31/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:15   [32/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:13:18   [33/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:18   [34/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:21   [35/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:21   [36/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:22   [37/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:22   [38/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:22   [39/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:22   [40/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:13:23   [41/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:23   [42/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 15 s
+2026-11-16 15:13:23   [43/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:24   [44/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:24   [45/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:28   [46/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:29   [47/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:30   [48/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:32   [49/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:32   [50/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 11 s
+2026-11-16 15:13:32   [51/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:34   [52/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 10 s
+2026-11-16 15:13:34   [53/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:13:36   [54/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:36   [55/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:37   [56/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:37   [57/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:37   [58/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:38   [59/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:39   [60/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:41   [61/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:13:42   [62/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:43   [63/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:43   [64/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:45   [65/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:46   [66/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:46   [67/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:48   [68/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:49   [69/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:49   [70/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:50   [71/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:50   [72/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:13:50   [73/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:13:51   [74/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:51   [75/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:55   [76/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 9 s
+2026-11-16 15:13:56   [77/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:56   [78/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:13:57   [79/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:57   [80/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:13:58   [81/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:13:59   [82/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:00   [83/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:02   [84/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:03   [85/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:03   [86/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:04   [87/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:14:04   [88/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:05   [89/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:14:05   [90/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:05   [91/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:09   [92/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:10   [93/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:11   [94/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:11   [95/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:11   [96/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:14:12   [97/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:14:13   [98/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:13   [99/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:16   [100/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:17   [101/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:17   [102/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:17   [103/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:18   [104/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:18   [105/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:19   [106/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:19   [107/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:23   [108/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:24   [109/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:25   [110/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:14:25   [111/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:26   [112/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:27   [113/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:27   [114/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:27   [115/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:29   [116/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 12 s
+2026-11-16 15:14:29   [117/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:31   [118/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:31   [119/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:32   [120/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:33   [121/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:34   [122/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:36   [123/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:37   [124/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:37   [125/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:38   [126/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:39   [127/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 13 s
+2026-11-16 15:14:39   [128/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:41   [129/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:41   [130/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:41   [131/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:43   [132/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:44   [133/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 8 s
+2026-11-16 15:14:45   [134/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:45   [135/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:46   [136/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:47   [137/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 8 s
+2026-11-16 15:14:47   [138/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:50   [139/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 9 s
+2026-11-16 15:14:50   [140/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 12 s
+2026-11-16 15:14:51   [141/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:51   [142/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:52   [143/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:54   [144/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 8 s
+2026-11-16 15:14:55   [145/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:55   [146/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:57   [147/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:57   [148/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:14:58   [149/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:59   [150/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:14:59   [151/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:01   [152/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 13 s
+2026-11-16 15:15:01   [153/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:02   [154/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:04   [155/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:05   [156/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:05   [157/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:05   [158/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:06   [159/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:09   [160/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:09   [161/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:09   [162/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:11   [163/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:12   [164/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:12   [165/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:12   [166/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:13   [167/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:14   [168/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:16   [169/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:17   [170/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:18   [171/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:18   [172/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:19   [173/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:19   [174/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:20   [175/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:22   [176/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:22   [177/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:24   [178/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:25   [179/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:26   [180/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:26   [181/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:26   [182/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:26   [183/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:28   [184/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:30   [185/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:31   [186/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:32   [187/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:32   [188/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:33   [189/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:33   [190/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:34   [191/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:36   [192/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:36   [193/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:39   [194/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:39   [195/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:40   [196/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:40   [197/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:40   [198/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:41   [199/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 7 s
+2026-11-16 15:15:42   [200/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:44   [201/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:46   [202/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:46   [203/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:47   [204/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 8 s
+2026-11-16 15:15:47   [205/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:47   [206/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 11 s
+2026-11-16 15:15:48   [207/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:50   [208/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:52   [209/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 11 s
+2026-11-16 15:15:53   [210/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:54   [211/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:54   [212/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:54   [213/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:54   [214/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 8 s
+2026-11-16 15:15:55   [215/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 7 s
+2026-11-16 15:15:56   [216/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:15:58   [217/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:16:00   [218/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-17: 100 episodes in 14 s
+2026-11-16 15:16:00   [219/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:01   [220/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:02   [221/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 7 s
+2026-11-16 15:16:02   [222/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:03   [223/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 9 s
+2026-11-16 15:16:05   [224/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:06   [225/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:16:06   [226/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 15 s
+2026-11-16 15:16:07   [227/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:07   [228/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:08   [229/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:10   [230/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:12   [231/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:14   [232/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:15   [233/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:15   [234/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:15   [235/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:16   [236/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:17   [237/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:18   [238/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:16:19   [239/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:20   [240/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:16:21   [241/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 15 s
+2026-11-16 15:16:21   [242/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:22   [243/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta20_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:23   [244/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:25   [245/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:27   [246/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:16:28   [247/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:28   [248/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:28   [249/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:29   [250/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:31   [251/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:33   [252/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:33   [253/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:16:33   [254/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:34   [255/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:34   [256/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:36   [257/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:37   [258/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:39   [259/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:40   [260/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:41   [261/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:16:42   [262/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:42   [263/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:43   [264/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:45   [265/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:47   [266/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 15 s
+2026-11-16 15:16:47   [267/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:48   [268/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 15 s
+2026-11-16 15:16:48   [269/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:48   [270/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:50   [271/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:51   [272/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:54   [273/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 15 s
+2026-11-16 15:16:55   [274/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:55   [275/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:56   [276/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:56   [277/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:57   [278/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:16:59   [279/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:01   [280/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:01   [281/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:02   [282/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:02   [283/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:03   [284/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:03   [285/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:04   [286/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:08   [287/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:08   [288/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:08   [289/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:08   [290/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:10   [291/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:10   [292/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:17:13   [293/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:13   [294/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:14   [295/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:16   [296/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:16   [297/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta60_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:17   [298/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:17   [299/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:18   [300/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:18   [301/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 10 s
+2026-11-16 15:17:22   [302/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:22   [303/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:23   [304/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:24   [305/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:24   [306/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start4_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:25   [307/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:25   [308/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:17:26   [309/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:27   [310/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:29   [311/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:17:29   [312/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:30   [313/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:31   [314/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 14 s
+2026-11-16 15:17:31   [315/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start6_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 13 s
+2026-11-16 15:17:33   [316/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:33   [317/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:34   [318/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 10 s
+2026-11-16 15:17:35   [319/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:35   [320/324] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 12 s
+2026-11-16 15:17:35   [321/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B20_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 10 s
+2026-11-16 15:17:35   [322/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B40_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 9 s
+2026-11-16 15:17:36   [323/324] R_tune__train__R4_dip_plus_schedule__B_end9_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 11 s
+2026-11-16 15:17:36   [324/324] R_tune__train__R4_dip_plus_schedule__B_end10_B_start8_T_B80_T_theta80_end_ms100_k_dip250_start_ms50_theta_start-14: 100 episodes in 9 s
+2026-11-16 15:17:36 R4 stage 1 best schedule: {'theta_start': -20.0, 'T_theta': 40.0, 'B_start': 8.0, 'B_end': 8.0, 'T_B': 80.0} return 90.49 fall 5.0%
+  parameter  value  n_cells  mean_of_cell_returns  best_cell_return  mean_fall_rate  share_eligible  parameter_range_of_means
+theta_start    -20      108             90.020135         90.490598        0.053704        0.962963                  0.604268
+theta_start    -17      108             89.706916         90.417593        0.070648        0.287037                  0.604268
+theta_start    -14      108             89.415867         89.962618        0.083056        0.000000                  0.604268
+    B_start      4      108             89.461406         89.963056        0.069167        0.398148                  0.396998
+    B_start      6      108             89.823108         90.377993        0.068056        0.425926                  0.396998
+    B_start      8      108             89.858404         90.490598        0.070185        0.425926                  0.396998
+      B_end      8      108             89.812838         90.490598        0.066852        0.490741                  0.170257
+      B_end      9      108             89.687500         90.425741        0.069444        0.416667                  0.170257
+      B_end     10      108             89.642580         90.385008        0.071111        0.342593                  0.170257
+    T_theta     20       81             89.624301         90.490598        0.064568        0.592593                  0.162840
+    T_theta     40       81             89.726925         90.490598        0.068765        0.395062                  0.162840
+    T_theta     60       81             89.787141         90.490598        0.070370        0.358025                  0.162840
+    T_theta     80       81             89.718857         90.490598        0.072840        0.320988                  0.162840
+        T_B     20      108             89.762332         90.490598        0.068981        0.444444                  0.079366
+        T_B     40      108             89.682965         90.490598        0.069907        0.407407                  0.079366
+        T_B     80      108             89.697621         90.490598        0.068519        0.398148                  0.079366
+2026-11-16 15:17:36 45 cells, 1 already done, 44 to run on 14 workers
+2026-11-16 15:17:51   [1/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip150_start_ms25_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:17:51   [2/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip150_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:17:52   [3/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip150_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:17:52   [4/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip200_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:17:53   [5/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip200_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:17:53   [6/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip150_start_ms75_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:17:53   [7/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip150_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [8/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip200_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [9/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip150_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [10/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip200_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [11/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip150_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [12/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip150_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [13/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip150_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:17:53   [14/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip200_start_ms50_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:03   [15/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip200_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:18:05   [16/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:06   [17/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:06   [18/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip250_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:06   [19/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:06   [20/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip200_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:06   [21/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms75_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:06   [22/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip200_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:06   [23/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip250_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:07   [24/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip200_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:07   [25/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip300_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:07   [26/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:07   [27/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip250_start_ms75_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:07   [28/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip300_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:17   [29/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip300_start_ms75_theta_start-20: 100 episodes in 11 s
+2026-11-16 15:18:17   [30/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip350_start_ms50_theta_start-20: 100 episodes in 10 s
+2026-11-16 15:18:17   [31/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip300_start_ms25_theta_start-20: 100 episodes in 14 s
+2026-11-16 15:18:17   [32/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip300_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:18:18   [33/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip300_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:18:18   [34/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip300_start_ms75_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:19   [35/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip300_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:19   [36/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip350_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:19   [37/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip300_start_ms75_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:19   [38/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip350_start_ms50_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:18:19   [39/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip350_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:19   [40/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip350_start_ms25_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:20   [41/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms100_k_dip350_start_ms75_theta_start-20: 100 episodes in 12 s
+2026-11-16 15:18:20   [42/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip350_start_ms50_theta_start-20: 100 episodes in 13 s
+2026-11-16 15:18:22   [43/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip350_start_ms75_theta_start-20: 100 episodes in 6 s
+2026-11-16 15:18:23   [44/44] R_tune__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms150_k_dip350_start_ms75_theta_start-20: 100 episodes in 6 s
+2026-11-16 15:18:23 R4 chosen: {'type': 'schedule', 'theta_start': -20.0, 'T_theta': 40.0, 'B_start': 8.0, 'B_end': 8.0, 'T_B': 80.0, 'k_dip': 250.0, 'start_ms': 50.0, 'end_ms': 125.0} return 90.59 fall 5.0% (R1 dip kept: False)
+2026-11-16 15:18:23 2 cells, 0 already done, 2 to run on 2 workers
+2026-11-16 15:18:34   [1/2] R_eval__test__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 200 episodes in 10 s
+2026-11-16 15:18:34   [2/2] R_eval__train__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 200 episodes in 10 s
+2026-11-16 15:18:34 R4_dip_plus_schedule evaluated: 400 rows -> episodes_r4.csv (11 s)
+=== 2026-11-16 15:18:34 Task F: summary
+# Controller comparison: summary
+
+Drafted with Claude Code (Anthropic), for the AI declaration. Generated by `python -m comparison.stats`; do not edit by hand.
+
+Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. Fixed reference = (-20 deg, 500, 10); best_fixed = (-20 deg, 500, 6). Network rows marked "mean ± sd" give the mean and the std across model seeds of the per-seed means. Δ = controller − reference on the same episode seeds, 95% bootstrap interval over episodes (10,000 resamples, RNG seed 5418). Δ fall rate is in percentage points.
+
+## Training-range ground (`train`)
+
+| controller | seed | mean return | fall rate (%) | toe peak (BW) | Δ return [95%] | Δ fall rate, pts [95%] |
+|---|---|---|---|---|---|---|
+| reference | - | 87.90 | 7.5 | 1.739 | 0 (reference) | 0 (reference) |
+| best_fixed | - | 88.16 | 7.0 | 1.835 | +0.26 [-0.38, +0.96] | -0.5 [-2.5, +1.0] |
+| best_fixed_tuned | - | 88.25 | 7.0 | 1.778 | +0.35 [-0.22, +0.97] | -0.5 [-2.5, +1.0] |
+| R1_timed_dip | - | 89.42 | 8.5 | 1.789 | +1.52 [+0.36, +2.78] | +1.0 [-1.5, +3.5] |
+| R2_sensed_dip | - | 89.57 | 9.0 | 1.787 | +1.67 [+0.45, +3.00] | +1.5 [-1.0, +4.0] |
+| R3_oracle_dip (privileged) | - | 90.36 | 7.5 | 1.782 | +2.46 [+1.22, +3.81] | +0.0 [-2.0, +2.0] |
+| R4_dip_plus_schedule | - | 89.60 | 8.5 | 1.785 | +1.70 [+0.36, +3.12] | +1.0 [-1.5, +4.0] |
+| networkA_mlp | 0 | 88.83 | 8.5 | 1.751 | +0.93 [-0.93, +2.94] | +1.0 [-1.5, +4.0] |
+| networkA_mlp | 1 | 89.57 | 13.0 | 1.713 | +1.67 [-0.47, +4.04] | +5.5 [+2.0, +9.0] |
+| networkA_mlp | 2 | 88.62 | 13.5 | 1.695 | +0.72 [-1.45, +3.06] | +6.0 [+2.5, +9.5] |
+| networkA_mlp | mean ± sd (3) | 89.01 ± 0.50 | 11.7 ± 2.8 | 1.720 ± 0.029 | +1.10 [-0.86, +3.24] | +4.2 [+1.3, +7.2] |
+| networkB_lstm | 0 | 89.76 | 8.0 | 1.747 | +1.86 [+0.62, +3.23] | +0.5 [-1.0, +2.0] |
+| networkB_lstm | 1 | 91.06 | 11.5 | 1.668 | +3.16 [+1.09, +5.42] | +4.0 [+1.5, +7.0] |
+| networkB_lstm | 2 | 91.80 | 10.0 | 1.682 | +3.90 [+1.67, +6.38] | +2.5 [-0.5, +5.5] |
+| networkB_lstm | mean ± sd (3) | 90.87 ± 1.03 | 9.8 ± 1.8 | 1.699 ± 0.042 | +2.97 [+1.24, +4.90] | +2.3 [+0.5, +4.3] |
+
+## Test ground (out-of-range stress) (`test`)
+
+| controller | seed | mean return | fall rate (%) | toe peak (BW) | Δ return [95%] | Δ fall rate, pts [95%] |
+|---|---|---|---|---|---|---|
+| reference | - | 78.57 | 49.5 | 0.704 | 0 (reference) | 0 (reference) |
+| best_fixed | - | 77.33 | 49.5 | 0.704 | -1.24 [-3.08, +0.32] | +0.0 [-3.0, +3.0] |
+| best_fixed_tuned | - | 77.81 | 50.5 | 0.704 | -0.76 [-1.89, +0.10] | +1.0 [-1.0, +3.0] |
+| R1_timed_dip | - | 78.70 | 50.0 | 0.704 | +0.13 [-0.82, +1.26] | +0.5 [-2.0, +3.0] |
+| R2_sensed_dip | - | 78.60 | 50.0 | 0.704 | +0.03 [-1.01, +1.23] | +0.5 [-2.0, +3.0] |
+| R3_oracle_dip (privileged) | - | 78.74 | 49.0 | 0.704 | +0.17 [-1.16, +1.50] | -0.5 [-3.0, +2.0] |
+| R4_dip_plus_schedule | - | 78.66 | 50.0 | 0.704 | +0.09 [-0.65, +1.02] | +0.5 [-1.5, +2.5] |
+| networkA_mlp | 0 | 79.31 | 49.0 | 0.704 | +0.74 [-0.79, +2.59] | -0.5 [-4.0, +3.0] |
+| networkA_mlp | 1 | 78.37 | 52.0 | 0.704 | -0.20 [-1.81, +1.71] | +2.5 [-1.0, +6.0] |
+| networkA_mlp | 2 | 77.09 | 55.0 | 0.704 | -1.48 [-3.26, +0.52] | +5.5 [+1.5, +10.0] |
+| networkA_mlp | mean ± sd (3) | 78.26 ± 1.12 | 52.0 ± 3.0 | 0.704 ± 0.000 | -0.31 [-1.90, +1.57] | +2.5 [-0.8, +5.8] |
+| networkB_lstm | 0 | 79.20 | 47.5 | 0.704 | +0.63 [-0.74, +1.91] | -2.0 [-5.0, +0.5] |
+| networkB_lstm | 1 | 76.20 | 59.5 | 0.704 | -2.37 [-4.28, -0.24] | +10.0 [+5.0, +15.0] |
+| networkB_lstm | 2 | 75.93 | 60.0 | 0.704 | -2.64 [-4.52, -0.58] | +10.5 [+5.5, +15.5] |
+| networkB_lstm | mean ± sd (3) | 77.11 ± 1.81 | 55.7 ± 7.1 | 0.704 ± 0.000 | -1.46 [-2.82, +0.06] | +6.2 [+2.8, +9.5] |
+
+Note: on the test ground the yield force (400-590 N per contact point) is below 1.58 BW (about 1140 N), so the toe peak is capped by the ground giving way and the impact term is zero there; toe peaks on `test` are not comparable with `train`.
+best_fixed_tuned = (-20 deg, 500, 8): chosen by `comparison/tune.py` as the highest mean return among grid cells whose fall rate is not above the reference's, on tuning seeds 2000-2099 (training ground). The old best_fixed (-20, 500, 6) row is kept for comparison.
+
+Hand rules (`comparison/rules.py`): theta_d -20 deg and B 8 fixed, K 500 outside a window after contact and K_dip inside it, tuned on seeds 2000-2099 (training ground) with fall rate not above the reference's. R1_timed_dip (k_dip=250, start_ms=50, end_ms=100): constant dip, no ground information. R2_sensed_dip (start_ms=50, end_ms=100, a=250, b=-100, m=5): K_dip = a + b (z - 5.1), z = log10 running-max vertical-GRF rate over the first m frames (causal, sensors only). R3_oracle_dip (start_ms=50, end_ms=100, a=300, b=-200): K_dip = a + b (log10 k0 - 4.349) from the TRUE ground stiffness: privileged, an upper bound, not a deployable controller.
+
+## Hand rules vs networks
+
+Δ = rule − network (network averaged over its model seeds per episode), same episode seeds, 95% bootstrap interval over episodes (10,000 resamples, RNG seed 5418).
+
+| ground | rule | network | Δ return [95%] | Δ fall rate, pts [95%] |
+|---|---|---|---|---|
+| train | R1_timed_dip | networkA_mlp | +0.41 [-0.85, +1.61] | -3.2 [-5.7, -0.8] |
+| train | R1_timed_dip | networkB_lstm | -1.46 [-2.53, -0.42] | -1.3 [-3.3, +0.3] |
+| train | R2_sensed_dip | networkA_mlp | +0.56 [-0.66, +1.71] | -2.7 [-5.2, -0.3] |
+| train | R2_sensed_dip | networkB_lstm | -1.30 [-2.32, -0.36] | -0.8 [-2.8, +1.0] |
+| train | R3_oracle_dip (privileged) | networkA_mlp | +1.35 [+0.16, +2.51] | -4.2 [-7.0, -1.7] |
+| train | R3_oracle_dip (privileged) | networkB_lstm | -0.51 [-1.55, +0.49] | -2.3 [-4.7, -0.3] |
+| train | R4_dip_plus_schedule | networkA_mlp | +0.59 [-0.48, +1.63] | -3.2 [-5.3, -1.2] |
+| train | R4_dip_plus_schedule | networkB_lstm | -1.27 [-2.27, -0.30] | -1.3 [-3.5, +0.5] |
+| test | R1_timed_dip | networkA_mlp | +0.45 [-1.11, +1.75] | -2.0 [-5.2, +1.0] |
+| test | R1_timed_dip | networkB_lstm | +1.59 [+0.36, +2.75] | -5.7 [-8.8, -2.7] |
+| test | R2_sensed_dip | networkA_mlp | +0.35 [-1.29, +1.73] | -2.0 [-5.3, +1.2] |
+| test | R2_sensed_dip | networkB_lstm | +1.49 [+0.26, +2.62] | -5.7 [-9.0, -2.5] |
+| test | R3_oracle_dip (privileged) | networkA_mlp | +0.49 [-1.23, +1.95] | -3.0 [-6.5, +0.3] |
+| test | R3_oracle_dip (privileged) | networkB_lstm | +1.63 [+0.33, +2.82] | -6.7 [-10.0, -3.5] |
+| test | R4_dip_plus_schedule | networkA_mlp | +0.41 [-1.23, +1.77] | -2.0 [-5.2, +1.0] |
+| test | R4_dip_plus_schedule | networkB_lstm | +1.55 [+0.30, +2.71] | -5.7 [-8.8, -2.7] |
+
+R4_dip_plus_schedule (`comparison/rules.py --r4`, Task F): R1-style K dip (K_dip=250, 50-125 ms) plus theta_d ramping from -20 to -20 deg over 40 steps and B ramping from 8 to 8 over 80 steps; tuned on seeds 2000-2099 with the same fall-rate constraint.
+
+## Hand rules vs R1
+
+Δ = rule − R1_timed_dip, same episode seeds, 95% bootstrap interval over episodes.
+
+| ground | rule | Δ return [95%] | Δ fall rate, pts [95%] |
+|---|---|---|---|
+| train | R2_sensed_dip | +0.15 [-0.15, +0.40] | +0.5 [+0.0, +1.5] |
+| train | R3_oracle_dip (privileged) | +0.94 [+0.49, +1.47] | -1.0 [-2.5, +0.0] |
+| train | R4_dip_plus_schedule | +0.18 [-0.27, +0.62] | +0.0 [-1.5, +1.5] |
+| test | R2_sensed_dip | -0.10 [-0.68, +0.37] | +0.0 [-1.5, +1.5] |
+| test | R3_oracle_dip (privileged) | +0.04 [-1.04, +0.84] | -1.0 [-3.0, +1.0] |
+| test | R4_dip_plus_schedule | -0.04 [-0.81, +0.58] | +0.0 [-2.0, +2.0] |
+
+=== 2026-11-16 15:18:37 Task F: stiffness sweep
+2026-11-16 15:18:38 sensor std used for noise (channels 0-7): 0.1005, 3.634, 40.03, 349.3, 0.002197, 0.1372, 0.3694, 253.3
+2026-11-16 15:18:39 138 cells, 130 already done, 8 to run on 8 workers
+2026-11-16 15:18:48   [1/8] B_stiff__600000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [2/8] B_stiff__1000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [3/8] B_stiff__300000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [4/8] B_stiff__140000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [5/8] B_stiff__3200__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [6/8] B_stiff__70000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [7/8] B_stiff__7000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 7 s
+2026-11-16 15:18:48   [8/8] B_stiff__22000__R4_dip_plus_schedule__B_end8_B_start8_T_B80_T_theta40_end_ms125_k_dip250_start_ms50_theta_start-20: 100 episodes in 8 s
+2026-11-16 15:18:48 Task B done: 13800 episode rows (10 s this run)
+    sweep     level           controller  mean_return  mean_return_sd  fall_rate  toe_peak_bw
+stiffness   1000.00         R1_timed_dip    84.089400             NaN   0.390000     1.362480
+stiffness   3200.00         R1_timed_dip    92.527005             NaN   0.200000     1.408193
+stiffness   7000.00         R1_timed_dip    95.004615             NaN   0.140000     1.511025
+stiffness  22000.00         R1_timed_dip    92.883697             NaN   0.090000     1.782723
+stiffness  70000.00         R1_timed_dip    78.046759             NaN   0.050000     2.205962
+stiffness 140000.00         R1_timed_dip    67.115574             NaN   0.040000     2.404785
+stiffness 300000.00         R1_timed_dip    52.869944             NaN   0.040000     2.504981
+stiffness 600000.00         R1_timed_dip    22.137401             NaN   0.030000     2.556583
+stiffness   1000.00        R2_sensed_dip    84.494995             NaN   0.380000     1.358826
+stiffness   3200.00        R2_sensed_dip    92.848177             NaN   0.190000     1.404488
+stiffness   7000.00        R2_sensed_dip    95.033941             NaN   0.140000     1.509232
+stiffness  22000.00        R2_sensed_dip    92.991293             NaN   0.090000     1.783111
+stiffness  70000.00        R2_sensed_dip    79.115779             NaN   0.050000     2.204006
+stiffness 140000.00        R2_sensed_dip    67.571672             NaN   0.040000     2.401397
+stiffness 300000.00        R2_sensed_dip    52.668191             NaN   0.040000     2.503640
+stiffness 600000.00        R2_sensed_dip    21.750079             NaN   0.030000     2.556168
+stiffness   1000.00        R3_oracle_dip    86.360000             NaN   0.330000     1.344682
+stiffness   3200.00        R3_oracle_dip    93.678922             NaN   0.180000     1.385228
+stiffness   7000.00        R3_oracle_dip    95.857401             NaN   0.120000     1.496111
+stiffness  22000.00        R3_oracle_dip    92.719979             NaN   0.090000     1.781083
+stiffness  70000.00        R3_oracle_dip    80.239149             NaN   0.050000     2.201512
+stiffness 140000.00        R3_oracle_dip    67.488491             NaN   0.050000     2.395085
+stiffness 300000.00        R3_oracle_dip    52.342624             NaN   0.050000     2.502529
+stiffness 600000.00        R3_oracle_dip    18.014830             NaN   0.060000     2.559774
+stiffness   1000.00 R4_dip_plus_schedule    83.659400             NaN   0.400000     1.373455
+stiffness   3200.00 R4_dip_plus_schedule    91.607663             NaN   0.230000     1.410069
+stiffness   7000.00 R4_dip_plus_schedule    94.649659             NaN   0.150000     1.506590
+stiffness  22000.00 R4_dip_plus_schedule    93.345397             NaN   0.080000     1.775881
+stiffness  70000.00 R4_dip_plus_schedule    78.958841             NaN   0.050000     2.209654
+stiffness 140000.00 R4_dip_plus_schedule    68.122455             NaN   0.050000     2.403583
+stiffness 300000.00 R4_dip_plus_schedule    53.509284             NaN   0.050000     2.506219
+stiffness 600000.00 R4_dip_plus_schedule    23.071427             NaN   0.030000     2.557861
+stiffness   1000.00           best_fixed    86.530000             NaN   0.320000     1.349614
+stiffness   3200.00           best_fixed    93.791441             NaN   0.180000     1.414232
+stiffness   7000.00           best_fixed    96.028708             NaN   0.110000     1.551276
+stiffness  22000.00           best_fixed    92.958018             NaN   0.080000     1.834417
+stiffness  70000.00           best_fixed    72.886349             NaN   0.060000     2.240636
+stiffness 140000.00           best_fixed    58.902020             NaN   0.050000     2.402524
+stiffness 300000.00           best_fixed    43.991976             NaN   0.050000     2.508325
+stiffness 600000.00           best_fixed    19.468664             NaN   0.020000     2.556889
+stiffness   1000.00         networkA_mlp    81.137699        2.196396   0.443333     1.348566
+stiffness   3200.00         networkA_mlp    89.517965        1.968726   0.260000     1.397412
+stiffness   7000.00         networkA_mlp    93.144875        0.545263   0.160000     1.473826
+stiffness  22000.00         networkA_mlp    92.128797        0.169796   0.106667     1.697096
+stiffness  70000.00         networkA_mlp    81.261237        1.569166   0.066667     2.069376
+stiffness 140000.00         networkA_mlp    68.388229        3.367537   0.063333     2.302286
+stiffness 300000.00         networkA_mlp    48.369417        7.943075   0.063333     2.461101
+stiffness 600000.00         networkA_mlp     1.332740       14.904155   0.053333     2.539600
+stiffness   1000.00        networkB_lstm    83.287602        1.987045   0.410000     1.349718
+stiffness   3200.00        networkB_lstm    91.623465        1.360792   0.230000     1.391089
+stiffness   7000.00        networkB_lstm    94.889942        0.759601   0.140000     1.463227
+stiffness  22000.00        networkB_lstm    94.632529        0.496194   0.090000     1.657411
+stiffness  70000.00        networkB_lstm    82.933048        3.158881   0.066667     2.030192
+stiffness 140000.00        networkB_lstm    72.297122        5.088918   0.053333     2.238568
+stiffness 300000.00        networkB_lstm    54.971095        5.289463   0.053333     2.395361
+stiffness 600000.00        networkB_lstm    15.350613        7.430694   0.030000     2.509062
+stiffness   1000.00            reference    85.860000             NaN   0.350000     1.340676
+stiffness   3200.00            reference    93.419799             NaN   0.190000     1.374090
+stiffness   7000.00            reference    95.906747             NaN   0.120000     1.458979
+stiffness  22000.00            reference    93.113774             NaN   0.090000     1.720824
+stiffness  70000.00            reference    73.026592             NaN   0.060000     2.146755
+stiffness 140000.00            reference    58.692411             NaN   0.050000     2.368071
+stiffness 300000.00            reference    40.418073             NaN   0.040000     2.483560
+stiffness 600000.00            reference     2.639629             NaN   0.020000     2.549301
+    noise      0.00         networkA_mlp    89.294131        0.748209   0.106667     1.728611
+    noise      0.05         networkA_mlp    89.350408        1.153828   0.103333     1.728745
+    noise      0.10         networkA_mlp    89.373285        0.996530   0.103333     1.726155
+    noise      0.20         networkA_mlp    89.122534        0.534306   0.106667     1.732274
+    noise      0.50         networkA_mlp    87.857841        0.668715   0.116667     1.732361
+    noise      1.00         networkA_mlp    84.835317        1.580802   0.126667     1.734834
+    noise      2.00         networkA_mlp    78.047544        0.362239   0.173333     1.744915
+    noise      0.00        networkB_lstm    91.125192        1.167853   0.090000     1.711206
+    noise      0.05        networkB_lstm    91.052223        0.962331   0.093333     1.708328
+    noise      0.10        networkB_lstm    90.933091        0.816363   0.090000     1.712731
+    noise      0.20        networkB_lstm    90.927775        0.962080   0.093333     1.715852
+    noise      0.50        networkB_lstm    90.622857        0.633274   0.096667     1.718452
+    noise      1.00        networkB_lstm    89.505733        0.349484   0.106667     1.736017
+    noise      2.00        networkB_lstm    87.005519        0.241518   0.116667     1.757397
+=== 2026-11-16 15:18:50 Task G: figures and cost table
+# Cost table
+
+Drafted with Claude Code (Anthropic), for the AI declaration. Generated by `python -m comparison.figures`; numbers read from the repo (trained_networks/*/config.json, curve.csv, model.zip; comparison/results/grid.csv, tuning_rules.csv, tuning_r4.csv, log.txt). "n/a" = not recorded in the repo.
+
+| controller | parameters | training / tuning data | wall-clock | sensors used | uses contact timing | interpretable |
+|---|---|---|---|---|---|---|
+| fixed ref. (-20, 500, 10) | 3 (θ, K, B) | n/a (chosen from an earlier 45-action grid whose output was not saved; P3_findings §1) | n/a | none | no | yes |
+| best fixed (tuned) (-20, 500, 8) | 3 (θ, K, B) | 80 cells × 100 = 8,000 tuning episodes | 77 s wall (14 workers) | none | no | yes |
+| R1 timed dip | 3 (K_dip, start, end) | 209 cells, 20,900 tuning episodes | 3.3 min wall (14 workers) | none (time since contact only) | yes | yes |
+| R2 sensed dip | 3 (a, b, m) + R1 window | 147 cells, 14,700 (+ R1's for the window) | 2.5 min wall (14 workers) | vertical GRF (ch 3) | yes | yes |
+| R3 oracle dip (privileged) | 2 (a, b) + R1 window | 49 cells, 4,900 (+ R1's for the window) | 0.8 min wall (14 workers) | none; TRUE ground k0 (privileged) | yes | yes |
+| R4 dip + schedule | 8 (θ_start, T_θ, B_start, B_end, T_B, K_dip, start, end) | 369 cells, 36,900 (+ R1's for the initial dip) | 5.8 min wall (14 workers) | none (time since contact only) | yes | yes |
+| MLP (A) | 221,575 weights (110,854 actor + 110,721 critic) | 300,000 env steps per seed × 3 seeds; episodes n/a (not logged) | 6.5 / 6.5 / 7.4 min per seed (curve.csv, incl. curve evals) | all 11 channels × 10 frames (8 sensors + previous action) | implicit only (no clock input) | no |
+| LSTM (B) | 75,911 weights (38,406 actor + 37,505 critic) | 300,000 env steps per seed × 3 seeds; episodes n/a (not logged) | 18.0 / 17.7 / 15.1 min per seed (curve.csv, incl. curve evals) | all 11 channels × 1 frame (8 sensors + previous action) | implicit only (no clock input) | no |
+
+Notes: tuning episodes are on seeds 2000-2099 (training ground), 100 per cell; rule wall-clock times are from log.txt timestamps on a 16-CPU machine with 14 worker processes at nice 10. Network times are the `minutes` column of each run's curve.csv at its last row (single process, 8 vectorised envs), which includes the periodic 50-episode curve evaluations. Episodes start at heel contact, so rules use time since episode start as contact timing; the networks get no clock input (the MLP's 10-frame history starts with zero padding and the LSTM resets at contact, so timing is only implicit).
+
+=== 2026-11-16 15:18:54 run_fg done

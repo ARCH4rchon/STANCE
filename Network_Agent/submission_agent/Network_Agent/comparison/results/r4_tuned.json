@@ -1,0 +1,23 @@
+{
+  "rule": {
+    "type": "schedule",
+    "theta_start": -20.0,
+    "T_theta": 40.0,
+    "B_start": 8.0,
+    "B_end": 8.0,
+    "T_B": 80.0,
+    "k_dip": 250.0,
+    "start_ms": 50.0,
+    "end_ms": 125.0
+  },
+  "controller": "R4_dip_plus_schedule",
+  "tuning_seeds": [
+    2000,
+    2099
+  ],
+  "stage1_best_return": 90.49059800000003,
+  "chosen_tuning_return": 90.58764500000001,
+  "chosen_tuning_fall_rate": 0.05,
+  "reference_fall_rate": 0.06,
+  "r1_dip_kept": false
+}

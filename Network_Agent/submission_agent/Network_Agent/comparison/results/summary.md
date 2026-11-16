@@ -14,6 +14,7 @@ Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. F
 | R1_timed_dip | - | 89.42 | 8.5 | 1.789 | +1.52 [+0.36, +2.78] | +1.0 [-1.5, +3.5] |
 | R2_sensed_dip | - | 89.57 | 9.0 | 1.787 | +1.67 [+0.45, +3.00] | +1.5 [-1.0, +4.0] |
 | R3_oracle_dip (privileged) | - | 90.36 | 7.5 | 1.782 | +2.46 [+1.22, +3.81] | +0.0 [-2.0, +2.0] |
+| R4_dip_plus_schedule | - | 89.60 | 8.5 | 1.785 | +1.70 [+0.36, +3.12] | +1.0 [-1.5, +4.0] |
 | networkA_mlp | 0 | 88.83 | 8.5 | 1.751 | +0.93 [-0.93, +2.94] | +1.0 [-1.5, +4.0] |
 | networkA_mlp | 1 | 89.57 | 13.0 | 1.713 | +1.67 [-0.47, +4.04] | +5.5 [+2.0, +9.0] |
 | networkA_mlp | 2 | 88.62 | 13.5 | 1.695 | +0.72 [-1.45, +3.06] | +6.0 [+2.5, +9.5] |
@@ -33,6 +34,7 @@ Episodes per controller (per model seed): 200, seeds 1000-1199, deterministic. F
 | R1_timed_dip | - | 78.70 | 50.0 | 0.704 | +0.13 [-0.82, +1.26] | +0.5 [-2.0, +3.0] |
 | R2_sensed_dip | - | 78.60 | 50.0 | 0.704 | +0.03 [-1.01, +1.23] | +0.5 [-2.0, +3.0] |
 | R3_oracle_dip (privileged) | - | 78.74 | 49.0 | 0.704 | +0.17 [-1.16, +1.50] | -0.5 [-3.0, +2.0] |
+| R4_dip_plus_schedule | - | 78.66 | 50.0 | 0.704 | +0.09 [-0.65, +1.02] | +0.5 [-1.5, +2.5] |
 | networkA_mlp | 0 | 79.31 | 49.0 | 0.704 | +0.74 [-0.79, +2.59] | -0.5 [-4.0, +3.0] |
 | networkA_mlp | 1 | 78.37 | 52.0 | 0.704 | -0.20 [-1.81, +1.71] | +2.5 [-1.0, +6.0] |
 | networkA_mlp | 2 | 77.09 | 55.0 | 0.704 | -1.48 [-3.26, +0.52] | +5.5 [+1.5, +10.0] |
@@ -59,9 +61,28 @@ Hand rules (`comparison/rules.py`): theta_d -20 deg and B 8 fixed, K 500 outside
 | train | R2_sensed_dip | networkB_lstm | -1.30 [-2.32, -0.36] | -0.8 [-2.8, +1.0] |
 | train | R3_oracle_dip (privileged) | networkA_mlp | +1.35 [+0.16, +2.51] | -4.2 [-7.0, -1.7] |
 | train | R3_oracle_dip (privileged) | networkB_lstm | -0.51 [-1.55, +0.49] | -2.3 [-4.7, -0.3] |
+| train | R4_dip_plus_schedule | networkA_mlp | +0.59 [-0.48, +1.63] | -3.2 [-5.3, -1.2] |
+| train | R4_dip_plus_schedule | networkB_lstm | -1.27 [-2.27, -0.30] | -1.3 [-3.5, +0.5] |
 | test | R1_timed_dip | networkA_mlp | +0.45 [-1.11, +1.75] | -2.0 [-5.2, +1.0] |
 | test | R1_timed_dip | networkB_lstm | +1.59 [+0.36, +2.75] | -5.7 [-8.8, -2.7] |
 | test | R2_sensed_dip | networkA_mlp | +0.35 [-1.29, +1.73] | -2.0 [-5.3, +1.2] |
 | test | R2_sensed_dip | networkB_lstm | +1.49 [+0.26, +2.62] | -5.7 [-9.0, -2.5] |
 | test | R3_oracle_dip (privileged) | networkA_mlp | +0.49 [-1.23, +1.95] | -3.0 [-6.5, +0.3] |
 | test | R3_oracle_dip (privileged) | networkB_lstm | +1.63 [+0.33, +2.82] | -6.7 [-10.0, -3.5] |
+| test | R4_dip_plus_schedule | networkA_mlp | +0.41 [-1.23, +1.77] | -2.0 [-5.2, +1.0] |
+| test | R4_dip_plus_schedule | networkB_lstm | +1.55 [+0.30, +2.71] | -5.7 [-8.8, -2.7] |
+
+R4_dip_plus_schedule (`comparison/rules.py --r4`, Task F): R1-style K dip (K_dip=250, 50-125 ms), theta_d constant at -20 deg (tuned theta_start = -20, so no ramp), B constant at 8 (tuned B_start = B_end, so no ramp); tuned on seeds 2000-2099 with the same fall-rate constraint.
+
+## Hand rules vs R1
+
+Δ = rule − R1_timed_dip, same episode seeds, 95% bootstrap interval over episodes.
+
+| ground | rule | Δ return [95%] | Δ fall rate, pts [95%] |
+|---|---|---|---|
+| train | R2_sensed_dip | +0.15 [-0.15, +0.40] | +0.5 [+0.0, +1.5] |
+| train | R3_oracle_dip (privileged) | +0.94 [+0.49, +1.47] | -1.0 [-2.5, +0.0] |
+| train | R4_dip_plus_schedule | +0.18 [-0.27, +0.62] | +0.0 [-1.5, +1.5] |
+| test | R2_sensed_dip | -0.10 [-0.68, +0.37] | +0.0 [-1.5, +1.5] |
+| test | R3_oracle_dip (privileged) | +0.04 [-1.04, +0.84] | -1.0 [-3.0, +1.0] |
+| test | R4_dip_plus_schedule | -0.04 [-0.81, +0.58] | +0.0 [-2.0, +2.0] |

@@ -440,3 +440,128 @@ Stiffness sweep, mean return (fall %):
 - R2 and R3 are restricted to R1's window by design ("same window"). A ground-dependent window is untested.
 - R2 was not added to the sensor-noise sweep (not requested), although it reads one sensor.
 - R3 is privileged: it reads the true k0 from the env and is an upper bound, not a controller.
+
+---
+
+# Tasks F-G: richer hand schedule (R4) and report figures (fourth round)
+
+Nothing outside `comparison/` was edited, and nothing was trained. Earlier results are untouched:
+- `episodes_rules.csv`, `rules_tuned.json` and `tuning_rules.csv` are byte-identical.
+- Before/after diffs of `summary.md`, `summary.csv`, `summary_rules_vs_networks.csv` and `robustness.csv` show only added lines.
+- `robustness_episodes.csv` keeps its earlier content as an exact prefix.
+
+**New files:**
+- `figures.py` and `run_fg.sh`.
+- In `results/`: `tuning_r4.csv`, `r4_marginals.csv`, `r4_tuned.json`, `episodes_r4.csv`, `summary_rules_vs_r1.csv`, `fig_main`, `fig_sweep` and `fig_kdip` (each as `.png` and `.pdf`), and `cost_table.md`.
+
+**Changed files:**
+- `rules.py`: R4, plus the `--r4` flag.
+- `stats.py`: R4 rows and the "Hand rules vs R1" table.
+- `robustness.py`: R4 dashed in the sweep.
+
+## Reproduce
+
+```bash
+python -m comparison.rules --r4 --episodes 20 --eval-episodes 20 --out comparison/results/smoke  # smoke
+python -m comparison.figures --out comparison/results/smoke
+bash comparison/run_fg.sh "$(conda run -n stance which python)"   # full: R4 tune+eval -> stats -> sweep -> figures
+```
+
+## Run times
+
+16 CPUs, 14 workers, nice 10. Total for `run_fg.sh`: 6 min 21 s.
+
+| step | cells × episodes | wall time |
+|---|---|---|
+| R4 stage 1 (schedule grid) | 324 × 100 | 5 min 3 s |
+| R4 stage 2 (dip re-check) | 45 × 100 | 47 s |
+| evaluation | 2 × 200 | 11 s |
+| stiffness sweep | 8 new cells × 100 | 10 s |
+| figures and cost table | | 4 s |
+
+## Task F: R4 dip_plus_schedule
+
+**Form.** K follows the R1 dip. In addition:
+- θ_d ramps linearly from θ_start {−20, −17, −14} to −20 over T_θ ∈ {20, 40, 60, 80} steps.
+- B ramps linearly from B_start {4, 6, 8} to B_end {8, 9, 10} over T_B ∈ {20, 40, 80} steps.
+
+**Tuning.** Tuned on seeds 2000-2099 (training ground) with the same constraint as before: fall rate ≤ the reference's 6%.
+- **Stage 1:** the 324-cell schedule grid, with R1's dip (K_dip 250, 50-100 ms).
+- **Stage 2:** a 45-cell re-check of K_dip {150-350} × start {25, 50, 75} × end {100, 125, 150} with the best schedule. The grid always includes R1's own values, so stage 2 can only keep or improve stage 1. A built-in check enforces this.
+
+**Result: the best schedule is no schedule.**
+- The tuning picked θ_start = −20 and B_start = B_end = 8, which is the constant θ and B of R1.
+- 12 grid cells are identical to R1, because T_θ and T_B do nothing when there is no ramp. These cells tie at the top with 90.49, exactly R1's tuning return.
+- Stage 2 lengthened the window to 50-125 ms (K_dip 250), giving 90.59. That +0.10 is well within the noise.
+- So R4 is R1 with a 25 ms longer dip.
+
+Grid marginals (`r4_marginals.csv`: mean of the cell returns at each value, over the 324 stage-1 cells):
+
+| parameter | values → mean return | range | note |
+|---|---|---|---|
+| **θ_start** | −20: 90.02, −17: 89.71, −14: 89.42 | **0.60** | the only clear effect: a less plantarflexed start costs return and raises falls (5.4% → 7.1% → 8.3%) |
+| B_start | 4: 89.46, 6: 89.82, 8: 89.86 | 0.40 | low initial damping hurts slightly |
+| B_end | 8: 89.81, 9: 89.69, 10: 89.64 | 0.17 | negligible |
+| T_θ | 20-80: 89.62-89.79 | 0.16 | negligible |
+| T_B | 20-80: 89.68-89.76 | 0.08 | negligible |
+
+The best cell for every T_θ value is the same 90.49 (the no-ramp tie). **θ_start matters most, and its best value is "no ramp".**
+
+Evaluation on seeds 1000-1199, paired Δ [95% bootstrap]:
+
+| comparison | train Δ return | train Δ fall, pts | test Δ return | test Δ fall, pts |
+|---|---|---|---|---|
+| R4 − reference | **+1.70 [+0.36, +3.12]** | +1.0 [−1.5, +4.0] | +0.09 [−0.65, +1.02] | +0.5 |
+| R4 − R1 | +0.18 [−0.27, +0.62] | +0.0 [−1.5, +1.5] | −0.04 [−0.81, +0.58] | +0.0 |
+| R4 − LSTM | **−1.27 [−2.27, −0.30]** | −1.3 [−3.5, +0.5] | **+1.55 [+0.30, +2.71]** | **−5.7 [−8.8, −2.7]** |
+| R4 − MLP | +0.59 [−0.48, +1.63] | **−3.2 [−5.3, −1.2]** | +0.41 | −2.0 |
+
+Hard ground in the stiffness sweep (mean return, 100 episodes):
+
+| k0 | reference | R1 | R4 | LSTM | share of the R1→LSTM gap closed by R4 |
+|---|---|---|---|---|---|
+| 7e4 | 73.0 | 78.0 | 79.0 | 82.9 | ~19% |
+| 1.4e5 | 58.7 | 67.1 | 68.1 | 72.3 | ~19% |
+
+**Does R4 close the gap to the LSTM on hard ground (7e4-1.4e5)? No.**
+- It recovers about 1 of the 4-5 return points that separate R1 from the LSTM, and even that 1 point comes from the longer dip window, not the θ/B schedule.
+- On the training ground R4 is still significantly below the LSTM (−1.27).
+- R4 keeps the rules' advantages: fewer falls than the networks, and on the test ground it beats the LSTM (+1.55 return, −5.7 pts falls).
+
+**Which parameter matters most?** θ_start, and it is best at −20, meaning no ramp. The B ramp and both ramp durations barely matter (range 0.08-0.40 return). Linear θ/B schedules of this kind are not where the LSTM's remaining advantage comes from.
+
+**What else could explain the gap.** `fig_kdip` shows how the networks' K schedule differs from R1's:
+- **Early K.** Both networks start at about 300 at contact and climb towards 500 over the first 20-50 ms. R1 starts at 500.
+- **Ground-dependent dip.** The mid-stance dip appears only on hard ground, where it reaches about 350 (LSTM) or 280 (MLP). R1 dips to 250 on every ground.
+- **Recovery.** The networks recover gradually, not as a step.
+
+R3 (oracle depth) and R4 (θ/B schedules) together close little of the gap. The remaining LSTM advantage is therefore more likely in the shape and timing of K within an episode (the early low K, and the smooth recovery) and in when the dip happens on each ground, than in the depth of the dip or the θ/B schedules. R1's tuning did include windows starting at 0 ms, but only as a constant K_dip, which cannot express "start low, then a ground-dependent dip".
+
+## Task G: report figures and cost table (`figures.py`)
+
+**Shared style.** Every figure is half-page width (3.5 in), with 7 pt text and Okabe-Ito colours. Each controller has the same colour and marker in every figure. Line style shows the family: fixed actions dotted, hand rules dashed, networks solid. Network curves are the mean over 3 seeds, with a ±1 sd band for the seed spread. The figures are saved as PDF and PNG.
+
+1. **`fig_main`:** paired Δ return (top) and Δ fall rate (bottom) vs the fixed reference, for the training ground (left) and test ground (right).
+   - Bars with 95% bootstrap CIs, for: reference (marker at 0), best_fixed_tuned, R1, R3 (hatched, labelled privileged), MLP and LSTM.
+   - The network bars are seed-averaged per episode, and dots show the single seeds.
+   - Source: `summary.csv`.
+2. **`fig_sweep`:** return vs ground stiffness for the reference, R1, R3, R4, MLP and LSTM.
+   - The training range is shaded and marked with a bracket on the x axis.
+   - The best-fixed lines are omitted.
+   - Source: `robustness.csv`.
+3. **`fig_kdip`:** mean K over the first 300 ms (steps 0-60) in the softest (5-11 kN/m) and hardest (47-100 kN/m) training-stiffness bins.
+   - MLP and LSTM as mean ± seed sd, with R1's K profile overlaid as a step.
+   - Source: `actions.csv`.
+4. **`cost_table.md`:** every number is read from the repo, as follows.
+
+   | quantity | source |
+   |---|---|
+   | network weights | counted from `model.zip`: MLP 221,575 (110,854 actor); LSTM 75,911 (38,406 actor) |
+   | training steps | `config.json`: 300,000 env steps per seed |
+   | network training time | last `minutes` value in `curve.csv`, which ends at 300,000 steps for every run: MLP 6.5/6.5/7.4 min, LSTM 18.0/17.7/15.1 min, including the periodic curve evaluations |
+   | tuning episodes | grid and tuning CSVs |
+   | rule tuning times | `log.txt` timestamps |
+
+   Cells marked "n/a":
+   - The reference's tuning data and time: its grid was not saved.
+   - The networks' training episode counts: only env steps are logged.

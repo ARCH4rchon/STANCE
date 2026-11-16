@@ -46,7 +46,7 @@ COLUMNS = ["sweep", "level"] + EP_COLUMNS
 LABELS = {"reference": "fixed (-20, 500, 10)", "best_fixed": "fixed (-20, 500, 6)",
           "networkA_mlp": "MLP (A)", "networkB_lstm": "LSTM (B)",
           "R1_timed_dip": "R1 timed dip", "R2_sensed_dip": "R2 sensed dip",
-          "R3_oracle_dip": "R3 oracle dip (privileged)"}
+          "R3_oracle_dip": "R3 oracle dip (privileged)", "R4_dip_plus_schedule": "R4 dip + schedule"}
 # Okabe-Ito colours (colour-blind safe), distinct markers. Line style by family:
 # fixed actions dotted, hand rules dashed, networks solid.
 STYLE = {"reference": dict(color="#000000", marker="s", ls=":"),
@@ -54,9 +54,10 @@ STYLE = {"reference": dict(color="#000000", marker="s", ls=":"),
          "R1_timed_dip": dict(color="#009E73", marker="v", ls="--"),
          "R2_sensed_dip": dict(color="#CC79A7", marker="P", ls="--"),
          "R3_oracle_dip": dict(color="#56B4E9", marker="X", ls="--"),
+         "R4_dip_plus_schedule": dict(color="#666666", marker="*", ls="--"),
          "networkA_mlp": dict(color="#0072B2", marker="o", ls="-"),
          "networkB_lstm": dict(color="#D55E00", marker="D", ls="-")}
-RULE_NAMES = ("R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip")
+RULE_NAMES = ("R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip", "R4_dip_plus_schedule")
 
 
 def build_jobs(out, seeds, std):

@@ -13,6 +13,11 @@ All three hold theta_d = -20 deg and B = 8 N.m.s/rad, and K = 500 N.m/rad outsid
   R3 oracle_dip  K_dip = a + b (log10 k0 - LK0), k0 = the TRUE ground stiffness read from the env
                  at reset. PRIVILEGED (not available to a real controller): an upper bound.
                  Window taken from R1.                         params: a, b
+  R4 dip_plus_schedule (Task F)  R1's K dip, plus theta_d ramping linearly from theta_start to
+                 -20 over T_theta steps and B ramping from B_start to B_end over T_B steps.
+                 params: theta_start, T_theta, B_start, B_end, T_B (+ K_dip, window re-checked)
+                 `python -m comparison.rules --r4` -> tuning_r4.csv, r4_marginals.csv,
+                 r4_tuned.json, episodes_r4.csv.
 Same interface as common.policies.FixedPolicy: reset(), act(obs) -> normalised action.
 
 Tuning (training ground, tuning seeds 2000-2099 only), by grid, constraint: fall rate <= the
@@ -41,7 +46,8 @@ STEP_MS, DT = 5.0, 0.005
 GRF = 3
 Z0 = 5.1                      # log10 N/s: median of the feature on tuning seeds (sensing.py, reference)
 LK0 = math.log10(2.236e4)     # log-centre of the training k0 range (5e3-1e5)
-NAMES = {"timed": "R1_timed_dip", "sensed": "R2_sensed_dip", "oracle": "R3_oracle_dip"}
+NAMES = {"timed": "R1_timed_dip", "sensed": "R2_sensed_dip", "oracle": "R3_oracle_dip",
+         "schedule": "R4_dip_plus_schedule"}
 TUNE_SEEDS = list(range(2000, 2100))
 
 R1_GRID = dict(k_dip=[25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500],
@@ -51,27 +57,39 @@ R3_GRID = dict(a=[50, 100, 150, 200, 250, 300, 400], b=[-300, -200, -100, -50, 0
 
 
 class DipRule:
-    def __init__(self, env, type, start_ms, end_ms, k_dip=None, a=None, b=None, m=3):
+    def __init__(self, env, type, start_ms, end_ms, k_dip=None, a=None, b=None, m=3,
+                 theta_start=THETA, T_theta=1, B_start=B_FIX, B_end=B_FIX, T_B=1):
         self.env, self.type = env, type
         self.start_ms, self.end_ms = float(start_ms), float(end_ms)
         self.k_dip, self.a, self.b, self.m = k_dip, a, b, int(m)
+        # R4 schedule (defaults reproduce the constant theta_d = -20, B = 8 of R1-R3)
+        self.theta_start, self.T_theta = float(theta_start), max(int(T_theta), 1)
+        self.B_start, self.B_end, self.T_B = float(B_start), float(B_end), max(int(T_B), 1)
         self._cache = {}
         self.reset()
+
+    def theta_now(self):
+        f = min(self.t / self.T_theta, 1.0)
+        return self.theta_start + (THETA - self.theta_start) * f
+
+    def b_now(self):
+        f = min(self.t / self.T_B, 1.0)
+        return self.B_start + (self.B_end - self.B_start) * f
 
     def reset(self):
         self.t, self.prev_grf, self.rate_max = 0, None, -math.inf
         self.k0 = float(self.env.unwrapped.ground.k0[0]) if self.type == "oracle" else None
 
     def _norm(self, K):
-        K = float(np.clip(K, K_MIN, K_HIGH))
-        if K not in self._cache:
-            self._cache[K] = to_norm_action(self.env, THETA, K, B_FIX)
-        return self._cache[K]
+        key = (self.theta_now(), float(np.clip(K, K_MIN, K_HIGH)), self.b_now())
+        if key not in self._cache:
+            self._cache[key] = to_norm_action(self.env, *key)
+        return self._cache[key]
 
     def k_now(self):
         if not (self.start_ms <= self.t * STEP_MS < self.end_ms):
             return K_HIGH
-        if self.type == "timed":
+        if self.type in ("timed", "schedule"):
             return self.k_dip
         if self.type == "sensed":
             z = math.log10(self.rate_max) if self.rate_max > 0 else Z0
@@ -101,7 +119,11 @@ def tuned_controllers(out=RESULTS):
     if not p.exists():
         return []
     t = json.loads(p.read_text())
-    return [rule_ctrl(NAMES[k], t[k]["rule"]) for k in ("timed", "sensed", "oracle")]
+    out_ = [rule_ctrl(NAMES[k], t[k]["rule"]) for k in ("timed", "sensed", "oracle")]
+    p4 = Path(out) / "r4_tuned.json"
+    if p4.exists():
+        out_.append(rule_ctrl(NAMES["schedule"], json.loads(p4.read_text())["rule"]))
+    return out_
 
 
 # ---------------------------------------------------------------- tuning
@@ -185,11 +207,79 @@ def tune(out, seeds, workers):
     return res
 
 
-def evaluate(out, seeds, workers):
-    jobs = [_job(out, c, g, seeds, "R_eval") for g in ("train", "test") for c in tuned_controllers(out)]
+def evaluate(out, seeds, workers, names=("R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip"),
+             fname="episodes_rules.csv"):
+    ctrls = [c for c in tuned_controllers(out) if c["controller"] in names]
+    jobs = [_job(out, c, g, seeds, "R_eval") for g in ("train", "test") for c in ctrls]
     dt = run_jobs(jobs, workers)
-    rows = merge_cells(jobs, Path(out) / "episodes_rules.csv", EP_COLUMNS)
-    log(f"rules evaluated: {len(rows)} rows -> episodes_rules.csv ({dt:.0f} s)")
+    rows = merge_cells(jobs, Path(out) / fname, EP_COLUMNS)
+    log(f"{', '.join(names)} evaluated: {len(rows)} rows -> {fname} ({dt:.0f} s)")
+
+
+# ---------------------------------------------------------------- R4 (Task F)
+# R4 dip_plus_schedule: R1's K dip, plus theta_d ramping linearly from theta_start to -20 over
+# T_theta steps and B ramping linearly from B_start to B_end over T_B steps.
+# Stage 1: schedule grid with R1's K_dip and window. Stage 2: with the best schedule, a small
+# K_dip x window re-check (it contains R1's values, so it can only keep or improve stage 1).
+R4_GRID = dict(theta_start=[-20, -17, -14], T_theta=[20, 40, 60, 80],
+               B_start=[4, 6, 8], B_end=[8, 9, 10], T_B=[20, 40, 80])
+R4_DIP_GRID = dict(k_dip=[150, 200, 250, 300, 350], start_ms=[25, 50, 75], end_ms=[100, 125, 150])
+
+
+def marginals(df, grid):
+    rows = []
+    for p, vals in grid.items():
+        for v in vals:
+            d = df[df[p] == v]
+            rows.append({"parameter": p, "value": v, "n_cells": len(d),
+                         "mean_of_cell_returns": d.mean_return.mean(), "best_cell_return": d.mean_return.max(),
+                         "mean_fall_rate": d.fall_rate.mean(), "share_eligible": d.eligible.mean()})
+    m = pd.DataFrame(rows)
+    spread = m.groupby("parameter").mean_of_cell_returns.agg(lambda s: s.max() - s.min())
+    m["parameter_range_of_means"] = m.parameter.map(spread)
+    return m.sort_values(["parameter_range_of_means", "parameter", "value"], ascending=[False, True, True])
+
+
+def tune_r4(out, seeds, workers):
+    t = json.loads((Path(out) / "rules_tuned.json").read_text())
+    r1 = t["timed"]["rule"]
+    ref_fall = t["tuning"]["reference_fall_rate"]
+    base = {"type": "schedule", "k_dip": r1["k_dip"], "start_ms": r1["start_ms"], "end_ms": r1["end_ms"]}
+    c1 = [rule_ctrl(NAMES["schedule"], {**base, **dict(zip(R4_GRID, v))})
+          for v in itertools.product(*R4_GRID.values())]
+    j1 = [_job(out, c, "train", seeds, "R_tune") for c in c1]
+    run_jobs(j1, workers)
+    d1, b1 = _pick(_score(j1, seeds), ref_fall)
+    d1["stage"] = 1
+    sched = {k: float(b1[k]) for k in R4_GRID}
+    log(f"R4 stage 1 best schedule: {sched} return {b1.mean_return:.2f} fall {100 * b1.fall_rate:.1f}%")
+    m = marginals(d1, R4_GRID)
+    m.to_csv(Path(out) / "r4_marginals.csv", index=False, float_format="%.4g")
+    print(m.to_string(index=False))
+
+    # R1's own values are always in the stage-2 grid, so stage 2 contains the stage-1 winner.
+    dip_grid = {k: sorted(set(v) | {r1[k]}) for k, v in R4_DIP_GRID.items()}
+    c2 = [rule_ctrl(NAMES["schedule"], {"type": "schedule", **sched, **dict(zip(dip_grid, v))})
+          for v in itertools.product(*dip_grid.values()) if v[2] > v[1]]
+    j2 = [_job(out, c, "train", seeds, "R_tune") for c in c2]
+    run_jobs(j2, workers)
+    d2, b2 = _pick(_score(j2, seeds), ref_fall)
+    d2["stage"] = 2
+    rule = {"type": "schedule", **sched, **{k: float(b2[k]) for k in R4_DIP_GRID}}
+    assert b2.mean_return >= b1.mean_return - 1e-9, "stage 2 must contain the stage-1 winner"
+    log(f"R4 chosen: {rule} return {b2.mean_return:.2f} fall {100 * b2.fall_rate:.1f}% "
+        f"(R1 dip kept: {all(rule[k] == r1[k] for k in R4_DIP_GRID)})")
+    log_df = pd.concat([d1, d2], ignore_index=True)
+    log_df["reference_fall_rate"] = ref_fall
+    cols = ["stage", "rule", "theta_start", "T_theta", "B_start", "B_end", "T_B", "k_dip", "start_ms",
+            "end_ms", "n_episodes", "mean_return", "fall_rate", "toe_peak_bw", "eligible", "chosen",
+            "reference_fall_rate"]
+    log_df.reindex(columns=cols).to_csv(Path(out) / "tuning_r4.csv", index=False, float_format="%.5g")
+    (Path(out) / "r4_tuned.json").write_text(json.dumps(
+        {"rule": rule, "controller": NAMES["schedule"], "tuning_seeds": [seeds[0], seeds[-1]],
+         "stage1_best_return": float(b1.mean_return), "chosen_tuning_return": float(b2.mean_return),
+         "chosen_tuning_fall_rate": float(b2.fall_rate), "reference_fall_rate": ref_fall,
+         "r1_dip_kept": all(rule[k] == r1[k] for k in R4_DIP_GRID)}, indent=2))
 
 
 def main():
@@ -198,7 +288,12 @@ def main():
     p.add_argument("--eval-episodes", type=int, default=200)
     p.add_argument("--out", default=str(RESULTS))
     p.add_argument("--workers", type=int, default=default_workers())
+    p.add_argument("--r4", action="store_true", help="Task F: tune and evaluate R4 only")
     a = p.parse_args()
+    if a.r4:
+        tune_r4(a.out, TUNE_SEEDS[: a.episodes], a.workers)
+        evaluate(a.out, eval_seeds(a.eval_episodes), a.workers, ("R4_dip_plus_schedule",), "episodes_r4.csv")
+        return
     tune(a.out, TUNE_SEEDS[: a.episodes], a.workers)
     evaluate(a.out, eval_seeds(a.eval_episodes), a.workers)
 
