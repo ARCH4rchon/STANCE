@@ -64,6 +64,9 @@ def discover_controllers():
 
 
 def ctrl_label(c):
+    if c["kind"] == "rule":    # include the parameters, so a re-tuned rule never reuses old cells
+        r = c["rule"]
+        return c["controller"] + "__" + "_".join(f"{k}{r[k]:g}" for k in sorted(r) if k != "type")
     return c["controller"] if c["kind"] == "fixed" else f"{c['controller']}_s{c['model_seed']}"
 
 
@@ -207,6 +210,10 @@ def run_cell(ctrl, ground, seeds, k0=None, noise=0.0, std=None):
             inner.append(lambda e: SensorNoise(e, noise, std))
         env = StepRecorder(make_env(ground, inner + list(wrappers)))
         policy = net.POLICY(model, vn)
+    elif ctrl["kind"] == "rule":                       # hand-written rules (comparison/rules.py)
+        from comparison.rules import make_rule
+        env = StepRecorder(make_env(ground, inner))
+        policy = make_rule(ctrl, env)
     else:
         from common.policies import FixedPolicy
         env = StepRecorder(make_env(ground, inner))

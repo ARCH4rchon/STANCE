@@ -44,17 +44,27 @@ TRAIN_K = (5e3, 1e5)
 TEST_K = [(2e3, 5e3), (1e5, 2e5)]
 COLUMNS = ["sweep", "level"] + EP_COLUMNS
 LABELS = {"reference": "fixed (-20, 500, 10)", "best_fixed": "fixed (-20, 500, 6)",
-          "networkA_mlp": "MLP (A)", "networkB_lstm": "LSTM (B)"}
-# Okabe-Ito colours (colour-blind safe), plus distinct markers and line styles.
-STYLE = {"reference": dict(color="#000000", marker="s", ls="--"),
+          "networkA_mlp": "MLP (A)", "networkB_lstm": "LSTM (B)",
+          "R1_timed_dip": "R1 timed dip", "R2_sensed_dip": "R2 sensed dip",
+          "R3_oracle_dip": "R3 oracle dip (privileged)"}
+# Okabe-Ito colours (colour-blind safe), distinct markers. Line style by family:
+# fixed actions dotted, hand rules dashed, networks solid.
+STYLE = {"reference": dict(color="#000000", marker="s", ls=":"),
          "best_fixed": dict(color="#E69F00", marker="^", ls=":"),
+         "R1_timed_dip": dict(color="#009E73", marker="v", ls="--"),
+         "R2_sensed_dip": dict(color="#CC79A7", marker="P", ls="--"),
+         "R3_oracle_dip": dict(color="#56B4E9", marker="X", ls="--"),
          "networkA_mlp": dict(color="#0072B2", marker="o", ls="-"),
-         "networkB_lstm": dict(color="#D55E00", marker="D", ls="-.")}
+         "networkB_lstm": dict(color="#D55E00", marker="D", ls="-")}
+RULE_NAMES = ("R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip")
 
 
 def build_jobs(out, seeds, std):
+    from comparison.rules import tuned_controllers
     jobs = []
-    for c in discover_controllers():
+    # Hand rules (if tuned) join the stiffness sweep only; their jobs come last so the merged
+    # episode file keeps the earlier rows first and unchanged.
+    for c in discover_controllers() + tuned_controllers(out):
         for k in K_LEVELS:
             cid = f"B_stiff__{k:g}__{ctrl_label(c)}"
             jobs.append({"id": cid, "ctrl": c, "ground": "train", "seeds": seeds, "k0": k,
@@ -80,7 +90,8 @@ def aggregate(df):
                    fall_rate=("fell", "mean"), toe_peak_bw=("toe_peak_bw", "mean"),
                    impact_sum=("impact_sum", "mean"))
               .reset_index())
-    cell["row"] = np.where(cell.model_seed.isna(), "fixed", "seed")
+    cell["row"] = np.where(cell.model_seed.notna(), "seed",
+                           np.where(cell.controller.isin(RULE_NAMES), "rule", "fixed"))
     nets = cell[cell.row == "seed"]
     agg = (nets.groupby(keys, sort=False)
                .agg(n_seeds=("model_seed", "nunique"), n_episodes=("n_episodes", "sum"),
@@ -107,7 +118,7 @@ def plot(summary, out):
     plt.rcParams.update({"font.size": 8, "axes.titlesize": 8, "legend.fontsize": 7,
                          "pdf.fonttype": 42, "ps.fonttype": 42})
     s = summary[summary.sweep == "stiffness"]
-    fig, ax = plt.subplots(figsize=(3.5, 2.6))
+    fig, ax = plt.subplots(figsize=(3.5, 3.5))
     ax.axvspan(*TRAIN_K, color="#009E73", alpha=0.12, lw=0, label="training k0 range")
     for i, band in enumerate(TEST_K):
         ax.axvspan(*band, facecolor="none", edgecolor="#BBBBBB", hatch="///", lw=0,
@@ -115,7 +126,7 @@ def plot(summary, out):
     for ctrl in [c for c in STYLE if c in set(s.controller)]:
         st = STYLE[ctrl]
         c = s[s.controller == ctrl]
-        r = c[c.row.isin(["fixed", "mean over seeds"])].sort_values("level")
+        r = c[c.row.isin(["fixed", "rule", "mean over seeds"])].sort_values("level")
         ax.plot(r.level, r.mean_return, color=st["color"], marker=st["marker"], ls=st["ls"],
                 ms=3.5, lw=1.2, label=LABELS.get(ctrl, ctrl))
         if (r.row == "mean over seeds").any():
@@ -126,9 +137,10 @@ def plot(summary, out):
     ax.set_xlabel("ground base stiffness k0 (N/m)")
     ax.set_ylabel("mean episode return")
     ax.grid(alpha=0.3, which="major")
-    ax.legend(loc="lower center", frameon=False, ncol=2, handlelength=2.2, columnspacing=1.0)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.45, -0.2), frameon=False, ncol=2,
+              handlelength=2.6, columnspacing=1.0, fontsize=6.5)
     lo = s.mean_return.min() - (s.mean_return_sd.max() if s.mean_return_sd.notna().any() else 0)
-    ax.set_ylim(min(lo, s.mean_return.min()) - 12, 101)
+    ax.set_ylim(min(lo, s.mean_return.min()) - 3, 101)
     fig.tight_layout(pad=0.3)
     for ext in ("png", "pdf"):
         fig.savefig(Path(out) / f"robustness.{ext}", dpi=300)

@@ -25,7 +25,25 @@ from comparison.harness import RESULTS
 N_BOOT = 10_000
 BOOT_SEED = 5418
 REF = "reference"
-ORDER = ["reference", "best_fixed", "best_fixed_tuned"]
+ORDER = ["reference", "best_fixed", "best_fixed_tuned", "R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip"]
+RULES = ["R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip"]
+
+
+def label(c):
+    return c + " (privileged)" if "oracle" in c else c
+
+
+def vs_networks(df):
+    """Paired differences of each hand rule vs each network (per episode, seed-averaged network)."""
+    rows = []
+    for ground, g in df.groupby("ground", sort=False):
+        nets = [c for c in g.controller.drop_duplicates() if g[g.controller == c].model_seed.notna().any()]
+        for rule in [r for r in RULES if r in set(g.controller)]:
+            rr = g[g.controller == rule].set_index("episode_seed")[["return", "fell"]]
+            for net in nets:
+                avg = g[g.controller == net].groupby("episode_seed")[["return", "fell"]].mean()
+                rows.append({"ground": ground, "rule": rule, "network": net, **paired(rr, avg)})
+    return pd.DataFrame(rows)
 
 
 def boot_ci(d):
@@ -112,7 +130,7 @@ def to_markdown(s, n_eps):
         for _, r in g.iterrows():
             seed = {"fixed": "-", "seed": str(r.model_seed), "mean over seeds": f"mean ± sd ({int(r.n_seeds)})"}[r.row]
             lines.append(
-                f"| {r.controller} | {seed} | {_pm(r.mean_return, r.mean_return_sd, '{:.2f}')} | "
+                f"| {label(r.controller)} | {seed} | {_pm(r.mean_return, r.mean_return_sd, '{:.2f}')} | "
                 f"{_pm(100 * r.fall_rate, 100 * r.fall_rate_sd if not pd.isna(r.fall_rate_sd) else np.nan, '{:.1f}')} | "
                 f"{_pm(r.toe_peak_bw, r.toe_peak_bw_sd, '{:.3f}')} | "
                 f"{_ci(r.d_return, r.d_return_lo, r.d_return_hi)} | "
@@ -131,8 +149,9 @@ def main():
     p.add_argument("--out", default=None, help="output folder (default: the first input's folder)")
     a = p.parse_args()
     inp = [Path(x) for x in a.inp] if a.inp else [RESULTS / "episodes.csv"]
-    if a.inp is None and (RESULTS / "episodes_tuned.csv").exists():
-        inp.append(RESULTS / "episodes_tuned.csv")
+    for extra in ("episodes_tuned.csv", "episodes_rules.csv"):
+        if a.inp is None and (RESULTS / extra).exists():
+            inp.append(RESULTS / extra)
     out = Path(a.out or inp[0].parent)
     df = pd.concat([pd.read_csv(f) for f in inp], ignore_index=True)
     # Stable order: fixed actions first (old best_fixed next to best_fixed_tuned), then networks.
@@ -151,6 +170,27 @@ def main():
                f"as the highest mean return among grid cells whose fall rate is not above the reference's, "
                f"on tuning seeds {t['tuning_seeds'][0]}-{t['tuning_seeds'][1]} (training ground). "
                "The old best_fixed (-20, 500, 6) row is kept for comparison.\n")
+    rules_json = out / "rules_tuned.json"
+    if set(RULES) & set(df.controller) and rules_json.exists():
+        t = json.loads(rules_json.read_text())
+        fmt = lambda r: ", ".join(f"{k}={v:g}" for k, v in r.items() if k != "type")
+        md += ("\nHand rules (`comparison/rules.py`): theta_d -20 deg and B 8 fixed, K 500 outside a window after "
+               "contact and K_dip inside it, tuned on seeds 2000-2099 (training ground) with fall rate not above "
+               "the reference's. "
+               f"R1_timed_dip ({fmt(t['timed']['rule'])}): constant dip, no ground information. "
+               f"R2_sensed_dip ({fmt(t['sensed']['rule'])}): K_dip = a + b (z - {t['tuning']['Z0']:g}), "
+               "z = log10 running-max vertical-GRF rate over the first m frames (causal, sensors only). "
+               f"R3_oracle_dip ({fmt(t['oracle']['rule'])}): K_dip = a + b (log10 k0 - {t['tuning']['LK0']:.3f}) "
+               "from the TRUE ground stiffness: privileged, an upper bound, not a deployable controller.\n")
+        v = vs_networks(df)
+        v.to_csv(out / "summary_rules_vs_networks.csv", index=False, float_format="%.5g")
+        md += ("\n## Hand rules vs networks\n\nΔ = rule − network (network averaged over its model seeds per "
+               "episode), same episode seeds, 95% bootstrap interval over episodes "
+               f"({N_BOOT:,} resamples, RNG seed {BOOT_SEED}).\n\n"
+               "| ground | rule | network | Δ return [95%] | Δ fall rate, pts [95%] |\n|---|---|---|---|---|\n")
+        for _, r in v.iterrows():
+            md += (f"| {r.ground} | {label(r.rule)} | {r.network} | {_ci(r.d_return, r.d_return_lo, r.d_return_hi)} | "
+                   f"{_ci(r.d_fall_rate, r.d_fall_rate_lo, r.d_fall_rate_hi, 100, '{:+.1f}')} |\n")
     (out / "summary.md").write_text(md)
     print((out / "summary.md").read_text())
 

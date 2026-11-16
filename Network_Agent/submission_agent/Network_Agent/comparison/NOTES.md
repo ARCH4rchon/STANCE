@@ -276,3 +276,167 @@ This matches Tasks A and B. The learned gain over fixed actions is a short, stif
 - **Grid values outside the action range were replaced** (see Task C). That is a documented substitution, not a skip.
 - **The fixed-action optimum lies on the θ/K limits.** Searching beyond them would need the action ranges in `Gym/stance_env/ankle_gym_env.py` to be widened. That was not done.
 - **`actions.csv` is 5.5 MB.** It was committed as requested. If the repo should stay small, it can be regenerated in about 30 s with `python -m comparison.actions` and added to `.gitignore`.
+
+---
+
+# Hand rules: is it the K dip, or adapting it to the ground? (third round)
+
+Nothing outside `comparison/` was edited, and nothing was trained. Earlier rows were not overwritten. Before/after diffs of `summary.md`, `summary.csv` and `robustness.csv` show only added lines, and `robustness_episodes.csv` keeps its earlier content byte-for-byte as a prefix.
+- **New files:** `sensing.py`, `rules.py`, `run_rules.sh`, and in `results/`: `sensing.csv`, `tuning_rules.csv`, `rules_tuned.json`, `episodes_rules.csv`, `summary_rules_vs_networks.csv`.
+- **Changed files:**
+  - `harness.py`: runs `kind: "rule"` controllers, and rule cell IDs include their parameters.
+  - `stats.py`: rule rows, a rules-vs-networks table, and the `(privileged)` label.
+  - `robustness.py`: rules in the stiffness sweep; fixed actions are drawn dotted, rules dashed and networks solid.
+
+## Reproduce
+
+```bash
+python -m comparison.sensing --episodes 20 --out comparison/results/smoke     # smoke
+python -m comparison.rules --episodes 20 --eval-episodes 20 --out comparison/results/smoke
+bash comparison/run_rules.sh "$(conda run -n stance which python)"           # full, nice 10, resumable
+#   = sensing (100) -> rules: tune on 2000-2099 + evaluate on 1000-1199 -> stats -> robustness (100)
+```
+
+## Run times
+
+16 CPUs, 14 workers, nice 10. Total for `run_rules.sh`: 7 min 43 s.
+
+| step | cells × episodes | wall time |
+|---|---|---|
+| sensing | 100 episodes | 6 s |
+| R1 tuning | 209 cells × 100 | 3 min 20 s |
+| R2 tuning | 147 cells × 100 | 2 min 28 s |
+| R3 tuning | 49 cells × 100 | 51 s |
+| evaluation | 6 cells × 200 | 16 s |
+| stiffness sweep | 24 new cells × 100 | 28 s |
+
+## Step 1: what can the sensors tell? (`sensing.py`, `results/sensing.csv`)
+
+**The 11 channels.** `common/inputs.py` only selects frames and channels; the names come from `env_setup.SENSOR_NAMES`:
+
+| channel | name | source |
+|---|---|---|
+| 0 | ankle_angle | encoder |
+| 1 | ankle_rate | encoder |
+| 2 | ankle_torque | motor current |
+| 3 | vertical_grf | pylon load cell, total normal force |
+| 4 | pylon_compression | linear sensor |
+| 5 | shank_tilt | IMU |
+| 6 | shank_tilt_rate | IMU |
+| 7 | vertical_accel | IMU |
+| 8-10 | previous action | memory, not sensors |
+
+**What is not sensed.** There is no toe-force or sinkage sensor. Toe force exists only in `info`, so it is reported as info-only and never used. Contact happens at the start of every episode, because reset places the heel on the ground.
+
+**Method.** The reference controller ran on tuning seeds 2000-2099 (training ground). For causal features over frames 0..N (N × 5 ms after contact), I computed:
+- Spearman ρ against log10(true k0);
+- R² of a one-variable line, on the feature or its log, whichever fits better.
+
+**Result: the sensors predict ground stiffness only moderately. No single early feature explains more than about 45% of the variance in log stiffness.**
+
+| available by | best feature | ρ | R² |
+|---|---|---|---|
+| 5 ms | shank tilt rate | 0.60 | 0.32 |
+| 15 ms | max vertical-GRF rate | 0.61 | 0.37 |
+| 25 ms | pylon compression (min) | −0.66 | 0.45 |
+| 50 ms | max GRF rate | 0.60 | 0.36 |
+| 100 ms | max GRF rate | 0.64 | 0.40 |
+| 150 ms | pylon compression | +0.66 | 0.44 |
+
+The info-only toe-force peak suggested in the brief is weaker (ρ 0.44-0.52, R² ≤ 0.28), so it would not have helped even if it were sensed.
+
+**Feature chosen for R2: the running max of the vertical-GRF rate.**
+- It is useful from 15 ms and stable up to 150 ms.
+- It is monotone, so it is causal at every step.
+- It is physically meaningful: stiffer ground gives a faster force rise.
+- Pylon compression scores slightly higher at 25 ms, but its sign reverses later in stance, so it was not used.
+
+## Step 2: the three rules (`rules.py`)
+
+- **What all three share:**
+  - They hold θ_d = −20° and B = 8, and keep K = 500 outside a window after contact.
+  - They use the same interface as `FixedPolicy` (`reset()`, `act(obs)`) and output normalised actions.
+- **Tuning:**
+  - Grid search only (no scipy in the env, so no Nelder-Mead), on seeds 2000-2099, training ground.
+  - Constraint: fall rate ≤ the reference's on the same seeds (6%).
+  - R1 was tuned first; R2 and R3 then reuse R1's window.
+  - All 405 cells are in `tuning_rules.csv`.
+
+| rule | form | grid | chosen | tuning return / fall |
+|---|---|---|---|---|
+| R1 timed_dip | K = K_dip in [start, end) ms | K_dip {25…500} × start {0, 10, 25, 50} × end {50…300} | K_dip 250, 50-100 ms | 90.49 / 5% |
+| R2 sensed_dip | K_dip = a + b (z − 5.1), z = log10 max GRF rate over frames ≤ min(t, m) | a {50…400} × b {−600…200} × m {2, 3, 5} | a 250, b −100, m 5 | 90.72 / 5% |
+| R3 oracle_dip (**privileged**) | K_dip = a + b (log10 k0 − 4.35), true k0 | a {50…400} × b {−300…100} | a 300, b −200 | 90.84 / 5% |
+
+On the same tuning seeds the reference scores 88.90 / 6%.
+
+What the chosen parameters mean:
+- **R2's slope is too small to matter.** z varies by only about ±0.25, so R2's K_dip spans just 250 ± 25: it is effectively R1.
+- **R3 makes a real choice:** K_dip runs from about 430 on the softest training ground down to about 170 on the hardest. It is lower K on harder ground, the same direction as the networks.
+
+## Step 3: evaluation (seeds 1000-1199; `summary.md`, `robustness.csv`/`.png`)
+
+Paired Δ vs the reference [95% bootstrap]:
+
+| controller | train Δ return | train Δ fall, pts | test Δ return | test Δ fall, pts |
+|---|---|---|---|---|
+| R1 timed_dip | **+1.52 [+0.36, +2.78]** | +1.0 [−1.5, +3.5] | +0.13 [−0.82, +1.26] | +0.5 |
+| R2 sensed_dip | **+1.67 [+0.45, +3.00]** | +1.5 [−1.0, +4.0] | +0.03 | +0.5 |
+| R3 oracle_dip (privileged) | **+2.46 [+1.22, +3.81]** | +0.0 [−2.0, +2.0] | +0.17 | −0.5 |
+| MLP (mean of 3 seeds) | +1.10 [−0.86, +3.24] | **+4.2 [+1.3, +7.2]** | −0.31 | +2.5 |
+| LSTM (mean of 3 seeds) | **+2.97 [+1.24, +4.90]** | **+2.3 [+0.5, +4.3]** | −1.46 | **+6.2** |
+
+Direct rule-vs-rule comparisons:
+- **R2 vs R1:** +0.15 [−0.15, +0.40] on train and −0.10 on test.
+- **R3 vs R1:** **+0.94 [+0.49, +1.47]** on train and +0.04 [−1.04, +0.84] on test.
+
+Rule-vs-network comparisons are in `summary.md` ("Hand rules vs networks").
+
+Stiffness sweep, mean return (fall %):
+
+| k0 (N/m) | reference | R1 | R2 | R3 (priv.) | MLP | LSTM |
+|---|---|---|---|---|---|---|
+| 1e3 | 85.9 (35) | 84.1 (39) | 84.5 (38) | **86.4 (33)** | 81.1 (44) | 83.3 (41) |
+| 3.2e3 | 93.4 (19) | 92.5 (20) | 92.8 (19) | **93.7 (18)** | 89.5 (26) | 91.6 (23) |
+| 7e3 | 95.9 (12) | 95.0 (14) | 95.0 (14) | 95.9 (12) | 93.1 (16) | 94.9 (14) |
+| 2.2e4 | 93.1 (9) | 92.9 (9) | 93.0 (9) | 92.7 (9) | 92.1 (11) | 94.6 (9) |
+| 7e4 | 73.0 (6) | 78.0 (5) | 79.1 (5) | 80.2 (5) | 81.3 (7) | **82.9 (7)** |
+| 1.4e5 | 58.7 (5) | 67.1 (4) | 67.6 (4) | 67.5 (5) | 68.4 (6) | **72.3 (5)** |
+| 3e5 | 40.4 (4) | 52.9 (4) | 52.7 (4) | 52.3 (5) | 48.4 (6) | **55.0 (5)** |
+| 6e5 | 2.6 (2) | **22.1 (3)** | 21.8 (3) | 18.0 (6) | 1.3 (5) | 15.4 (3) |
+
+## Answers
+
+**Does R1 alone recover most of the networks' gain? Yes, for the MLP; about half, for the LSTM.**
+- **On the training ground:**
+  - R1 gains +1.52 over the reference, more than the MLP's +1.10.
+  - R1 vs MLP is +0.41 [−0.85, +1.61], so there is no detectable difference.
+  - The LSTM's gain is +2.97. R1 gets about half of it, and R1 vs LSTM is −1.46 [−2.53, −0.42].
+  - R1 falls less than both networks: −3.2 pts vs the MLP (significant) and −1.3 vs the LSTM.
+- **On hard ground in the sweep (7e4-3e5),** R1 recovers about 50-85% of the LSTM's advantage over the reference. It beats every network at 6e5.
+- **On the test ground,** R1 matches the reference. It beats the LSTM by +1.59 return with 5.7 pts fewer falls, both significant.
+- **In short:** a fixed 50 ms dip to K 250, starting 50 ms after contact, is the main mechanism. It is simpler and safer than either network.
+
+**Do R2 or R3 add anything on hard ground? R2 does not; R3 adds a little, and only inside the training range.**
+- **R2:** the sensed feature carries too little information (R² ≈ 0.36), and its tuned slope is negligible, so R2 performs like R1 everywhere.
+- **R3** (true stiffness, privileged) adds +0.94 [+0.49, +1.47] over R1 on train.
+  - It helps most at 7e4 (+2.2) and on soft ground.
+  - It adds nothing at 1.4e5-3e5, and loses at 6e5, where its linear-in-log-k0 rule extrapolates to too low a K.
+  - Even with perfect knowledge, adapting the dip is worth about 1 return point. The remaining gap to the LSTM on 7e4-1.4e5 ground (about 3-5 points) must come from something other than the dip depth: for example its timing or shape, or its θ/B schedule.
+
+**Does anything fix the soft-ground losses? Only the oracle, and only partly.**
+- **Every non-privileged controller with a dip is slightly worse than the reference on soft ground.** At 1e3:
+  - R1 is −1.8 return, +4 pts falls.
+  - The MLP is −4.7 and the LSTM −2.6, with more falls.
+  - The dip lets the leg fold on soft ground.
+- **R3 matches or slightly beats the reference there** (86.4 vs 85.9, 33% vs 35% falls). On soft ground its rule pushes K_dip up to 500, so it effectively skips the dip.
+- **Skipping the dip is the fix, but it needs to know the ground is soft at about 50 ms.** The sensors predict that only weakly, so R2 cannot do it.
+- **The falls themselves are not removed by any controller.** About a third of 1e3 episodes fall whatever the controller; they come from the start pose and the yield on very soft ground.
+
+## Caveats
+
+- Tuned on 100 episodes per cell, with selection over 405 cells. Tuning and evaluation gains agree well (R1 +1.59 on tuning seeds vs +1.52 on evaluation seeds), so selection bias looks small.
+- Grids, not a continuous optimiser (no scipy in the `stance` env).
+- R2 and R3 are restricted to R1's window by design ("same window"). A ground-dependent window is untested.
+- R2 was not added to the sensor-noise sweep (not requested), although it reads one sensor.
+- R3 is privileged: it reads the true k0 from the env and is an upper bound, not a controller.
