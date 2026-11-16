@@ -1,0 +1,204 @@
+cutoff_frames,cutoff_ms,feature,sensor,n_episodes,spearman,r2,r2_transform
+1,5,ankle_angle max,True,100,-0.1719,0.02789,x
+1,5,ankle_angle min,True,100,0.0145,0.002634,log10|x|
+1,5,ankle_angle at cutoff,True,100,0.03374,0.004438,x
+1,5,ankle_rate max,True,100,0.1571,0.04483,log10|x|
+1,5,ankle_rate min,True,100,0.4687,0.2097,log10|x|
+1,5,ankle_rate at cutoff,True,100,0.4691,0.1797,log10|x|
+1,5,ankle_torque max,True,100,-0.1127,0.01673,x
+1,5,ankle_torque min,True,100,-0.362,0.08356,x
+1,5,ankle_torque at cutoff,True,100,-0.3683,0.08329,x
+1,5,vertical_grf max,True,100,0.3637,0.1009,x
+1,5,vertical_grf min,True,100,,,x
+1,5,vertical_grf at cutoff,True,100,0.3637,0.1009,x
+1,5,pylon_compression max,True,100,,,x
+1,5,pylon_compression min,True,100,-0.3784,0.154,x
+1,5,pylon_compression at cutoff,True,100,-0.3784,0.154,x
+1,5,shank_tilt max,True,100,-0.03873,0.00139,x
+1,5,shank_tilt min,True,100,-0.05087,0.00226,x
+1,5,shank_tilt at cutoff,True,100,-0.03873,0.00139,x
+1,5,shank_tilt_rate max,True,100,0.1524,0.03097,x
+1,5,shank_tilt_rate min,True,100,0.5948,0.3309,x
+1,5,shank_tilt_rate at cutoff,True,100,0.5969,0.3247,x
+1,5,vertical_accel max,True,100,0.05447,0.003013,log10|x|
+1,5,vertical_accel min,True,100,-0.01075,0.00441,x
+1,5,vertical_accel at cutoff,True,100,-0.0005521,0.002906,log10|x|
+1,5,grf rate max (N/s),True,100,0.3637,0.1009,x
+1,5,grf rise per pylon compression (N/m),True,100,0.3637,0.1009,x
+1,5,torque rate max,True,100,-0.3683,0.08329,x
+1,5,argmax grf (frames),True,100,-0.01488,0.0005906,x
+1,5,"toe force max (info-only, not a sensor)",False,100,0.4374,0.1706,x
+2,10,ankle_angle max,True,100,-0.1568,0.02464,x
+2,10,ankle_angle min,True,100,0.226,0.06571,x
+2,10,ankle_angle at cutoff,True,100,0.2488,0.08041,x
+2,10,ankle_rate max,True,100,0.2438,0.09435,log10|x|
+2,10,ankle_rate min,True,100,0.5042,0.2688,log10|x|
+2,10,ankle_rate at cutoff,True,100,0.5342,0.2687,x
+2,10,ankle_torque max,True,100,-0.1199,0.0337,x
+2,10,ankle_torque min,True,100,-0.4233,0.1741,x
+2,10,ankle_torque at cutoff,True,100,-0.4998,0.2411,x
+2,10,vertical_grf max,True,100,0.4685,0.1705,x
+2,10,vertical_grf min,True,100,,,x
+2,10,vertical_grf at cutoff,True,100,0.4304,0.1506,x
+2,10,pylon_compression max,True,100,,,x
+2,10,pylon_compression min,True,100,-0.4684,0.1984,x
+2,10,pylon_compression at cutoff,True,100,-0.4702,0.1989,x
+2,10,shank_tilt max,True,100,-0.02749,0.0005852,log10|x|
+2,10,shank_tilt min,True,100,-0.05087,0.00226,x
+2,10,shank_tilt at cutoff,True,100,-0.02749,0.0005859,log10|x|
+2,10,shank_tilt_rate max,True,100,0.21,0.05052,x
+2,10,shank_tilt_rate min,True,100,0.5803,0.332,x
+2,10,shank_tilt_rate at cutoff,True,100,0.5629,0.3056,x
+2,10,vertical_accel max,True,100,-0.0755,0.005777,log10|x|
+2,10,vertical_accel min,True,100,0.02497,0.001685,x
+2,10,vertical_accel at cutoff,True,100,-0.0993,0.006496,x
+2,10,grf rate max (N/s),True,100,0.4829,0.1832,x
+2,10,grf rise per pylon compression (N/m),True,100,0.4685,0.1705,x
+2,10,torque rate max,True,100,-0.05267,0.002182,x
+2,10,argmax grf (frames),True,100,-0.02041,0.000183,x
+2,10,"toe force max (info-only, not a sensor)",False,100,0.516,0.2827,log10|x|
+3,15,ankle_angle max,True,100,-0.1386,0.0184,x
+3,15,ankle_angle min,True,100,0.3965,0.1513,x
+3,15,ankle_angle at cutoff,True,100,0.4168,0.1712,x
+3,15,ankle_rate max,True,100,0.3883,0.1641,log10|x|
+3,15,ankle_rate min,True,100,0.505,0.2555,log10|x|
+3,15,ankle_rate at cutoff,True,100,0.6058,0.3101,x
+3,15,ankle_torque max,True,100,-0.1199,0.0337,x
+3,15,ankle_torque min,True,100,-0.4891,0.254,log10|x|
+3,15,ankle_torque at cutoff,True,100,-0.5695,0.3481,log10|x|
+3,15,vertical_grf max,True,100,0.5784,0.3499,log10|x|
+3,15,vertical_grf min,True,100,,,x
+3,15,vertical_grf at cutoff,True,100,0.4905,0.2007,x
+3,15,pylon_compression max,True,100,,,x
+3,15,pylon_compression min,True,100,-0.5778,0.3221,x
+3,15,pylon_compression at cutoff,True,100,-0.5778,0.3221,x
+3,15,shank_tilt max,True,100,-0.01489,0.002312,log10|x|
+3,15,shank_tilt min,True,100,-0.05087,0.00226,x
+3,15,shank_tilt at cutoff,True,100,-0.01489,0.002312,log10|x|
+3,15,shank_tilt_rate max,True,100,0.2472,0.07246,x
+3,15,shank_tilt_rate min,True,100,0.576,0.3194,x
+3,15,shank_tilt_rate at cutoff,True,100,0.5525,0.3085,x
+3,15,vertical_accel max,True,100,-0.08294,0.001722,log10|x|
+3,15,vertical_accel min,True,100,-0.1174,0.02776,x
+3,15,vertical_accel at cutoff,True,100,-0.06154,0.02305,x
+3,15,grf rate max (N/s),True,100,0.6098,0.3706,log10|x|
+3,15,grf rise per pylon compression (N/m),True,100,0.5784,0.3499,log10|x|
+3,15,torque rate max,True,100,-0.2418,0.04464,x
+3,15,argmax grf (frames),True,100,-0.1861,0.03365,x
+3,15,"toe force max (info-only, not a sensor)",False,100,0.5111,0.2705,log10|x|
+5,25,ankle_angle max,True,100,-0.101,0.008297,x
+5,25,ankle_angle min,True,100,0.5191,0.2487,x
+5,25,ankle_angle at cutoff,True,100,0.5488,0.2695,x
+5,25,ankle_rate max,True,100,0.3382,0.1215,x
+5,25,ankle_rate min,True,100,0.4814,0.234,log10|x|
+5,25,ankle_rate at cutoff,True,100,0.2709,0.05656,x
+5,25,ankle_torque max,True,100,-0.1199,0.0337,x
+5,25,ankle_torque min,True,100,-0.4194,0.2049,log10|x|
+5,25,ankle_torque at cutoff,True,100,-0.4444,0.214,log10|x|
+5,25,vertical_grf max,True,100,0.5752,0.3226,log10|x|
+5,25,vertical_grf min,True,100,,,x
+5,25,vertical_grf at cutoff,True,100,0.5031,0.1843,x
+5,25,pylon_compression max,True,100,,,x
+5,25,pylon_compression min,True,100,-0.6607,0.4532,log10|x|
+5,25,pylon_compression at cutoff,True,100,-0.6606,0.4524,log10|x|
+5,25,shank_tilt max,True,100,0.003492,0.001482,log10|x|
+5,25,shank_tilt min,True,100,-0.05087,0.00226,x
+5,25,shank_tilt at cutoff,True,100,0.003492,0.001482,log10|x|
+5,25,shank_tilt_rate max,True,100,0.3823,0.152,x
+5,25,shank_tilt_rate min,True,100,0.5733,0.3069,x
+5,25,shank_tilt_rate at cutoff,True,100,0.3284,0.115,log10|x|
+5,25,vertical_accel max,True,100,-0.08926,0.005586,log10|x|
+5,25,vertical_accel min,True,100,-0.02862,0.006615,x
+5,25,vertical_accel at cutoff,True,100,-0.1032,0.00129,log10|x|
+5,25,grf rate max (N/s),True,100,0.6074,0.3645,log10|x|
+5,25,grf rise per pylon compression (N/m),True,100,0.5752,0.3226,log10|x|
+5,25,torque rate max,True,100,-0.3399,0.08483,x
+5,25,argmax grf (frames),True,100,-0.2418,0.0608,x
+5,25,"toe force max (info-only, not a sensor)",False,100,0.4884,0.2502,log10|x|
+10,50,ankle_angle max,True,100,-0.02633,0.005563,log10|x|
+10,50,ankle_angle min,True,100,0.499,0.2494,x
+10,50,ankle_angle at cutoff,True,100,0.5154,0.2567,x
+10,50,ankle_rate max,True,100,0.2331,0.06988,x
+10,50,ankle_rate min,True,100,0.402,0.1693,log10|x|
+10,50,ankle_rate at cutoff,True,100,-0.04905,0.02007,log10|x|
+10,50,ankle_torque max,True,100,-0.1199,0.0337,x
+10,50,ankle_torque min,True,100,-0.2638,0.06686,log10|x|
+10,50,ankle_torque at cutoff,True,100,-0.2549,0.05057,x
+10,50,vertical_grf max,True,100,0.547,0.2932,log10|x|
+10,50,vertical_grf min,True,100,,,x
+10,50,vertical_grf at cutoff,True,100,0.3244,0.1076,x
+10,50,pylon_compression max,True,100,,,x
+10,50,pylon_compression min,True,100,-0.5201,0.2803,log10|x|
+10,50,pylon_compression at cutoff,True,100,-0.5151,0.2719,log10|x|
+10,50,shank_tilt max,True,100,0.008965,0.0003603,log10|x|
+10,50,shank_tilt min,True,100,-0.05087,0.00226,x
+10,50,shank_tilt at cutoff,True,100,0.008965,0.0003603,log10|x|
+10,50,shank_tilt_rate max,True,100,0.342,0.113,x
+10,50,shank_tilt_rate min,True,100,0.474,0.2125,x
+10,50,shank_tilt_rate at cutoff,True,100,-0.06265,0.01971,log10|x|
+10,50,vertical_accel max,True,100,0.04188,0.01776,x
+10,50,vertical_accel min,True,100,-0.05471,0.03231,x
+10,50,vertical_accel at cutoff,True,100,0.02668,0.006693,log10|x|
+10,50,grf rate max (N/s),True,100,0.6029,0.3554,log10|x|
+10,50,grf rise per pylon compression (N/m),True,100,0.547,0.2932,log10|x|
+10,50,torque rate max,True,100,-0.4212,0.1509,x
+10,50,argmax grf (frames),True,100,-0.2704,0.06369,x
+10,50,"toe force max (info-only, not a sensor)",False,100,0.4513,0.2073,x
+20,100,ankle_angle max,True,100,0.02595,0.01151,log10|x|
+20,100,ankle_angle min,True,100,0.4548,0.1893,x
+20,100,ankle_angle at cutoff,True,100,0.3162,0.08026,x
+20,100,ankle_rate max,True,100,0.188,0.06377,x
+20,100,ankle_rate min,True,100,0.3854,0.1409,log10|x|
+20,100,ankle_rate at cutoff,True,100,-0.06641,0.03544,log10|x|
+20,100,ankle_torque max,True,100,-0.1199,0.0337,x
+20,100,ankle_torque min,True,100,-0.02596,0.005603,log10|x|
+20,100,ankle_torque at cutoff,True,100,-0.06188,0.00114,x
+20,100,vertical_grf max,True,100,0.4325,0.1953,x
+20,100,vertical_grf min,True,100,,,x
+20,100,vertical_grf at cutoff,True,100,0.1142,0.002414,log10|x|
+20,100,pylon_compression max,True,100,,,x
+20,100,pylon_compression min,True,100,-0.1623,0.0364,x
+20,100,pylon_compression at cutoff,True,100,0.2085,0.03632,log10|x|
+20,100,shank_tilt max,True,100,-0.02929,0.0009004,log10|x|
+20,100,shank_tilt min,True,100,-0.05087,0.00226,x
+20,100,shank_tilt at cutoff,True,100,-0.02929,0.0009004,log10|x|
+20,100,shank_tilt_rate max,True,100,0.3067,0.08638,x
+20,100,shank_tilt_rate min,True,100,0.3618,0.1197,x
+20,100,shank_tilt_rate at cutoff,True,100,-0.1559,0.02174,x
+20,100,vertical_accel max,True,100,-0.008977,0.01492,x
+20,100,vertical_accel min,True,100,-0.1082,0.04798,x
+20,100,vertical_accel at cutoff,True,100,0.001332,0.002603,log10|x|
+20,100,grf rate max (N/s),True,100,0.6411,0.4031,log10|x|
+20,100,grf rise per pylon compression (N/m),True,100,0.4325,0.1953,x
+20,100,torque rate max,True,100,-0.403,0.1393,x
+20,100,argmax grf (frames),True,100,-0.4933,0.2068,x
+20,100,"toe force max (info-only, not a sensor)",False,100,0.4042,0.1735,x
+30,150,ankle_angle max,True,100,0.01791,0.01692,log10|x|
+30,150,ankle_angle min,True,100,0.4255,0.1554,x
+30,150,ankle_angle at cutoff,True,100,0.08806,0.007698,log10|x|
+30,150,ankle_rate max,True,100,0.249,0.0866,x
+30,150,ankle_rate min,True,100,0.3623,0.1093,log10|x|
+30,150,ankle_rate at cutoff,True,100,0.01751,0.02034,log10|x|
+30,150,ankle_torque max,True,100,-0.1199,0.0337,x
+30,150,ankle_torque min,True,100,0.001425,0.01175,log10|x|
+30,150,ankle_torque at cutoff,True,100,0.1177,0.01069,x
+30,150,vertical_grf max,True,100,0.3893,0.1629,x
+30,150,vertical_grf min,True,100,,,x
+30,150,vertical_grf at cutoff,True,100,-0.1675,0.07016,x
+30,150,pylon_compression max,True,100,,,x
+30,150,pylon_compression min,True,100,-0.09279,0.01184,x
+30,150,pylon_compression at cutoff,True,100,0.6599,0.4415,log10|x|
+30,150,shank_tilt max,True,100,-0.06994,0.01417,log10|x|
+30,150,shank_tilt min,True,100,-0.05087,0.00226,x
+30,150,shank_tilt at cutoff,True,100,-0.06994,0.01417,log10|x|
+30,150,shank_tilt_rate max,True,100,0.2892,0.07471,x
+30,150,shank_tilt_rate min,True,100,0.1771,0.03607,log10|x|
+30,150,shank_tilt_rate at cutoff,True,100,-0.3105,0.07822,x
+30,150,vertical_accel max,True,100,-0.01408,0.01378,x
+30,150,vertical_accel min,True,100,-0.1035,0.04665,x
+30,150,vertical_accel at cutoff,True,100,-0.1871,0.05617,log10|x|
+30,150,grf rate max (N/s),True,100,0.6526,0.4213,log10|x|
+30,150,grf rise per pylon compression (N/m),True,100,0.3893,0.1629,x
+30,150,torque rate max,True,100,-0.3569,0.1047,x
+30,150,argmax grf (frames),True,100,-0.5092,0.23,x
+30,150,"toe force max (info-only, not a sensor)",False,100,0.3821,0.1586,x
