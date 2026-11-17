@@ -1,49 +1,29 @@
-"""Task A: run every controller on the training ground and the test (out-of-range) ground.
+"""Runs every controller on the evaluation episodes (both grounds) and on the ground-stiffness sweep."""
 
-Drafted with Claude Code (Anthropic), for the AI declaration.
-
-Controllers: "reference" (-20, 500, 10) and every model seed
-found under trained_networks/<network>/final_s*/. Episodes are seeds 1000.. (first --episodes),
-deterministic, played by common.evaluate.run_episodes. One row per episode goes to
-<out>/episodes.csv. Finished cells are skipped on a rerun (resume).
-
-    python -m comparison.compare                          200 episodes, results/episodes.csv
-    python -m comparison.compare --episodes 20 --out comparison/results/smoke
-    python -m comparison.stats                            summary.csv / summary.md from it
-"""
 import argparse
 from pathlib import Path
 
-from comparison.harness import (EP_COLUMNS, RESULTS, ctrl_label, default_workers,
-                                discover_controllers, eval_seeds, log, merge_cells, run_jobs)
+import pandas as pd
 
-GROUNDS = ("train", "test")
+from common.evaluate import EVAL_SEEDS
+from comparison.harness import RESULTS, controllers, run_all
 
-
-def jobs_for(out, seeds):
-    jobs = []
-    for ground in GROUNDS:
-        for c in discover_controllers():
-            cid = f"A__{ground}__{ctrl_label(c)}"
-            jobs.append({"id": cid, "ctrl": c, "ground": ground, "seeds": seeds,
-                         "path": str(Path(out) / "cells" / f"{cid}.csv"), "columns": EP_COLUMNS})
-    return jobs
-
-
-def main():
-    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    p.add_argument("--episodes", type=int, default=200)
-    p.add_argument("--out", default=str(RESULTS))
-    p.add_argument("--workers", type=int, default=default_workers())
-    a = p.parse_args()
-    seeds = eval_seeds(a.episodes)
-    ctrls = discover_controllers()
-    log("controllers: " + ", ".join(ctrl_label(c) for c in ctrls))
-    jobs = jobs_for(a.out, seeds)
-    dt = run_jobs(jobs, a.workers)
-    rows = merge_cells(jobs, Path(a.out) / "episodes.csv", EP_COLUMNS)
-    log(f"Task A done: {len(rows)} episode rows -> {Path(a.out) / 'episodes.csv'} ({dt:.0f} s this run)")
-
+# Ground stiffness levels in N/m: from well below to well above the training range (5e3 to 1e5).
+K_LEVELS = [1e3, 3.2e3, 7e3, 2.2e4, 7e4, 1.4e5, 3e5, 6e5]
 
 if __name__ == "__main__":
-    main()
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--episodes", type=int, default=200)
+    p.add_argument("--sweep-episodes", type=int, default=100)
+    p.add_argument("--out", default=str(RESULTS))
+    p.add_argument("--workers", type=int)
+    a = p.parse_args()
+
+    ctrls = controllers()
+    evaluation = [(c, g, EVAL_SEEDS[:a.episodes], None) for g in ("train", "test") for c in ctrls]
+    sweep = [(c, "train", EVAL_SEEDS[:a.sweep_episodes], k) for c in ctrls for k in K_LEVELS]
+
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(run_all(evaluation, a.workers)).drop(columns="level").to_csv(out / "episodes.csv", index=False)
+    pd.DataFrame(run_all(sweep, a.workers)).drop(columns="ground").to_csv(out / "sweep.csv", index=False)
