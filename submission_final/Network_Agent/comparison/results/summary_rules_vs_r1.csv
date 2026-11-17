@@ -1,3 +1,0 @@
-ground,rule,vs,n_paired,d_return,d_return_lo,d_return_hi,d_fall_rate,d_fall_rate_lo,d_fall_rate_hi
-train,R3_oracle_dip,R1_timed_dip,200,0.94278,0.4915,1.473,-0.01,-0.025,0
-test,R3_oracle_dip,R1_timed_dip,200,0.037333,-1.0363,0.83785,-0.01,-0.03,0.01

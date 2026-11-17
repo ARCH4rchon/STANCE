@@ -1,9 +1,0 @@
-ground,rule,network,n_paired,d_return,d_return_lo,d_return_hi,d_fall_rate,d_fall_rate_lo,d_fall_rate_hi
-train,R1_timed_dip,networkA_mlp,200,0.41076,-0.85072,1.6106,-0.031667,-0.056667,-0.0083333
-train,R1_timed_dip,networkB_lstm,200,-1.4561,-2.5341,-0.42475,-0.013333,-0.033333,0.0033333
-train,R3_oracle_dip,networkA_mlp,200,1.3535,0.15502,2.5133,-0.041667,-0.07,-0.016667
-train,R3_oracle_dip,networkB_lstm,200,-0.51336,-1.545,0.48659,-0.023333,-0.046667,-0.0033333
-test,R1_timed_dip,networkA_mlp,200,0.44792,-1.113,1.7463,-0.02,-0.051667,0.01
-test,R1_timed_dip,networkB_lstm,200,1.5941,0.35574,2.7513,-0.056667,-0.088333,-0.026667
-test,R3_oracle_dip,networkA_mlp,200,0.48525,-1.2294,1.9541,-0.03,-0.065,0.0033333
-test,R3_oracle_dip,networkB_lstm,200,1.6315,0.3347,2.8203,-0.066667,-0.1,-0.035
