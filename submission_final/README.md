@@ -17,7 +17,7 @@ conda activate stance
 cd Network_Agent
 ```
 
-## Agent demo
+## Demo
 ```bash
 cd Network_Agent # If you haven't already
 
@@ -33,15 +33,6 @@ python demo.py --show 0 # No viewer (for machines without a display)
 python demo.py --train --show 5 # If you want to train your own model
 python demo.py --train --steps 4096 --show 0 # Short training run, just to check it works
 ```
-- `--network mlp|lstm|both`: which network to run (default both).
-- `--model-seed N|all`: which trained seed to load from `trained_networks/<network>/final_s<N>` (default all).
-- `--episodes N`: evaluation episodes on each ground (default 200).
-- `--seed S`: first episode seed; the episodes use S, S+1, ... (default 1000).
-- `--out PATH`: where to write the results (default `results/demo_episodes.csv`).
-- `--show N`: after the evaluation, replay N episodes (0-10, default 5, starting at `--seed`) live in the MuJoCo viewer, using the first selected network and seed. Without a display it prints one line and skips.
-- `--slow X`: viewer slow-motion factor (default 10; 1 = real time).
-- `--record PATH.mp4`: save one episode (seed `--seed`, first selected network and seed) as a 30 fps video. Headless machines need `MUJOCO_GL=egl` (or `osmesa`), for example `MUJOCO_GL=egl python demo.py --show 0 --record demo.mp4`. If the video can't be made, the demo prints one line and carries on.
-- `--train --steps N`: allows you to train your own model and run it against our demo (can take up to around 17 minutes per network with the default steps). It is saved in a temporary folder, never in `trained_networks/`.
 
 Every run is compared with the best fixed action (-20 deg, K 500, B 10) on the same seeds. The terminal shows the two file paths and one line per network (mean return and fall rate on both grounds). The files are:
 - `PATH` (e.g. `results/demo_episodes.csv`): one row per episode, with columns `network`, `model_seed`, `ground` (train or test), `episode_seed`, `return`, `fell` (1 if the leg fell), `steps` and `toe_peak_bw` (largest toe force, in body weights).
@@ -65,4 +56,6 @@ python -m agent.train --network mlp # If you want to try it
 
 ## AI Declreation:
 
-We used Claude (Anthropic) to draft a template code for us such that if we worked on it induvidually, there were keys that made sure our tests remained common across files. Additionally we used it to help debug our code and to flag discrepencies during merges.
+We used Claude (Anthropic) to evaluate ideas, merge our induvidual changes between files to avoid discrepencies, debug parts of our code and aid in writing specific sections of our code that have been outlined clearly (please check our code).
+
+Moreover, the mp4 video file in the submission folder was recorded and run by us, however the quality of life improvements and the additional visuals and data were all improvement strictly in the code by Claude (Anthropic). We want to clarify that no data was altered by using Claude (Anthropic) and the video itself is NOT AI generated.
