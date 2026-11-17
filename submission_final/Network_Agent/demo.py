@@ -1,15 +1,6 @@
-"""
-Demo of the STANCE learning agent: run the trained networks on the training and test grounds,
-next to the best fixed action, and write the results to CSV files.
+""" Demo of the STANCE learning agent: run the trained networks on the training and test grounds, 
+    next to the best fixed action, and write the results to CSV files."""
 
-Drafted with Claude Code (Anthropic), for the AI declaration.
-
-Uses: agent.train (TRAIN, NETWORKS, make_wrappers, make_venv), common.env_setup,
-common.evaluate (run_episodes, the same protocol as every reported result) and common.policies.
-After the evaluation, the first --show episodes are replayed in the MuJoCo viewer
-(on macOS run it with mjpython instead of python; --show 0 needs no display).
---record saves one episode to an .mp4 file without opening a window.
-"""
 # Libraries
 import argparse
 import csv
@@ -22,7 +13,6 @@ import threading
 import time
 import numpy as np
 import mujoco
-import mujoco.viewer
 from pathlib import Path
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
@@ -36,8 +26,11 @@ from stance_env.ankle_gym_env import FRAME_SKIP
 TRAINED = Path(__file__).resolve().parent / "trained_networks"
 # Model seeds of the saved runs, e.g. final_s0, final_s1, final_s2 -> ["0", "1", "2"]
 MODEL_SEEDS = sorted({p.name[len("final_s"):] for p in TRAINED.glob("*/final_s*")}, key=int)
+SEED0 = 1000                               # first episode seed (the protocol uses 1000-1199)
+OUT = Path("results/demo_episodes.csv")    # per-episode CSV; the summary file goes next to it
+SLOW = 10                                  # viewer slow-motion factor
 
-
+# From the old demo_agent.py
 def load_run(run_dir):
     """Load a saved run folder: its config, the network's wrappers, the model and the VecNormalize.
     The run folder must contain model.zip, vecnormalize.pkl and config.json."""
@@ -53,6 +46,7 @@ def load_run(run_dir):
     return net, model, vn, wrappers
 
 
+# From the old demo_agent.py
 def train_run(network, steps=None, seed=0):
     """Train a network from scratch with the settings of agent/train.py, in a temporary folder
     (never inside trained_networks/)."""
@@ -78,10 +72,10 @@ def train_run(network, steps=None, seed=0):
     venv.training = False
     return net, model, venv, wrappers
 
-
-# --- viewer start ---
+# from old gym/demo.py, slightly modified
 def show_episodes(net, model, vn, wrappers, n, slow, first_seed=1000):
     """Replay n episodes (seeds first_seed, first_seed + 1, ...) in the MuJoCo viewer, in slow motion."""
+    import mujoco.viewer  
     env = make_env("train", wrappers)
     policy = net.POLICY(model, vn)
     sim = env.unwrapped                                   # the AnkleEnv inside the wrappers
@@ -89,7 +83,6 @@ def show_episodes(net, model, vn, wrappers, n, slow, first_seed=1000):
     print(f"\nshowing {n} episodes in the MuJoCo viewer ({slow:g}x slow motion)")
 
     with mujoco.viewer.launch_passive(sim.model, sim.data) as viewer:
-        # Side view that follows the body mass, as in Gym/demo.py.
         viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING
         viewer.cam.trackbodyid = sim.body_bid
         viewer.cam.distance, viewer.cam.azimuth, viewer.cam.elevation = 2.0, 90.0, -8.0
@@ -113,13 +106,12 @@ def show_episodes(net, model, vn, wrappers, n, slow, first_seed=1000):
                   f"return {ret:.2f}, toe peak {toe:.2f} BW")
             time.sleep(1.0)                               # keep the final pose on screen
 
-    # Let the viewer's own thread finish, otherwise Python can crash while it closes.
     for t in threading.enumerate():
         if t.name.endswith("(_launch_internal)"):
             t.join(timeout=5)
     env.close()
-# --- viewer end ---
 
+# New functions, not in the old demos:
 
 def record_episode(net, model, vn, wrappers, seed, path):
     """Render one episode offscreen (one frame per env step) and save it as an mp4 at 30 fps."""
@@ -148,7 +140,6 @@ def record_episode(net, model, vn, wrappers, seed, path):
     env.close()
     imageio.mimsave(path, frames, fps=30)
 
-
 def mean_row(rows, network, model_seed, ground):
     """One summary row: mean return, fall rate (%) and mean toe peak (BW) over the given episodes."""
     return {"network": network, "model_seed": model_seed, "ground": ground,
@@ -169,21 +160,17 @@ def write_csv(path, rows):
 def main():
     p = argparse.ArgumentParser(description="Demo of the STANCE learning agent.")
     p.add_argument("--network", choices=["mlp", "lstm", "both"], default="both", help="network(s) to run")
-    p.add_argument("--model-seed", choices=MODEL_SEEDS + ["all"], default="all",
-                   help="which trained_networks/<network>/final_s<N> run(s) to load")
+    p.add_argument("--model-seed", choices=MODEL_SEEDS + ["all"], default="all", help="which trained_networks/<network>/final_s<N> run(s) to load")
     p.add_argument("--episodes", type=int, default=200, help="evaluation episodes per ground")
-    p.add_argument("--seed", type=int, default=1000, help="first episode seed (episodes use S, S+1, ...)")
-    p.add_argument("--out", default="results/demo_episodes.csv", help="per-episode CSV file")
-    p.add_argument("--show", type=int, default=5, metavar="N (0-10) must be a number")
-    p.add_argument("--slow", type=float, default=10.0, metavar="X", help="viewer slow-motion factor")
-    p.add_argument("--record", metavar="PATH.mp4", help="save one episode (seed --seed) as a video")
+    p.add_argument("--show", type=int, default=5, help="episodes to replay in the MuJoCo viewer (0 = none), first selected run")
+    p.add_argument("--record", metavar="PATH.mp4", help="save one episode (seed --seed) of the first selected run as a video")
     p.add_argument("--train", action="store_true", help="train from scratch instead of loading the trained networks")
     p.add_argument("--steps", type=int, help="with --train: training steps")
     a = p.parse_args()
 
     networks = ["mlp", "lstm"] if a.network == "both" else [a.network]
     model_seeds = MODEL_SEEDS if a.model_seed == "all" else [a.model_seed]
-    seeds = list(range(a.seed, a.seed + a.episodes))
+    seeds = list(range(SEED0, SEED0 + a.episodes))
 
     # Get the models: the saved runs, or freshly trained ones (labelled model seed "new").
     runs = []
@@ -228,7 +215,7 @@ def main():
                                 **{k: round(np.mean([s[k] for s in per_seed]), 4)
                                    for k in ["mean_return", "fall_rate_pct", "toe_peak_bw"]}})
 
-    out = Path(a.out)
+    out = Path(OUT)
     out_summary = out.with_name(out.stem + "_summary" + out.suffix)
     write_csv(out, rows)
     write_csv(out_summary, summary)
@@ -238,13 +225,13 @@ def main():
         print(f"{name:9s}  train: return {last['train']['mean_return']:6.2f}, falls {last['train']['fall_rate_pct']:5.1f}%"
               f"   test: return {last['test']['mean_return']:6.2f}, falls {last['test']['fall_rate_pct']:5.1f}%")
 
-    # Optional video of one episode. It must never stop the demo.
+# The following section has been adapted with the help of Claude (Anthropic)
     name, ms, first = runs[0]
     if a.record:
         try:
             t0 = time.time()
-            record_episode(*first, a.seed, a.record)
-            print(f"recorded {name} (model seed {ms}), seed {a.seed}, to {a.record} in {time.time() - t0:.1f} s")
+            record_episode(*first, SEED0, a.record)
+            print(f"recorded {name} (model seed {ms}), seed {SEED0}, to {a.record} in {time.time() - t0:.1f} s")
         except Exception as err:
             print(f"recording skipped ({type(err).__name__}: {err})")
 
@@ -253,7 +240,10 @@ def main():
         if sys.platform.startswith("linux") and not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
             print("no display found, skipping the viewer (use --show 0 to hide this message)")
         else:
-            show_episodes(*first, a.show, a.slow, a.seed)
+            try:
+                show_episodes(*first, a.show, SLOW, SEED0)
+            except Exception as err:      # for example on macOS without mjpython
+                print(f"viewer skipped ({type(err).__name__}: {err})")
 
 
 if __name__ == "__main__":
