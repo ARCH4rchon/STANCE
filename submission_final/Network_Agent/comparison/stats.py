@@ -40,7 +40,7 @@ def show(res):
 
 
 if __name__ == "__main__":
-    # Parts of this specific section is adapted from Claude Code
+    # Parts of this specific section are written by Claude (Anthropic)
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--out", default=str(RESULTS))
     a = p.parse_args()
@@ -56,7 +56,6 @@ if __name__ == "__main__":
         for x, y in PAIRS:
             print(f"    {x} - {y}: {show(paired(per_episode(df, ground, x), per_episode(df, ground, y)))}")
 
-    # Stiffness sweep: mean return (fall %) per ground stiffness; networks are averaged over their model seeds.
     sweep = pd.read_csv(Path(a.out) / "sweep.csv")
     per_seed = sweep.groupby(["controller", "model_seed", "level"], dropna=False)[["return", "fell"]].mean()
     table = per_seed.groupby(["controller", "level"])[["return", "fell"]].mean()
