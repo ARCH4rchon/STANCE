@@ -1,0 +1,4 @@
+networkB_lstm: 75,911 parameters, 1,000,000 steps
+trained in 53.8 min
+train ground, 200 episodes: survival 91.0%, toe peak 1.70 BW, mean return 89.44
+saved to /home/asus/NUS_Materials/Git/STANCE/submission_final/Network_Agent/runs/networkB_lstm/seed0

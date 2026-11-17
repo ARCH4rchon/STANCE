@@ -1,0 +1,4 @@
+networkA_mlp: 221,575 parameters, 1,000,000 steps
+trained in 19.5 min
+train ground, 200 episodes: survival 88.0%, toe peak 1.74 BW, mean return 85.74
+saved to /home/asus/NUS_Materials/Git/STANCE/submission_final/Network_Agent/runs/networkA_mlp/seed2
