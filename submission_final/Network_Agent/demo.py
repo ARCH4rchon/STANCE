@@ -225,7 +225,7 @@ def main():
         print(f"{name:9s}  train: return {last['train']['mean_return']:6.2f}, falls {last['train']['fall_rate_pct']:5.1f}%"
               f"   test: return {last['test']['mean_return']:6.2f}, falls {last['test']['fall_rate_pct']:5.1f}%")
 
-# The following section has been adapted with the help of Claude (Anthropic)
+# The following recording section has been adapted from online resources with the help of Claude (Anthropic)
     name, ms, first = runs[0]
     if a.record:
         try:
