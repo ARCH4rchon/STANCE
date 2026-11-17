@@ -16,8 +16,8 @@ Drafted with Claude Code (Anthropic), for the AI declaration.
        3e5    beyond the test hard band (1.5x its maximum)
        6e5    far beyond (3x the test maximum)
 2. Sensor noise on the training ground: Gaussian noise on sensor channels 0-7 at
-   0, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0 x each sensor's std (checked by noise_check.py) (harness.SensorNoise; std from the trained runs'
-   VecNormalize statistics, one vector shared by all networks). Only the networks read the
+   0, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0 x each sensor's std (harness.SensorNoise; std from the trained
+   runs' VecNormalize statistics, one vector shared by all networks). Only the networks read the
    sensors; the fixed actions are unaffected by construction, so they are not rerun.
 Both use 100 episodes per cell (seeds 1000-1099, or the first --episodes), deterministic.
 
@@ -43,27 +43,22 @@ NOISE_LEVELS = [0.0, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0]   # 0.5-2.0 added in Task D
 TRAIN_K = (5e3, 1e5)
 TEST_K = [(2e3, 5e3), (1e5, 2e5)]
 COLUMNS = ["sweep", "level"] + EP_COLUMNS
-LABELS = {"reference": "fixed (-20, 500, 10)", "best_fixed": "fixed (-20, 500, 6)",
-          "networkA_mlp": "MLP (A)", "networkB_lstm": "LSTM (B)",
-          "R1_timed_dip": "R1 timed dip", "R2_sensed_dip": "R2 sensed dip",
-          "R3_oracle_dip": "R3 oracle dip (privileged)", "R4_dip_plus_schedule": "R4 dip + schedule"}
+LABELS = {"reference": "fixed (-20, 500, 10)", "networkA_mlp": "MLP (A)", "networkB_lstm": "LSTM (B)",
+          "R1_timed_dip": "R1 timed dip", "R3_oracle_dip": "R3 oracle dip (privileged)"}
 # Okabe-Ito colours (colour-blind safe), distinct markers. Line style by family:
 # fixed actions dotted, hand rules dashed, networks solid.
 STYLE = {"reference": dict(color="#000000", marker="s", ls=":"),
-         "best_fixed": dict(color="#E69F00", marker="^", ls=":"),
          "R1_timed_dip": dict(color="#009E73", marker="v", ls="--"),
-         "R2_sensed_dip": dict(color="#CC79A7", marker="P", ls="--"),
          "R3_oracle_dip": dict(color="#56B4E9", marker="X", ls="--"),
-         "R4_dip_plus_schedule": dict(color="#666666", marker="*", ls="--"),
          "networkA_mlp": dict(color="#0072B2", marker="o", ls="-"),
          "networkB_lstm": dict(color="#D55E00", marker="D", ls="-")}
-RULE_NAMES = ("R1_timed_dip", "R2_sensed_dip", "R3_oracle_dip", "R4_dip_plus_schedule")
+RULE_NAMES = ("R1_timed_dip", "R3_oracle_dip")
 
 
 def build_jobs(out, seeds, std):
     from comparison.rules import tuned_controllers
     jobs = []
-    # Hand rules (if tuned) join the stiffness sweep only; their jobs come last so the merged
+    # Hand rules join the stiffness sweep only; their jobs come last so the merged
     # episode file keeps the earlier rows first and unchanged.
     for c in discover_controllers() + tuned_controllers(out):
         for k in K_LEVELS:

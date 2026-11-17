@@ -35,8 +35,9 @@ ROOT = HERE.parent                                   # Network_Agent/
 TRAINED = ROOT / "trained_networks"
 RESULTS = HERE / "results"
 
-# Fixed controllers. best_fixed is (-20, 500, 6); see NOTES.md for why it is kept but flagged.
-FIXED = {"reference": tuple(REFERENCE), "best_fixed": (-20.0, 500.0, 6.0)}
+# Fixed controller. The tuned fixed action (best_fixed_tuned) comes from tune.py. The full branch
+# also ran best_fixed (-20, 500, 6); it was dropped here (see README.md).
+FIXED = {"reference": tuple(REFERENCE)}
 
 # Sensor channels that get noise (0-7). Channels 8-10 are the previous action, not a sensor.
 SENSOR_CHANNELS = list(range(8))
@@ -52,7 +53,7 @@ def log(msg):
 
 # ---------------------------------------------------------------- controllers
 def discover_controllers():
-    """The two fixed actions, then every trained_networks/<network>/final_s*/ run (globbed)."""
+    """The fixed reference, then every trained_networks/<network>/final_s*/ run (globbed)."""
     ctrls = [{"controller": k, "model_seed": "", "kind": "fixed", "action": v} for k, v in FIXED.items()]
     for run in sorted(TRAINED.glob("*/final_s*")):
         if not all((run / f).exists() for f in ("model.zip", "vecnormalize.pkl", "config.json")):
@@ -74,7 +75,7 @@ _NET_CACHE = {}
 
 
 def load_network(run_dir):
-    """Same steps as demo_agent.load_run (kept here so the viewer import is not needed)."""
+    """Same steps as demo.load_run (kept here so the viewer import is not needed)."""
     import importlib
     from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
     if run_dir in _NET_CACHE:
@@ -160,7 +161,7 @@ class SensorNoise(gym.ObservationWrapper):
         self.rng = np.random.default_rng([int(seed or 0), 424242])
         grid = np.asarray(obs, dtype=np.float64).reshape(self.frames, N_SENSORS)
         self.hist = collections.deque(list(grid[:-1]) + [self._noisy(grid[-1])], maxlen=self.frames)
-        self.clean = np.asarray(obs, dtype=np.float32)   # noise-free obs, for noise_check.py
+        self.clean = np.asarray(obs, dtype=np.float32)   # noise-free obs (for checking the noise)
         return np.concatenate(self.hist).astype(np.float32), info
 
     def observation(self, obs):

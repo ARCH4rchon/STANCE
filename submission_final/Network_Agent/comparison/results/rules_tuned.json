@@ -8,17 +8,6 @@
     },
     "controller": "R1_timed_dip"
   },
-  "sensed": {
-    "rule": {
-      "type": "sensed",
-      "start_ms": 50.0,
-      "end_ms": 100.0,
-      "a": 250.0,
-      "b": -100.0,
-      "m": 5
-    },
-    "controller": "R2_sensed_dip"
-  },
   "oracle": {
     "rule": {
       "type": "oracle",
@@ -37,7 +26,6 @@
     "ground": "train",
     "constraint": "fall rate <= reference fall rate on the tuning seeds",
     "reference_fall_rate": 0.06,
-    "Z0": 5.1,
     "LK0": 4.349471799214386,
     "privileged": [
       "oracle"

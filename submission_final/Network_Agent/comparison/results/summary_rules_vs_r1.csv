@@ -1,7 +1,3 @@
 ground,rule,vs,n_paired,d_return,d_return_lo,d_return_hi,d_fall_rate,d_fall_rate_lo,d_fall_rate_hi
-train,R2_sensed_dip,R1_timed_dip,200,0.15189,-0.15471,0.39621,0.005,0,0.015
 train,R3_oracle_dip,R1_timed_dip,200,0.94278,0.4915,1.473,-0.01,-0.025,0
-train,R4_dip_plus_schedule,R1_timed_dip,200,0.18154,-0.27264,0.62362,0,-0.015,0.015
-test,R2_sensed_dip,R1_timed_dip,200,-0.10152,-0.68065,0.36822,0,-0.015,0.015
 test,R3_oracle_dip,R1_timed_dip,200,0.037333,-1.0363,0.83785,-0.01,-0.03,0.01
-test,R4_dip_plus_schedule,R1_timed_dip,200,-0.04,-0.815,0.58,0,-0.02,0.02

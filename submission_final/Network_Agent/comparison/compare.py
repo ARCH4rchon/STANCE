@@ -2,7 +2,7 @@
 
 Drafted with Claude Code (Anthropic), for the AI declaration.
 
-Controllers: "reference" (-20, 500, 10), "best_fixed" (-20, 500, 6), and every model seed
+Controllers: "reference" (-20, 500, 10) and every model seed
 found under trained_networks/<network>/final_s*/. Episodes are seeds 1000.. (first --episodes),
 deterministic, played by common.evaluate.run_episodes. One row per episode goes to
 <out>/episodes.csv. Finished cells are skipped on a rerun (resume).

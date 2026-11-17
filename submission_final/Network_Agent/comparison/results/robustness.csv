@@ -7,14 +7,6 @@ stiffness,70000,R1_timed_dip,rule,,,100,78.047,,0.05,,2.206,,-20.193
 stiffness,1.4e+05,R1_timed_dip,rule,,,100,67.116,,0.04,,2.4048,,-31.494
 stiffness,3e+05,R1_timed_dip,rule,,,100,52.87,,0.04,,2.505,,-45.729
 stiffness,6e+05,R1_timed_dip,rule,,,100,22.137,,0.03,,2.5566,,-76.842
-stiffness,1000,R2_sensed_dip,rule,,,100,84.495,,0.38,,1.3588,,0
-stiffness,3200,R2_sensed_dip,rule,,,100,92.848,,0.19,,1.4045,,-0.0020948
-stiffness,7000,R2_sensed_dip,rule,,,100,95.034,,0.14,,1.5092,,-0.13524
-stiffness,22000,R2_sensed_dip,rule,,,100,92.991,,0.09,,1.7831,,-3.8611
-stiffness,70000,R2_sensed_dip,rule,,,100,79.116,,0.05,,2.204,,-19.106
-stiffness,1.4e+05,R2_sensed_dip,rule,,,100,67.572,,0.04,,2.4014,,-31.017
-stiffness,3e+05,R2_sensed_dip,rule,,,100,52.668,,0.04,,2.5036,,-45.904
-stiffness,6e+05,R2_sensed_dip,rule,,,100,21.75,,0.03,,2.5562,,-77.184
 stiffness,1000,R3_oracle_dip,rule,,,100,86.36,,0.33,,1.3447,,0
 stiffness,3200,R3_oracle_dip,rule,,,100,93.679,,0.18,,1.3852,,-0.00027857
 stiffness,7000,R3_oracle_dip,rule,,,100,95.857,,0.12,,1.4961,,-0.1134
@@ -23,22 +15,6 @@ stiffness,70000,R3_oracle_dip,rule,,,100,80.239,,0.05,,2.2015,,-17.894
 stiffness,1.4e+05,R3_oracle_dip,rule,,,100,67.488,,0.05,,2.3951,,-30.578
 stiffness,3e+05,R3_oracle_dip,rule,,,100,52.343,,0.05,,2.5025,,-45.263
 stiffness,6e+05,R3_oracle_dip,rule,,,100,18.015,,0.06,,2.5598,,-77.619
-stiffness,1000,R4_dip_plus_schedule,rule,,,100,83.659,,0.4,,1.3735,,0
-stiffness,3200,R4_dip_plus_schedule,rule,,,100,91.608,,0.23,,1.4101,,-0.0017355
-stiffness,7000,R4_dip_plus_schedule,rule,,,100,94.65,,0.15,,1.5066,,-0.12974
-stiffness,22000,R4_dip_plus_schedule,rule,,,100,93.345,,0.08,,1.7759,,-3.764
-stiffness,70000,R4_dip_plus_schedule,rule,,,100,78.959,,0.05,,2.2097,,-19.281
-stiffness,1.4e+05,R4_dip_plus_schedule,rule,,,100,68.122,,0.05,,2.4036,,-30.207
-stiffness,3e+05,R4_dip_plus_schedule,rule,,,100,53.509,,0.05,,2.5062,,-44.81
-stiffness,6e+05,R4_dip_plus_schedule,rule,,,100,23.071,,0.03,,2.5579,,-75.798
-stiffness,1000,best_fixed,fixed,,,100,86.53,,0.32,,1.3496,,0
-stiffness,3200,best_fixed,fixed,,,100,93.791,,0.18,,1.4142,,-0.01856
-stiffness,7000,best_fixed,fixed,,,100,96.029,,0.11,,1.5513,,-0.32129
-stiffness,22000,best_fixed,fixed,,,100,92.958,,0.08,,1.8344,,-4.432
-stiffness,70000,best_fixed,fixed,,,100,72.886,,0.06,,2.2406,,-25.214
-stiffness,1.4e+05,best_fixed,fixed,,,100,58.902,,0.05,,2.4025,,-39.568
-stiffness,3e+05,best_fixed,fixed,,,100,43.992,,0.05,,2.5083,,-54.488
-stiffness,6e+05,best_fixed,fixed,,,100,19.469,,0.02,,2.5569,,-79.881
 stiffness,1000,networkA_mlp,mean over seeds,,3,300,81.138,2.1964,0.44333,0.045092,1.3486,0.010221,-0.00021063
 stiffness,3200,networkA_mlp,mean over seeds,,3,300,89.518,1.9687,0.26,0.052915,1.3974,0.016181,-0.0017764
 stiffness,7000,networkA_mlp,mean over seeds,,3,300,93.145,0.54526,0.16,0.01,1.4738,0.0092619,-0.033865
