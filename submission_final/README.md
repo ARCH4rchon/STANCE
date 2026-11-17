@@ -58,4 +58,6 @@ python -m agent.train --network mlp # If you want to try it
 
 We used Claude (Anthropic) to evaluate ideas, merge our induvidual changes between files to avoid discrepencies, debug parts of our code and aid in writing specific sections of our code that have been outlined clearly (please check our code).
 
-Moreover, the mp4 video file in the submission folder was recorded and run by us, however the quality of life improvements and the additional visuals and data were all improvement strictly in the code by Claude (Anthropic). We want to clarify that no data was altered by using Claude (Anthropic) and the video itself is NOT AI generated.
+The mp4 video file in the submission folder was recorded and edited by us and the run was fully done and mintored by us.
+However, Claude (Anthropic) was used to code scrictly the design and visuals (such as adding arrows, colour and a ghost)
+No Machine Learning aspect of the project was altered during the creation of this video. No addition changes were made to the agent itself. No data was altered by using Claude (Anthropic). The video itself is NOT AI generated, nor was it AI editied.
