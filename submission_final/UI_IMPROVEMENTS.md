@@ -37,7 +37,11 @@ python demo.py --classic-viewer                                                 
 - draws the scene with a visual-only copy of `Gym/model/leg.xml`, written at run time to a temporary folder, plus a
   smoother drawing of the dented ground (`GroundModel.update_visual`, drawing only). The Gym files themselves are not
   changed. The copy only adds a sky, a floor texture, shadows, a light and finer non-colliding ground cells.
-- does nothing with `--classic-viewer`, so the original `show_episodes` and `record_episode` run as before.
+- shows the evaluation's progress while `main()` runs it: `evaluating:  37% (1036 of 2800 episodes, about 1 min 20 s
+  left)`, one line updated in place in a terminal, or a line every 10% when the output goes to a file. It wraps
+  `run_episodes` to play the same episodes in the same order, one seed at a time, so the CSV files are identical
+  (checked). This also runs with `--classic-viewer`;
+- does nothing else with `--classic-viewer`, so the original `show_episodes` and `record_episode` run as before.
 
 ## Window and playback
 

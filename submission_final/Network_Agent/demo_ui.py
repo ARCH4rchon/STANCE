@@ -1405,11 +1405,7 @@ def install(demo):
     sys.argv[1:] = rest                                    # demo.py's own parser only sees its own flags
     if "-h" in rest or "--help" in rest:
         print(UI_FLAGS + "\n")
-    if ui.classic_viewer:
-        return
-    ground_module.GroundModel.update_visual = _update_visual   # drawing only
-
-    # Remember every run main() loads or trains, so the compare view can show them all.
+    # Remember every run main() loads or trains, so the compare view can show them all (and the progress knows how many).
     runs = []
     load_run, train_run = demo.load_run, demo.train_run
 
@@ -1453,4 +1449,36 @@ def install(demo):
         print(f"video: {ui.ground} ground, seed {seed}, {ui.seconds:g} s per episode")
 
     demo.load_run, demo.train_run = load_run_kept, train_run_kept
+    demo.run_episodes = _with_progress(demo.run_episodes, lambda: 2 * (1 + len(runs)))   # also with --classic-viewer
+    if ui.classic_viewer:
+        return
+    ground_module.GroundModel.update_visual = _update_visual   # drawing only
     demo.show_episodes, demo.record_episode = show, record
+
+
+def _with_progress(run_episodes, calls):
+    """Wrap common.evaluate.run_episodes so the evaluation in main() shows how far it has got. It plays the same episodes
+    in the same order, one seed at a time (each episode resets the env and the policy, so the results are identical).
+    calls() is how many times main() will call it: once per ground for the reference and for every run."""
+    state = {"done": 0, "t0": None, "shown": -1}
+    tty = sys.stdout.isatty()
+
+    def counted(policy, env, seeds, *args, **kwargs):
+        if state["t0"] is None:
+            state["t0"] = time.time()
+        total = max(calls() * len(seeds), state["done"] + len(seeds))
+        out = []
+        for s in seeds:
+            out += run_episodes(policy, env, [s], *args, **kwargs)
+            state["done"] += 1
+            pct = min(100, int(100 * state["done"] / total))
+            elapsed = time.time() - state["t0"]
+            eta = elapsed / state["done"] * (total - state["done"])
+            line = f"evaluating: {pct:3d}% ({state['done']} of {total} episodes, about {int(eta // 60)} min {int(eta % 60):02d} s left)"
+            if tty:                                            # one line, updated in place
+                print("\r" + line + " " * 4, end="" if state["done"] < total else "\n", flush=True)
+            elif pct // 10 != state["shown"] // 10 or state["done"] == total:   # a log file: a line every 10%
+                print(line, flush=True)
+            state["shown"] = pct
+        return out
+    return counted
