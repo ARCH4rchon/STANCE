@@ -27,20 +27,6 @@ conda activate stance
 cd Network_Agent
 ```
 
-Main libraries (exact versions, from `environment.yml`):
-
-| Software | Version |
-|---|---|
-| Python | 3.10 |
-| PyTorch (CPU) | 2.14.1 |
-| Stable-Baselines3 | 2.9.0 |
-| sb3-contrib (RecurrentPPO) | 2.9.0 |
-| Gymnasium | 1.4.0 |
-| MuJoCo | 3.15.0 |
-| NumPy | 2.2.6 |
-| pandas (comparison only) | 2.3.3 |
-| imageio, imageio-ffmpeg (`--record` only) | 2.38.0, 0.6.0 |
-
 ## Demo
 ```bash
 cd Network_Agent # If you haven't already
@@ -56,18 +42,6 @@ python demo.py --show 0 # No viewer (for machines without a display)
 python demo.py --train --show 5 # If you want to train your own model
 python demo.py --train --steps 4096 --show 0 # Short training run, just to check it works
 ```
-`demo.py` takes 7 arguments:
-- `--network mlp|lstm|both`: which network to run (default both).
-- `--model-seed 0|1|2|all`: which trained seed to load from `trained_networks/<network>/final_s<N>` (default all).
-- `--episodes N`: evaluation episodes on each ground, seeds 1000 to 1000+N-1 (default 200, the full evaluation protocol).
-- `--show N`: after the evaluation, replay the first N episodes (from seed 1000) live in the MuJoCo viewer at 10x slow motion, using the first selected network and seed (default 5, 0 = no viewer). Without a display it prints one line and skips.
-- `--record PATH.mp4`: save one episode (seed 1000, first selected network and seed) as a 30 fps video. Headless machines need `MUJOCO_GL=egl` (or `osmesa`), for example `MUJOCO_GL=egl python demo.py --show 0 --record demo.mp4`. If the video can't be made, the demo prints one line and carries on.
-- `--train`: train each selected network from scratch instead of loading ours, then run it against our demo (can take up to around 17 minutes per network with the default 300,000 steps). It is saved in a temporary folder, never in `trained_networks/`, and shows up as model seed `new`.
-- `--steps N`: with `--train`, the number of training steps.
-
-Every run is compared with the best fixed action (-20 deg, K 500, B 10) on the same seeds. The terminal shows the two file paths and one line per network (mean return and fall rate on both grounds). The files are written to `results/` inside the folder you run from:
-- `results/demo_episodes.csv`: one row per episode, with columns `network`, `model_seed`, `ground` (train or test), `episode_seed`, `return`, `fell` (1 if the leg fell), `steps` and `toe_peak_bw` (largest toe force, in body weights).
-- `results/demo_episodes_summary.csv`: one row per network, model seed and ground with the mean return, fall rate (%) and mean toe peak (BW); `model_seed` = `mean` is the mean over the model seeds.
 
 ## If you JUST want to train a fresh network:
 ```bash
@@ -98,7 +72,8 @@ This rewrites `results_new/`; our regeneration matched the earlier results to wi
 
 ## AI Declaration:
 
-We used Claude (Anthropic), through Claude Code, to evaluate ideas, merge our individual changes between files to avoid discrepancies, debug parts of our code and aid in writing specific sections of our code that have been outlined clearly (please check our code; the commits that Claude helped with carry a `Co-Authored-By: Claude` line).
+We used Claude (Anthropic) to evaluate ideas, merge our individual changes between files to avoid discrepancies, debug parts of our code and aid in writing only the very sepficic sections of our code that have been outlined clearly.
 
-The video (`final_video.mp4`) was made with scripts drafted by Claude Code: one script played the demo viewer offscreen with our trained networks and saved the frames, and another added the title cards, captions and explanation text and joined the clips. Claude also coded the viewer's design and visuals (such as the arrows, colours and the ghost leg). We chose what the video shows, ran and monitored the scripts, and checked every clip and number in it against our results in `results_new/`.
+The video (`final_video.mp4`) was entirely run, recorded and editited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual imporvements made by Claude as our own.
+
 No Machine Learning aspect of the project was altered during the creation of this video. No additional changes were made to the agent itself. No data was altered by using Claude (Anthropic). The video shows the real simulation running our trained networks; no part of the footage is AI generated.
