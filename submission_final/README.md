@@ -77,3 +77,8 @@ We used Claude (Anthropic) to evaluate ideas, merge our individual changes betwe
 The video (`final_video.mp4`) was entirely run, recorded and editited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual imporvements made by Claude as our own.
 
 No Machine Learning aspect of the project was altered during the creation of this video. No additional changes were made to the agent itself. No data was altered by using Claude (Anthropic). The video shows the real simulation running our trained networks; no part of the footage is AI generated.
+
+## UI improvements (added)
+`demo.py` now opens an improved viewer and records richer videos (`Network_Agent/demo_ui.py`, hooked in by a marked
+block at the end of `demo.py`; the evaluation is unchanged). See `UI_IMPROVEMENTS.md` for what it shows and its flags,
+and use `python demo.py --classic-viewer` for the original viewer.
