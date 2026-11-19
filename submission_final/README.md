@@ -1,4 +1,4 @@
-# STANCE Agent Submission (Group 42)
+# STANCE: Stiffness and Torque Adaptation for Non-linear Compliant Environments (Group 42)
 
 STANCE is a learning agent for a powered prosthetic ankle during weight acceptance on compliant ground whose stiffness is hidden from the agent. Every 5 ms a PPO-trained network reads the ankle's sensor history and sets the ankle's target angle, stiffness K and damping B. We compare two networks, an MLP and an LSTM (our chosen agent), against the best fixed action and against hand-written stiffness-dip rules.
 
