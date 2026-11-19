@@ -72,9 +72,9 @@ This rewrites `results_new/`; our regeneration matched the earlier results to wi
 
 ## AI Declaration:
 
-We used Claude (Anthropic) to evaluate ideas, merge our individual changes between files to avoid discrepancies, debug parts of our code and aid in writing only the very sepficic sections of our code that have been outlined clearly.
+We used Claude (Anthropic) to evaluate ideas, merge our individual changes between files to avoid discrepancies, debug parts of our code and aid in writing only the very specific sections of our code that have been outlined clearly.
 
-The video (`final_video.mp4`) was entirely run, recorded and editited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual imporvements made by Claude as our own.
+The video (`final_video.mp4`) was entirely run, recorded and edited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual improvements made by Claude as our own.
 
 No Machine Learning aspect of the project was altered during the creation of this video. No additional changes were made to the agent itself. No data was altered by using Claude (Anthropic). The video shows the real simulation running our trained networks; no part of the footage is AI generated.
 
