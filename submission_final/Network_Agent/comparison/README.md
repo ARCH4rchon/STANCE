@@ -11,6 +11,10 @@ Compares six controllers on the same episodes: the reference fixed action, the t
 | `compare.py` | Runs every controller on both grounds and on a ground-stiffness sweep |
 | `stats.py` | Paired bootstrap comparisons, printed to the terminal |
 | `results/` | Our saved results, figures and tuning tables |
+| `results/noise_check.txt` | Sensor-noise sanity check: with noise on, the network inputs differ from the clean ones by the expected amount (about 1 sensor std per channel), and the previous-action inputs get no noise. Both seed-0 networks pass |
+| `results/robustness.csv`, `robustness_episodes.csv`, `robustness.png`/`.pdf` | Robustness sweeps: both networks with sensor noise of 0-2 sensor standard deviations, and all controllers across ground stiffness (summary and per-episode rows) |
+
+The noise check and robustness files are kept as data only. The scripts that produced them (`noise_check.py`, `robustness.py` and the sensor-noise wrapper in the full `harness.py`) are not part of this package.
 
 ## Run
 
