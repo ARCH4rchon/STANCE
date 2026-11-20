@@ -1,5 +1,0 @@
-# Drafted with Claude Code (Anthropic), for the AI declaration.
-# Per-cell resume cache and the 20-episode smoke outputs are regenerated, not committed.
-results/cells/
-results/smoke/
-*.tmp
