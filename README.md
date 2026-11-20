@@ -2,6 +2,14 @@
 
 **ME5418 Group 42:** Vishal Mangla, Mukul Yadav, Muthaiah Mahadevan
 
+> [!NOTE]
+> **Academic disclosure.** This project was completed as coursework for **ME5418 Machine Learning in Robotics** at the
+> **National University of Singapore (NUS)**, Department of Mechanical Engineering, College of Design and Engineering,
+> in Semester 1 of Academic Year 2026/2027, as part of our **Master of Science (MSc) in Robotics**. The module was
+> taught by Professor Guillaume A. Sartoretti. The work was submitted for assessment, and it is shared here for
+> reference only. It is not an official NUS publication. If you are taking the same module, follow its academic
+> integrity and reuse rules before you use anything from this repository.
+
 STANCE is a learning agent for a powered prosthetic ankle during weight acceptance on compliant ground whose stiffness is hidden from the agent. Every 5 ms a PPO-trained network reads the ankle's sensor history and sets the ankle's target angle, stiffness K and damping B. We compare two networks, an MLP and an LSTM (our chosen agent), against the best fixed action and against hand-written stiffness-dip rules.
 
 ## The problem
@@ -93,19 +101,6 @@ This writes to `results_new/` and leaves our saved results in `Network_Agent/com
 
 - If ROS is sourced in your shell, run `env -u PYTHONPATH python demo.py`.
 - If the environment is not found, set `STANCE_GYM_PATH` to the `Gym/` folder.
-
-## UI improvements
-
-Cosmetic-only changes, made entirely with the help of Claude Code. `demo.py` opens an improved viewer and records richer videos. The code is in `demo_ui.py`, hooked in by a marked block at the end of `demo.py`. The physics, the reward, the trained networks and the evaluation are unchanged: the per-episode CSV is byte-for-byte the same with and without the new viewer.
-
-```bash
-python demo.py --compare --ground test --seed 1108 --episodes 5 --show 1 --model-seed 0       # three controllers, side by side
-python demo.py --network lstm --model-seed 0 --ground test --seed 1120 --episodes 5 --show 3   # one network, a hard ground
-python demo.py --record demo.mp4 --show 0 --seconds 10                                         # a 60 fps video
-python demo.py --classic-viewer                                                                # the original viewer and video
-```
-
-Viewer flags (`python demo.py --help` lists them first, then `demo.py`'s own): `--compare` (one column per controller), `--ground train|test`, `--seed S` (which episode the viewer and video show; the evaluation always uses seeds 1000-1199), `--seconds S` (playback length of one episode, default 10), `--windowed`, `--screenshots DIR`, `--no-hud` (video without overlays) and `--classic-viewer`. In the viewer, `F1` shows the full key list.
 
 ## AI declaration
 
