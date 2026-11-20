@@ -1,4 +1,4 @@
-# STANCE Agent Submission (Group 42)
+# STANCE: Stiffness and Torque Adaptation for Non-linear Compliant Environments (Group 42)
 
 STANCE is a learning agent for a powered prosthetic ankle during weight acceptance on compliant ground whose stiffness is hidden from the agent. Every 5 ms a PPO-trained network reads the ankle's sensor history and sets the ankle's target angle, stiffness K and damping B. We compare two networks, an MLP and an LSTM (our chosen agent), against the best fixed action and against hand-written stiffness-dip rules.
 
@@ -71,9 +71,22 @@ This rewrites `results_new/`; our regeneration matched the earlier results to wi
 - If the environment is not found: set `STANCE_GYM_PATH` to the `Gym/` folder of this package.
 
 ## AI Declaration:
+We used Claude (Anthropic) to evaluate ideas, merge our individual changes between files to avoid discrepancies,
+debug parts of our code and aid in writing only the very specific sections of our code that have been outlined clearly.
 
-We used Claude (Anthropic) to evaluate ideas, merge our individual changes between files to avoid discrepancies, debug parts of our code and aid in writing only the very sepficic sections of our code that have been outlined clearly.
+The video (`final_video.mp4`) was entirely run, recorded and edited by us. However, Claude was entirely responsible for coding the
+viewer’s design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work
+produced in the video but do not claim the visual improvements made by Claude as our own.
 
-The video (`final_video.mp4`) was entirely run, recorded and editited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual imporvements made by Claude as our own.
+No Machine Learning aspect of the project was altered during the creation of this video. No additional changes were
+made to the agent itself. No data was altered by using Claude (Anthropic). The video shows the real simulation running
+our trained networks; no part of the footage is AI generated.
 
-No Machine Learning aspect of the project was altered during the creation of this video. No additional changes were made to the agent itself. No data was altered by using Claude (Anthropic). The video shows the real simulation running our trained networks; no part of the footage is AI generated.
+Following an email response from Professor Guillaume A. Sartoretti (18/11/26), it was confirmed that LLM use for
+visual changes is allowed and does not count towards the 50% group-written code. This file is marked and is described
+in the README.
+
+## UI improvements (cosmetic only UI changes made entirely with the help if Claude Code)
+`demo.py` now opens an improved viewer and records richer videos (`Network_Agent/demo_ui.py`, hooked in by a marked
+block at the end of `demo.py`; the evaluation is unchanged). See `UI_IMPROVEMENTS.md` for what it shows and its flags,
+and use `python demo.py --classic-viewer` for the original viewer.
