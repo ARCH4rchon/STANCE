@@ -12,6 +12,7 @@ The learning agent: the two networks, the PPO training code, the shared evaluati
 | `agent/actions.py` | Residual action: the network outputs an offset from the fixed action (-20 deg, K 500, B 10) |
 | `common/` | Shared code: building the environment, the evaluation protocol (seeds 1000-1199), network inputs and policy adapters |
 | `trained_networks/` | Our trained networks, 3 seeds each (`final_s0`-`final_s2`) |
+| `trained_networks_extra_seeds/` | Two extra seeds per network (`final_s4`, `final_s5`) and their 5-seed results; not used by the demo |
 | `comparison/` | The controller comparison (see `comparison/README.md`) |
 
 ## Run
