@@ -42,7 +42,7 @@ More than half of lower-limb prosthesis users fall at least once a year, many du
 | `Network_Agent/common/` | Shared code: building the environment, the evaluation protocol, network inputs and policy adapters |
 | `Network_Agent/trained_networks/` | Our trained networks, 3 seeds each (`final_s0`-`final_s2`): weights, normalisation statistics, config, learning curve and per-episode results |
 | `Network_Agent/comparison/` | The controller comparison (fixed actions, stiffness-dip rules R1 and R3, both networks) and its saved results in `results/`: `episodes.csv`, `sweep.csv`, `summary.txt`, the run log, the grid search, the rule tuning and the figures |
-| `Reports/` | The project proposal, our three milestone reports and design justifications |
+| `Reports/` | Our individual final reports (`Final_Reports/`), the project proposal and three milestone reports (`Milestone_Submissions/`), and design justifications |
 
 Each of `Gym/`, `Network_Agent/` and `Network_Agent/comparison/` has a short README of its own.
 
