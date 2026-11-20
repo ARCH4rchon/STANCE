@@ -1,1 +1,9 @@
 __pycache__/
+*.pyc
+.pytest_cache/
+
+# Outputs written by demo.py, training and the comparison
+results/
+results_new/
+Network_Agent/runs/
+*.tmp

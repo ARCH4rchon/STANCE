@@ -1,0 +1,6 @@
+# Drafted with Claude Code (Anthropic), for the AI declaration.
+# Per-cell resume cache, 20-episode smoke outputs and actions.csv (5.5 MB) are regenerated, not committed.
+results/cells/
+results/smoke/
+*.tmp
+results/actions.csv
