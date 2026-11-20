@@ -7,7 +7,8 @@ STANCE is a learning agent for a powered prosthetic ankle during weight acceptan
 | Path | What it is |
 |---|---|
 | `Gym/` | The STANCE environment (`stance_env/`) and the MuJoCo leg model (`model/leg.xml`) from our previous submission |
-| `Network_Agent/demo.py` | The demo: evaluates the trained networks against the best fixed action on both grounds, writes the results to CSV, and can replay or record episodes |
+| `demo.py` | The demo: evaluates the trained networks against the best fixed action on both grounds, writes the results to CSV, and can replay or record episodes |
+| `demo_ui.py` | The improved viewer and video used by `demo.py` (cosmetic only, see [UI improvements](#ui-improvements-cosmetic-only-ui-changes-made-entirely-with-the-help-if-claude-code)) |
 | `Network_Agent/networkA_mlp/network.py` | Network A: MLP (PPO) that sees the last 10 sensor frames |
 | `Network_Agent/networkB_lstm/network.py` | Network B: LSTM (RecurrentPPO) that sees one frame at a time and keeps a memory; our chosen agent |
 | `Network_Agent/agent/train.py` | Training: the PPO settings (`TRAIN`), the wrapper list and the training command |
@@ -24,13 +25,11 @@ STANCE is a learning agent for a powered prosthetic ankle during weight acceptan
 ```bash
 conda env create -f environment.yml
 conda activate stance
-cd Network_Agent
 ```
 
 ## Demo
+Run the demo from this folder (the one holding `demo.py`):
 ```bash
-cd Network_Agent # If you haven't already
-
 python demo.py # Both networks, all trained seeds, 200 episodes on the training and test ground, then 5 episodes in the viewer
 #or
 python demo.py --network lstm --model-seed 0 # Only the chosen network after testing (one seed)
@@ -42,10 +41,11 @@ python demo.py --show 0 # No viewer (for machines without a display)
 python demo.py --train --show 5 # If you want to train your own model
 python demo.py --train --steps 4096 --show 0 # Short training run, just to check it works
 ```
+The per-episode results go to `results/demo_episodes.csv` and the summary to `results/demo_episodes_summary.csv`, inside the folder you run the demo from.
 
 ## If you JUST want to train a fresh network:
 ```bash
-cd Network_Agent # If you haven't already
+cd Network_Agent
 
 conda env create -f ../environment.yml # If you haven't already
 conda activate stance
@@ -58,7 +58,7 @@ The run is saved to `Network_Agent/runs/<network>/seed<N>/` (config, model and n
 
 ## Reproducing the comparison results
 ```bash
-cd Network_Agent # If you haven't already
+cd Network_Agent # If you haven't already (from this folder)
 
 python -m comparison.compare --out ../results_new # all 6 controllers, both grounds, 200 episodes, plus the stiffness sweep (about 3 minutes on 16 cores)
 python -m comparison.stats --out ../results_new > ../results_new/summary.txt
@@ -83,10 +83,21 @@ made to the agent itself. No data was altered by using Claude (Anthropic). The v
 our trained networks; no part of the footage is AI generated.
 
 Following an email response from Professor Guillaume A. Sartoretti (18/11/26), it was confirmed that LLM use for
-visual changes is allowed and does not count towards the 50% group-written code. This file is marked and is described
-in the README.
+visual changes is allowed and does not count towards the 50% group-written code. This file is marked and is described below.
 
-## UI improvements (cosmetic only UI changes made entirely with the help if Claude Code)
-`demo.py` now opens an improved viewer and records richer videos (`Network_Agent/demo_ui.py`, hooked in by a marked
-block at the end of `demo.py`; the evaluation is unchanged). See `UI_IMPROVEMENTS.md` for what it shows and its flags,
-and use `python demo.py --classic-viewer` for the original viewer.
+## UI improvements (cosmetic only changes made entirely with the help if Claude Code)
+`demo.py` opens an improved viewer and records richer videos. The code is in `demo_ui.py`, hooked in by a marked
+block at the end of `demo.py`. The physics, the reward, the trained networks and the evaluation are unchanged: the
+per-episode CSV is byte-for-byte the same with and without the new viewer.
+
+```bash
+python demo.py --compare --ground test --seed 1108 --episodes 5 --show 1 --model-seed 0       # three controllers, side by side
+python demo.py --network lstm --model-seed 0 --ground test --seed 1120 --episodes 5 --show 3   # one network, a hard ground
+python demo.py --record demo.mp4 --show 0 --seconds 10                                         # a 60 fps video
+python demo.py --classic-viewer                                                                # the original viewer and video
+```
+
+Viewer flags (`python demo.py --help` lists them first, then `demo.py`'s own): `--compare` (one column per
+controller), `--ground train|test`, `--seed S` (which episode the viewer and video show; the evaluation always uses
+seeds 1000-1199), `--seconds S` (playback length of one episode, default 10), `--windowed`, `--screenshots DIR`,
+`--no-hud` (video without overlays) and `--classic-viewer`. In the viewer, `F1` shows the full key list.

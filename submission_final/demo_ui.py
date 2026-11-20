@@ -8,7 +8,7 @@ code is unchanged. demo.py runs install() from a clearly marked block at its end
     drawing of the dented ground. Neither changes the physics: the copy only adds or changes geoms that never collide,
     textures and lights, and GroundModel.update_visual is used for drawing only.
 
-Run `python demo.py --classic-viewer` to get the original viewer back. See ../UI_IMPROVEMENTS.md for the full list.
+Run `python demo.py --classic-viewer` to get the original viewer back. See the README for the flags.
 Drafted with Claude Code (Anthropic), for the AI declaration.
 """
 import argparse

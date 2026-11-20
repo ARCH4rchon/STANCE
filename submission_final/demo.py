@@ -16,14 +16,15 @@ import mujoco
 from pathlib import Path
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
-# Local imports
+# Local imports (the network and agent code lives in Network_Agent/, next to this file)
+sys.path.insert(0, str(Path(__file__).resolve().parent / "Network_Agent"))
 from agent.train import NETWORKS, TRAIN, make_wrappers, make_venv
 from common.env_setup import make_env, to_norm_action
 from common.evaluate import REFERENCE, run_episodes
 from common.policies import FixedPolicy
 from stance_env.ankle_gym_env import FRAME_SKIP
 
-TRAINED = Path(__file__).resolve().parent / "trained_networks"
+TRAINED = Path(__file__).resolve().parent / "Network_Agent" / "trained_networks"
 # Model seeds of the saved runs, e.g. final_s0, final_s1, final_s2 -> ["0", "1", "2"]
 MODEL_SEEDS = sorted({p.name[len("final_s"):] for p in TRAINED.glob("*/final_s*")}, key=int)
 SEED0 = 1000                               # first episode seed (the protocol uses 1000-1199)
@@ -248,14 +249,15 @@ def main():
 
 
 # =====================================================================================================================
-# UI IMPROVEMENTS (added block; nothing above this line is changed)
+# UI IMPROVEMENTS IMPORTED FROM demo_ui.py
 # The improved viewer and video live in demo_ui.py. When this file is run as a script, demo_ui.install() takes its own
 # flags off the command line and replaces show_episodes and record_episode. The evaluation and the CSV files are
-# unchanged. Run with --classic-viewer for the original viewer. See ../UI_IMPROVEMENTS.md.
+# unchanged. Run with --classic-viewer for the original viewer. See the README.
 if __name__ == "__main__":
     import demo_ui
     demo_ui.install(sys.modules[__name__])
 # END OF UI IMPROVEMENTS
 # =====================================================================================================================
+
 if __name__ == "__main__":
     main()
