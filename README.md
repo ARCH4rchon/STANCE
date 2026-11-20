@@ -110,6 +110,4 @@ For the code, we used Claude (Anthropic) to evaluate ideas, merge our individual
 
 The video (`STANCE_demo.mp4`) was entirely run, recorded and edited by us. However, Claude was entirely responsible for coding the viewer's design and visuals (such as the arrows, colours and the ghost leg). We are responsible for the quality of work produced in the video but do not claim the visual improvements made by Claude as our own. No machine learning aspect of the project was altered during the creation of this video, no changes were made to the agent itself, and no data was altered by using Claude. The video shows the real simulation running our trained networks; no part of the footage is AI generated.
 
-Following an email response from Professor Guillaume A. Sartoretti (18/11/26), it was confirmed that LLM use for visual changes is allowed and does not count towards the 50% group-written code. That code is marked and described under [UI improvements](#ui-improvements).
-
 We are completely responsible for the content and quality of the submitted work.
