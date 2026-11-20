@@ -2,8 +2,10 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Outputs written by demo.py, training and the comparison
-results/
-results_new/
+# Demo results: demo.py writes results/demo_episodes*.csv in the folder it is run from (the repository root)
+/results/
+
+# Outputs of training and of rerunning the comparison
+/results_new/
 Network_Agent/runs/
 *.tmp
